@@ -1,39 +1,46 @@
 import streamlit as st
 import pandas as pd
 import pydeck as pdk
-# streamlit run app.py
+# im terminal: streamlit run app.py
+
+
 def main():
     st.sidebar.title("Navigation")
-    choice = st.sidebar.radio("Go to", ("Home", "Map View", "File Upload/Download"))
+    choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace"))
     def set_username():
-        st.session_state.username
+        st.session_state.userpw = True
+
     if choice == "Home":
         st.title("Home Page")
         st.write("Welcome to the example Streamlit application.")
-# hallo
     elif choice == "Map View":
         st.title("Map View")
         st.write("Map displaying highlighted locations.")
         show_map()
 
     elif choice == "UserSpace":
-        st.title("meine Projekte")
-        st.write("Upload and download files.")
         if "username" not in st.session_state:
             st.session_state.username = ""
+        if "userpw" not in st.session_state:
+            st.session_state.userpw = False
         st.title(f"welcome {st.session_state.username}")
+        if st.session_state.userpw:
+            st.title("meine Projekte")
+            st.write("Upload and download files.")
+            file_uploader()
+            file_downloader()
+        else:
+            st.session_state.username = st.text_input("username")
+            st.session_state.userpw = st.text_input("password", on_change=set_username)
 
-        st.text_input("username", on_change=set_username)
-        file_uploader()
-        file_downloader()
 
 
 def show_map():
     # Sample data: Latitude and Longitude of some cities
     data = {
-        "latitude": [34.0522, 36.1699, 40.7128],
-        "longitude": [-118.2437, -115.1398, -74.0060],
-        "city": ["Los Angeles", "Las Vegas", "New York"]
+        "latitude": [47.559601, 47.55576, 47.519601],
+        "longitude": [7.588576, 7.60522, 7.518576],
+        "city": ["1", "2", "3"]
     }
     df = pd.DataFrame(data)
 
@@ -41,9 +48,9 @@ def show_map():
     st.pydeck_chart(pdk.Deck(
         map_style='mapbox://styles/mapbox/light-v9',
         initial_view_state=pdk.ViewState(
-            latitude=37.76,
-            longitude=-122.4,
-            zoom=3.5,
+            latitude=47.6,
+            longitude=7.588576,
+            zoom=8.5,
             pitch=50,
         ),
         layers=[
@@ -51,7 +58,7 @@ def show_map():
                 'HexagonLayer',
                 data=df,
                 get_position='[longitude, latitude]',
-                radius=200000,
+                radius=100,
                 elevation_scale=4,
                 elevation_range=[0, 1000],
                 pickable=True,
