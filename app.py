@@ -4,46 +4,22 @@ import pydeck as pdk
 # im terminal: streamlit run app.py
 
 
-def main():
-    st.sidebar.title("Navigation")
-    choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace", "Community"))
-    if "username" not in st.session_state:
-        st.session_state.username = ""
-    if "user_pw" not in st.session_state:
-        st.session_state.user_pw = False
+def user_space():
+    st.subheader("meine Projekte")
+    st.button("Eichenstrasse 45", on_click=goto_map)
+    st.subheader("neues Projekt")
+    st.write("Upload and download files.")
+    file_uploader()
+    st.button("Process upload")
+    file_downloader()
 
-    def goto_map():
-        st.sidebar.radio("Go to Map View")
 
-    def set_username():
-        st.session_state.user_pw = True
+def goto_map():
+    st.sidebar.radio("Go to Map View")
 
-    if choice == "Home":
-        st.title("Circularity Hub")
-        st.write("Die Plattform für zirkuläres Bauen.")
-    elif choice == "Map View":
-        st.title("Map View")
-        st.write("Die besten Materiallager für dein Projekt.")
-        show_map()
 
-    elif choice == "UserSpace":
-
-        st.title(f"welcome {st.session_state.username}")
-        if st.session_state.userpw:
-            st.subheader("meine Projekte")
-            st.button("Eichenstrasse 45", on_click=goto_map)
-            st.subheader("neues Projekt")
-            st.write("Upload and download files.")
-            file_uploader()
-            st.button("Process upload")
-            file_downloader()
-        else:
-            st.session_state.username = st.text_input("username")
-            st.session_state.user_pw = st.text_input("password", type="password", on_change=set_username)
-
-    elif choice == "Community":
-        community_space()
-        new_topic()
+def set_username():
+    st.session_state.user_pw = True
 
 
 def add_tag():
@@ -173,6 +149,47 @@ def file_downloader():
             file_name="example_text.txt",
             mime="text/plain"
         )
+
+
+def main():
+    st.sidebar.title("Navigation")
+    choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace", "Community", "gabriel"))
+    if "username" not in st.session_state:
+        st.session_state.username = ""
+    if "user_pw" not in st.session_state:
+        st.session_state.user_pw = False
+
+    if choice == "Home":
+        st.title("Circularity Hub")
+        st.write("Die Plattform für zirkuläres Bauen.")
+        st.image("")
+
+    elif choice == "Map View":
+        st.title("Map View")
+        st.write("Die besten Materiallager für dein Projekt.")
+        show_map()
+
+    elif choice == "UserSpace":
+        st.title(f"welcome {st.session_state.username}")
+        if st.session_state.userpw:
+            user_space()
+        else:
+            st.session_state.username = st.text_input("username")
+            st.session_state.user_pw = st.text_input("password", type="password", on_change=set_username)
+    elif choice == "gabriel":
+        st.title('Webseite Einbetten')
+
+        # Setze die URL, die du einbetten möchtest
+        url = 'https://speckle.xyz/streams/99d586a085'
+
+        # Erstelle einen iframe, um die Webseite einzubetten
+        iframe_code = f'<iframe src="{url}" width="150%" height="700" frameborder="0" allowfullscreen></iframe>'
+
+        # Zeige den iframe im Streamlit Dashboard an
+        st.markdown(iframe_code, unsafe_allow_html=True)
+    elif choice == "Community":
+        community_space()
+        new_topic()
 
 
 if __name__ == "__main__":
