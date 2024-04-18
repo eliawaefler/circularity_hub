@@ -138,7 +138,6 @@ def main():
         st.markdown(iframe_code, unsafe_allow_html=True)
     elif choice == "Community":
         community_space()
-        new_topic()
 
 
 if __name__ == "__main__":
