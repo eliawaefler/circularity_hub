@@ -7,7 +7,6 @@ import pydeck as pdk
 def main():
     st.sidebar.title("Navigation")
     choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace","Community"))
-    choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace"))
     if "username" not in st.session_state:
         st.session_state.username = ""
     if "userpw" not in st.session_state:
