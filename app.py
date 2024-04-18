@@ -6,14 +6,17 @@ import pydeck as pdk
 
 def main():
     st.sidebar.title("Navigation")
-    choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace","Community"))
+    choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace", "Community"))
     if "username" not in st.session_state:
         st.session_state.username = ""
-    if "userpw" not in st.session_state:
-        st.session_state.userpw = False
+    if "user_pw" not in st.session_state:
+        st.session_state.user_pw = False
+
+    def goto_map():
+        st.sidebar.radio("Go to Map View")
 
     def set_username():
-        st.session_state.userpw = True
+        st.session_state.user_pw = True
 
     if choice == "Home":
         st.title("Circularity Hub")
@@ -27,17 +30,21 @@ def main():
 
         st.title(f"welcome {st.session_state.username}")
         if st.session_state.userpw:
-            st.title("meine Projekte")
+            st.subheader("meine Projekte")
+            st.button("Eichenstrasse 45", on_click=goto_map)
+            st.subheader("neues Projekt")
             st.write("Upload and download files.")
             file_uploader()
+            st.button("Process upload")
             file_downloader()
         else:
             st.session_state.username = st.text_input("username")
-            st.session_state.userpw = st.text_input("password", type="password", on_change=set_username)
+            st.session_state.user_pw = st.text_input("password", type="password", on_change=set_username)
 
     elif choice == "Community":
         community_space()
         new_topic()
+
 
 def add_tag():
     new_tag = st.session_state.tag_input
@@ -47,6 +54,7 @@ def add_tag():
         else:
             st.session_state.tags.append(new_tag)
         st.session_state.tag_input = ''  # Clear the input box after adding
+
 
 def community_space():
 
@@ -65,7 +73,7 @@ def community_space():
     # Eintrag in der zweiten Spalte
     with col2:
         st.subheader("Sports Day")
-        st.write("Weekly community sports day to promote health and wellbeing.")
+        st.write("Weekly community sports day to promote health and well being.")
         st.caption("Tags: #health #sports #weekly")
 
     # Eintrag in der dritten Spalte
@@ -73,6 +81,7 @@ def community_space():
         st.subheader("Book Swap")
         st.write("A monthly book swap event in our local library.")
         st.caption("Tags: #books #library #swap")
+
 
 def new_topic():
     st.header("Create a new Topic")
@@ -96,13 +105,14 @@ def new_topic():
         else:
             st.error("Please fill out all fields to create a topic.")
 
+
 def show_map():
     # Sample data: Latitude and Longitude of some cities
     data = {
         "latitude": [47.559401, 47.55546, 47.519401],
         "longitude": [7.588576, 7.60522, 7.518576],
         "city": ["1", "2", "3"],
-        "citydata": ["Industriestrasse 48: Score=0.971", "Althausstrasse 11: Score=0.921", "Kreutzweg 3: Score=0.913"]
+        "citydata": ["Industriestrasse 48: Score=0.971", "Althausstrasse 11: Score=0.921", "Kreuzweg 3: Score=0.913"]
     }
     df = pd.DataFrame(data)
 
@@ -163,6 +173,7 @@ def file_downloader():
             file_name="example_text.txt",
             mime="text/plain"
         )
+
 
 if __name__ == "__main__":
     main()
