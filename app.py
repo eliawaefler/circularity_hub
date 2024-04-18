@@ -1,10 +1,12 @@
 import streamlit as st
 import pandas as pd
 import pydeck as pdk
+from PIL import Image
 import andu
 import gabriel
 import elia
 # im terminal: streamlit run app.py
+
 
 def main():
     st.sidebar.title("Navigation")
@@ -17,7 +19,7 @@ def main():
     if choice == "Home":
         st.title("Circularity Hub")
         st.write("Die Plattform für zirkuläres Bauen.")
-        st.image("")
+        st.image(Image.open("images/circ.webp"), caption="circular building industry")
 
     elif choice == "Map View":
         elia.show_map()
@@ -29,6 +31,7 @@ def main():
         else:
             st.session_state.username = st.text_input("username")
             st.session_state.user_pw = st.text_input("password", type="password", on_change=elia.set_username)
+
     elif choice == "Speckle":
         gabriel.speckle()
 

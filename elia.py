@@ -4,12 +4,36 @@ import pydeck as pdk
 
 def user_space():
     st.subheader("meine Projekte")
-    st.button("Eichenstrasse 45", on_click=goto_map)
+    if st.button("Neubau EFH Eichenstrasse 45"):
+        show_construction_project()
+    if st.button("Abbruch MFH Unterholzweg 13"):
+        show_deconstruction_project()
+    if st.button("neues Projekt"):
+        new_project()
+
+def show_deconstruction_project():
+    st.subheader("Abbruch MFH Unterholzweg 13")
+    st.button("Informationen erfassen")
+    file_downloader()
+
+
+def show_construction_project():
+    st.subheader("Neubau EFH Eichenstrasse 45")
+    st.button("InInformationen erfassen")
+    if st.button("geeignete 'Materiallager' auf Karte anzeigen"):
+        show_map()
+    file_downloader()
+
+
+def new_project():
     st.subheader("neues Projekt")
-    st.write("Upload and download files.")
+    st.radio("Projekttyp", ["Abbruch", "Neubau", "Umbau"])
+    st.text_input("Projektname:")
+    st.text_input("Adresse:")
+    st.text_input("PLZ / Ort:")
+    st.write("Upload files.")
     file_uploader()
     st.button("Process upload")
-    file_downloader()
 
 
 def goto_map():
@@ -41,7 +65,6 @@ def show_map():
         "citydata": ["Industriestrasse 48: Score=0.971", "Althausstrasse 11: Score=0.921", "Kreuzweg 3: Score=0.913"]
     }
     df = pd.DataFrame(data)
-
     # Create a map using the data
     st.pydeck_chart(pdk.Deck(
         map_style='mapbox://styles/mapbox/light-v9',
@@ -77,6 +100,8 @@ def show_map():
             )
         ],
     ))
+    if st.button("back"):
+        user_space()
 
 
 def file_uploader():
