@@ -6,7 +6,7 @@ import pydeck as pdk
 
 def main():
     st.sidebar.title("Navigation")
-    choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace"))
+    choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace","Community"))
     def set_username():
         st.session_state.userpw = True
 
@@ -32,6 +32,10 @@ def main():
         else:
             st.session_state.username = st.text_input("username")
             st.session_state.userpw = st.text_input("password", on_change=set_username)
+
+    elif choice == "Community":
+        st.title("Community Space")
+        st.write("Share your Ideas with your Community")
 
 
 
@@ -88,7 +92,6 @@ def file_downloader():
             file_name="example_text.txt",
             mime="text/plain"
         )
-
 
 if __name__ == "__main__":
     main()
