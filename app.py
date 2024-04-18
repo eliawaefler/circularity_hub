@@ -6,7 +6,6 @@ import gabriel
 import elia
 # im terminal: streamlit run app.py
 
-
 def main():
     st.sidebar.title("Navigation")
     choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace", "Community", "Speckle"))
@@ -35,7 +34,7 @@ def main():
 
     elif choice == "Community":
         andu.community_space()
-
+        st.session_state.create_new_topic = False
 
 if __name__ == "__main__":
     main()

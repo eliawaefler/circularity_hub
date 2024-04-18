@@ -60,6 +60,7 @@ def community_space():
 
     # Button zum Hinzufügen neuer Beiträge
     if st.button('Add New Post'):
+        create_new_topic()
         new_topic()
 
 
@@ -84,3 +85,6 @@ def new_topic():
             # You might want to reset fields or handle the new topic (e.g., store it somewhere)
         else:
             st.error("Please fill out all fields to create a topic.")
+
+def set_create_new_topic():
+    st.session_state.create_new_topic = True
