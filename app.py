@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import pydeck as pdk
 from andu import *
+from gabriel import *
 # im terminal: streamlit run app.py
 
 
@@ -105,7 +106,7 @@ def file_downloader():
 def main():
     st.sidebar.title("Navigation")
 
-    choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace", "Community", "gabriel"))
+    choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace", "Community", "Speckle"))
     if "username" not in st.session_state:
         st.session_state.username = ""
     if "user_pw" not in st.session_state:
@@ -128,14 +129,9 @@ def main():
         else:
             st.session_state.username = st.text_input("username")
             st.session_state.user_pw = st.text_input("password", type="password", on_change=set_username)
-    elif choice == "gabriel":
-        st.title('Webseite Einbetten')
-        # Setze die URL, die du einbetten möchtest
-        url = 'https://app.speckle.systems/projects/99d586a085'
-        # Erstelle einen iframe, um die Webseite einzubetten
-        iframe_code = f'<iframe src="{url}" width="150%" height="700" style="border:none;"></iframe>'
-        # Zeige den iframe im Streamlit Dashboard an
-        st.markdown(iframe_code, unsafe_allow_html=True)
+    elif choice == "Speckle":
+        speckle()
+
     elif choice == "Community":
         community_space()
         new_topic()
