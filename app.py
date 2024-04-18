@@ -40,7 +40,6 @@ def main():
         st.write("Share your Ideas with your Community")
 
 
-
 def show_map():
     # Sample data: Latitude and Longitude of some cities
     data = {
@@ -75,25 +74,14 @@ def show_map():
                 "TextLayer",
                 data=df,
                 get_position='[longitude, latitude]',
-                get_text='citydata',
-                get_size=12,
-                get_color=[0, 0, 0],
-                get_angle=0,
-                # Setting the text anchor and alignment to center
-                get_text_anchor="'left'",
-                get_alignment_baseline="'bottom'",
-            ),
-            pdk.Layer(
-                "Infos",
-                data=df,
-                get_position='[longitude, latitude]',
                 get_text='city',
                 get_size=30,
+                elevation_range=[100, 1000],
                 get_color=[0, 0, 0],
                 get_angle=0,
                 # Setting the text anchor and alignment to center
                 get_text_anchor="'right'",
-                get_alignment_baseline="'top'",
+                get_alignment_baseline="'top'"
             )
         ],
     ))
