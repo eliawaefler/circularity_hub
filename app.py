@@ -76,7 +76,7 @@ def community_space():
 def show_map():
     # Sample data: Latitude and Longitude of some cities
     data = {
-        "latitude": [47.559601, 47.55576, 47.519601],
+        "latitude": [47.559401, 47.55546, 47.519401],
         "longitude": [7.588576, 7.60522, 7.518576],
         "city": ["1", "2", "3"],
         "citydata": ["Industriestrasse 48: Score=0.971", "Althausstrasse 11: Score=0.921", "Kreutzweg 3: Score=0.913"]
