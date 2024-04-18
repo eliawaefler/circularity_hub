@@ -33,32 +33,62 @@ def add_tag():
 
 
 def community_space():
-
     st.title("Community Space")
     st.write("Share your Ideas with your Community")
+
+    # CSS für die individuellen Beitragsboxen
+    st.markdown("""
+        <style>
+        .box {
+            background-color: #f0f0f0;  /* Hellgrauer Hintergrund */
+            padding: 20px;
+            border-radius: 10px;
+            height: 200px;             /* Feste Höhe */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;  /* Inhalt am Anfang und Tags am Ende */
+            margin-bottom: 20px;      /* Abstand zwischen den Boxen */
+        }
+        </style>
+        """, unsafe_allow_html=True)
 
     # Erstellen von Spalten für die Einträge
     col1, col2, col3 = st.columns(3)
 
     # Eintrag in der ersten Spalte
     with col1:
-        st.subheader("Community Garden")
-        st.write("A community garden with spaces for everyone to plant.")
-        st.caption("Tags: #gardening #community #green")
+        st.markdown("""
+            <div class='box'>
+                <h4>Community Garden</h4>
+                <p>A community garden with spaces for everyone to plant.</p>
+                <p style='opacity: 0.6;'>#gardening #community #green</p>
+            </div>
+            """, unsafe_allow_html=True)
 
     # Eintrag in der zweiten Spalte
     with col2:
-        st.subheader("Sports Day")
-        st.write("Weekly community sports day to promote health and well being.")
-        st.caption("Tags: #health #sports #weekly")
+        st.markdown("""
+            <div class='box'>
+                <h4>Sports Day</h4>
+                <p>Weekly community sports day to promote health and wellbeing.</p>
+                <p style='opacity: 0.6;'>#health #sports #weekly</p>
+            </div>
+            """, unsafe_allow_html=True)
 
     # Eintrag in der dritten Spalte
     with col3:
-        st.subheader("Book Swap")
-        st.write("A monthly book swap event in our local library.")
-        st.caption("Tags: #books #library #swap")
+        st.markdown("""
+            <div class='box'>
+                <h4>Book Swap</h4>
+                <p>A monthly book swap event in our local library.</p>
+                <p style='opacity: 0.6;'>#books #library #swap</p>
+            </div>
+            """, unsafe_allow_html=True)
 
+    # Button zum Hinzufügen neuer Beiträge
+    if st.button('Add New Post'):
 
+"""
 def new_topic():
     st.header("Create a new Topic")
     title = st.text_input("Type title, or paste a link here")
@@ -80,7 +110,7 @@ def new_topic():
             # You might want to reset fields or handle the new topic (e.g., store it somewhere)
         else:
             st.error("Please fill out all fields to create a topic.")
-
+"""
 
 def show_map():
     # Sample data: Latitude and Longitude of some cities
@@ -189,7 +219,6 @@ def main():
         st.markdown(iframe_code, unsafe_allow_html=True)
     elif choice == "Community":
         community_space()
-        new_topic()
 
 
 if __name__ == "__main__":
