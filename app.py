@@ -6,6 +6,7 @@ from gabriel import *
 from elia import *
 # im terminal: streamlit run app.py
 
+
 def main():
     st.sidebar.title("Navigation")
 
