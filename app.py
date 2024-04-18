@@ -1,12 +1,12 @@
 import streamlit as st
 import pandas as pd
 import pydeck as pdk
-
-
+# streamlit run app.py
 def main():
     st.sidebar.title("Navigation")
     choice = st.sidebar.radio("Go to", ("Home", "Map View", "File Upload/Download"))
-
+    def set_username():
+        st.session_state.username
     if choice == "Home":
         st.title("Home Page")
         st.write("Welcome to the example Streamlit application.")
@@ -16,9 +16,14 @@ def main():
         st.write("Map displaying highlighted locations.")
         show_map()
 
-    elif choice == "File Upload/Download":
-        st.title("File Upload and Download")
+    elif choice == "UserSpace":
+        st.title("meine Projekte")
         st.write("Upload and download files.")
+        if "username" not in st.session_state:
+            st.session_state.username = ""
+        st.title(f"welcome {st.session_state.username}")
+
+        st.text_input("username", on_change=set_username)
         file_uploader()
         file_downloader()
 
