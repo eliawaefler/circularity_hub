@@ -14,7 +14,7 @@ def main():
     if "user_pw" not in st.session_state:
         st.session_state.user_pw = False
     if "user_space" not in st.session_state:
-        st.session_state.user_space = True
+        st.session_state.user_space = "menu"
     if choice == "Home":
         st.title("Circularity Hub")
         st.write("Die Plattform für zirkuläres Bauen.")

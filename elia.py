@@ -1,48 +1,54 @@
+import time
 import streamlit as st
 import pandas as pd
 import pydeck as pdk
 
 
 def user_space():
-    st.subheader("meine Projekte")
-    if st.button("Neubau EFH Eichenstrasse 45"):
-        show_construction_project()
-    if st.button("Abbruch MFH Unterholzweg 13"):
-        show_deconstruction_project()
-    if st.button("neues Projekt"):
-        new_project()
+    if st.session_state.user_space == "menu":
+        st.subheader("meine Projekte")
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            if st.button("Neubau EFH Eichenstrasse 45"):
+                st.session_state.user_space = "construction"
+        with col2:
+            if st.button("Abbruch MFH Holzweg 13"):
+                st.session_state.user_space = "deconstruction"
+        with col3:
+            if st.button("neues Projekt"):
+                st.session_state.user_space = "new"
 
+    elif st.session_state.user_space == "deconstruction":
+        st.subheader("Abbruch MFH Holzweg 13")
+        st.button("Informationen erfassen")
+        file_downloader()
+        if st.button("back"):
+            st.session_state.user_space = "menu"
 
-def show_deconstruction_project():
-    st.subheader("Abbruch MFH Unterholzweg 13")
-    st.button("Informationen erfassen")
-    file_downloader()
-    if st.button("back"):
-        user_space()
+    elif st.session_state.user_space == "construction":
+        st.subheader("Neubau EFH Eichenstrasse 45")
+        st.button("InInformationen erfassen")
+        if st.button("geeignete 'Materiallager' auf Karte anzeigen"):
+            show_map()
+        file_downloader()
+        if st.button("back"):
+            st.session_state.user_space = "menu"
 
-
-def show_construction_project():
-    st.subheader("Neubau EFH Eichenstrasse 45")
-    st.button("InInformationen erfassen")
-    if st.button("geeignete 'Materiallager' auf Karte anzeigen"):
-        show_map()
-    file_downloader()
-    if st.button("back"):
-        user_space()
-
-
-def new_project():
-    st.subheader("neues Projekt")
-    st.radio("Projekttyp", ["Abbruch", "Neubau", "Umbau"])
-    st.text_input("Projektname:")
-    st.text_input("Adresse:")
-    st.text_input("PLZ / Ort:")
-    st.write("Upload files.")
-    file_uploader()
-    if st.button("Process upload"):
-        user_space()
-    if st.button("back"):
-        user_space()
+    elif st.session_state.user_space == "new":
+        st.subheader("neues Projekt")
+        st.radio("Projekttyp", ["Abbruch", "Neubau", "Umbau"])
+        st.text_input("Projektname:")
+        st.text_input("Adresse:")
+        st.text_input("PLZ / Ort:")
+        st.write("Upload files.")
+        file_uploader()
+        if st.button("Process upload"):
+            with st.spinner("Processing"):
+                time.sleep(2)
+                st.success("upload successful")
+            st.session_state.user_space = "menu"
+        if st.button("back"):
+            st.session_state.user_space = "menu"
 
 
 def set_username():
