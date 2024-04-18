@@ -36,9 +36,42 @@ def main():
             st.session_state.userpw = st.text_input("password", on_change=set_username)
 
     elif choice == "Community":
-        st.title("Community Space")
-        st.write("Share your Ideas with your Community")
+        community_space()
 
+def add_tag():
+    new_tag = st.session_state.tag_input
+    if new_tag:  # Check if the input is not empty
+        if 'tags' not in st.session_state:
+            st.session_state.tags = [new_tag]
+        else:
+            st.session_state.tags.append(new_tag)
+        st.session_state.tag_input = ''  # Clear the input box after adding
+
+def community_space():
+
+    st.title("Community Space")
+    st.write("Share your Ideas with your Community")
+
+    st.header("Create a new Topic")
+    title = st.text_input("Type title, or paste a link here")
+    category = st.selectbox("Select a category", ["Category 1", "Category 2", "Category 3"])
+
+    # Tags functionality
+    if 'tags' not in st.session_state:
+        st.session_state.tags = []  # Initialize tags if not present
+    new_tag = st.text_input("Add a tag", key="tag_input")
+    if new_tag:
+        st.session_state.tags.append(new_tag)  # Add new tag
+        st.write(st.session_state.tags)  # Display tags
+        st.session_state.tag_input = ''  # Reset input field
+
+    content = st.text_area("Content", height=200)
+    if st.button("Create Topic"):
+        if title and category and content:
+            st.success(f"Topic '{title}' created in '{category}' with tags {st.session_state.tags}.")
+            # You might want to reset fields or handle the new topic (e.g., store it somewhere)
+        else:
+            st.error("Please fill out all fields to create a topic.")
 
 
 def show_map():
