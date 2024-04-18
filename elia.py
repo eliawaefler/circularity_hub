@@ -31,6 +31,8 @@ def add_tag():
 
 
 def show_map():
+    st.title("Map View")
+    st.write("Die besten Materiallager für dein Projekt.")
     # Sample data: Latitude and Longitude of some cities
     data = {
         "latitude": [47.559401, 47.55546, 47.519401],

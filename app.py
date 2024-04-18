@@ -1,15 +1,14 @@
 import streamlit as st
 import pandas as pd
 import pydeck as pdk
-from andu import *
-from gabriel import *
-from elia import *
+import andu
+import gabriel
+import elia
 # im terminal: streamlit run app.py
 
 
 def main():
     st.sidebar.title("Navigation")
-
     choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace", "Community", "Speckle"))
     if "username" not in st.session_state:
         st.session_state.username = ""
@@ -22,22 +21,20 @@ def main():
         st.image("")
 
     elif choice == "Map View":
-        st.title("Map View")
-        st.write("Die besten Materiallager für dein Projekt.")
-        show_map()
+        elia.show_map()
 
     elif choice == "UserSpace":
         st.title(f"welcome {st.session_state.username}")
         if st.session_state.user_pw:
-            user_space()
+            elia.user_space()
         else:
             st.session_state.username = st.text_input("username")
-            st.session_state.user_pw = st.text_input("password", type="password", on_change=set_username)
+            st.session_state.user_pw = st.text_input("password", type="password", on_change=elia.set_username)
     elif choice == "Speckle":
-        speckle()
+        gabriel.speckle()
 
     elif choice == "Community":
-        community_space()
+        andu.community_space()
 
 
 if __name__ == "__main__":
