@@ -10,7 +10,7 @@ def main():
     if choice == "Home":
         st.title("Home Page")
         st.write("Welcome to the example Streamlit application.")
-
+# hallo
     elif choice == "Map View":
         st.title("Map View")
         st.write("Map displaying highlighted locations.")
