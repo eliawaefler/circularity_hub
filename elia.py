@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import pydeck as pdk
 
+
 def user_space():
     st.subheader("meine Projekte")
     if st.button("Neubau EFH Eichenstrasse 45"):
@@ -11,10 +12,13 @@ def user_space():
     if st.button("neues Projekt"):
         new_project()
 
+
 def show_deconstruction_project():
     st.subheader("Abbruch MFH Unterholzweg 13")
     st.button("Informationen erfassen")
     file_downloader()
+    if st.button("back"):
+        user_space()
 
 
 def show_construction_project():
@@ -23,6 +27,8 @@ def show_construction_project():
     if st.button("geeignete 'Materiallager' auf Karte anzeigen"):
         show_map()
     file_downloader()
+    if st.button("back"):
+        user_space()
 
 
 def new_project():
@@ -33,11 +39,10 @@ def new_project():
     st.text_input("PLZ / Ort:")
     st.write("Upload files.")
     file_uploader()
-    st.button("Process upload")
-
-
-def goto_map():
-    st.sidebar.radio("Go to Map View")
+    if st.button("Process upload"):
+        user_space()
+    if st.button("back"):
+        user_space()
 
 
 def set_username():
@@ -124,4 +129,3 @@ def file_downloader():
             file_name="example_text.txt",
             mime="text/plain"
         )
-

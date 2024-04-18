@@ -1,6 +1,4 @@
 import streamlit as st
-import pandas as pd
-import pydeck as pdk
 from PIL import Image
 import andu
 import gabriel
@@ -15,7 +13,8 @@ def main():
         st.session_state.username = ""
     if "user_pw" not in st.session_state:
         st.session_state.user_pw = False
-
+    if "user_space" not in st.session_state:
+        st.session_state.user_space = True
     if choice == "Home":
         st.title("Circularity Hub")
         st.write("Die Plattform für zirkuläres Bauen.")
@@ -38,6 +37,7 @@ def main():
     elif choice == "Community":
         andu.community_space()
         st.session_state.create_new_topic = False
+
 
 if __name__ == "__main__":
     main()
