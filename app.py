@@ -37,6 +37,7 @@ def main():
 
     elif choice == "Community":
         community_space()
+        new_topic()
 
 def add_tag():
     new_tag = st.session_state.tag_input
@@ -52,6 +53,28 @@ def community_space():
     st.title("Community Space")
     st.write("Share your Ideas with your Community")
 
+    # Erstellen von Spalten für die Einträge
+    col1, col2, col3 = st.columns(3)
+
+    # Eintrag in der ersten Spalte
+    with col1:
+        st.subheader("Community Garden")
+        st.write("A community garden with spaces for everyone to plant.")
+        st.caption("Tags: #gardening #community #green")
+
+    # Eintrag in der zweiten Spalte
+    with col2:
+        st.subheader("Sports Day")
+        st.write("Weekly community sports day to promote health and wellbeing.")
+        st.caption("Tags: #health #sports #weekly")
+
+    # Eintrag in der dritten Spalte
+    with col3:
+        st.subheader("Book Swap")
+        st.write("A monthly book swap event in our local library.")
+        st.caption("Tags: #books #library #swap")
+
+def new_topic():
     st.header("Create a new Topic")
     title = st.text_input("Type title, or paste a link here")
     category = st.selectbox("Select a category", ["Category 1", "Category 2", "Category 3"])
