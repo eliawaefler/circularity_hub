@@ -28,7 +28,7 @@ def main():
 
     elif choice == "UserSpace":
         st.title(f"welcome {st.session_state.username}")
-        if st.session_state.userpw:
+        if st.session_state.user_pw:
             user_space()
         else:
             st.session_state.username = st.text_input("username")
