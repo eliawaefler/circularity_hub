@@ -16,11 +16,11 @@ def main():
         st.session_state.userpw = True
 
     if choice == "Home":
-        st.title("Home Page")
-        st.write("Welcome to the example Streamlit application.")
+        st.title("Circularity Hub")
+        st.write("Die Plattform für zirkuläres Bauen.")
     elif choice == "Map View":
         st.title("Map View")
-        st.write("Map displaying highlighted locations.")
+        st.write("Die besten Materiallager für dein Projekt.")
         show_map()
 
     elif choice == "UserSpace":
@@ -33,7 +33,7 @@ def main():
             file_downloader()
         else:
             st.session_state.username = st.text_input("username")
-            st.session_state.userpw = st.text_input("password", on_change=set_username)
+            st.session_state.userpw = st.text_input("password", type="password", on_change=set_username)
 
     elif choice == "Community":
         community_space()
