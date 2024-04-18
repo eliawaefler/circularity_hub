@@ -7,6 +7,12 @@ import pydeck as pdk
 def main():
     st.sidebar.title("Navigation")
     choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace","Community"))
+    choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace"))
+    if "username" not in st.session_state:
+        st.session_state.username = ""
+    if "userpw" not in st.session_state:
+        st.session_state.userpw = False
+
     def set_username():
         st.session_state.userpw = True
 
@@ -19,10 +25,7 @@ def main():
         show_map()
 
     elif choice == "UserSpace":
-        if "username" not in st.session_state:
-            st.session_state.username = ""
-        if "userpw" not in st.session_state:
-            st.session_state.userpw = False
+
         st.title(f"welcome {st.session_state.username}")
         if st.session_state.userpw:
             st.title("meine Projekte")
@@ -44,7 +47,8 @@ def show_map():
     data = {
         "latitude": [47.559601, 47.55576, 47.519601],
         "longitude": [7.588576, 7.60522, 7.518576],
-        "city": ["1", "2", "3"]
+        "city": ["1", "2", "3"],
+        "citydata": ["Industriestrasse 48: Score=0.971", "Althausstrasse 11: Score=0.921", "Kreutzweg 3: Score=0.913"]
     }
     df = pd.DataFrame(data)
 
@@ -68,6 +72,30 @@ def show_map():
                 pickable=True,
                 extruded=True,
             ),
+            pdk.Layer(
+                "TextLayer",
+                data=df,
+                get_position='[longitude, latitude]',
+                get_text='citydata',
+                get_size=12,
+                get_color=[0, 0, 0],
+                get_angle=0,
+                # Setting the text anchor and alignment to center
+                get_text_anchor="'left'",
+                get_alignment_baseline="'bottom'",
+            ),
+            pdk.Layer(
+                "Infos",
+                data=df,
+                get_position='[longitude, latitude]',
+                get_text='city',
+                get_size=30,
+                get_color=[0, 0, 0],
+                get_angle=0,
+                # Setting the text anchor and alignment to center
+                get_text_anchor="'right'",
+                get_alignment_baseline="'top'",
+            )
         ],
     ))
 
