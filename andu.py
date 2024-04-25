@@ -5,6 +5,7 @@ from PIL import Image
 # import pydeck as pdk
 # im terminal: streamlit run app.py
 
+
 def crop_webp_image(input_path, output_path, crop_box):
     # Load the image
     image = Image.open(input_path)
@@ -151,7 +152,16 @@ def set_create_new_post():
 
 def use_crop_images():
     input_image_path = 'images/avatars.webp'
+    output_image_path = 'images/user_bauherr.webp'
+
+    crop_box = (0, 0, 320, 1024)  # Example crop box: (left, upper, right, lower)
+    crop_webp_image(input_image_path, output_image_path, crop_box)
+
+    output_image_path = 'images/user_planer.webp'
+    crop_box = (330, 0, 680, 1024)  # Example crop box: (left, upper, right, lower)
+    crop_webp_image(input_image_path, output_image_path, crop_box)
+
     output_image_path = 'images/user_handwerker.webp'
-    crop_box = (700, 0, 1020, 900)  # Example crop box: (left, upper, right, lower)
+    crop_box = (700, 0, 1024, 1024)  # Example crop box: (left, upper, right, lower)
     crop_webp_image(input_image_path, output_image_path, crop_box)
 

@@ -6,7 +6,7 @@ handwerker_text = """Liebe Handwerker-Gemeinschaft, als Handwerker arbeite ich e
                 als auch auf unserer Plattform mit einer Global Trade Item Number (GTIN) gekennzeichnet. Diese
                 systematische Kennzeichnung ermöglicht es mir, die Bauteile physisch vor Ort zu markieren und
                 genau zu identifizieren. Dank der GTIN kann ich jedes Bauteil exakt zuordnen und sicherstellen,
-                dass es gemäß den Planungsvorgaben eingebaut wird. Diese präzise Methode erleichtert die Montage,
+                dass es gemäss den Planungsvorgaben eingebaut wird. Diese präzise Methode erleichtert die Montage,
                 vermeidet Verwechslungen und fördert eine effiziente Arbeitsweise. Diese Vorgehensweise ist nicht
                 nur zeitsparend, sondern trägt auch dazu bei, Fehlerquellen zu minimieren und die Qualität unserer
                 Bauausführungen zu sichern. Ich schätze die Möglichkeiten, die unsere Plattform bietet, um
@@ -20,7 +20,7 @@ bauherr_text = """Als Bauherr in der strategischen Planungsphase eines Neubaus s
                    die in den kommenden Jahren möglicherweise wiederverwendbare Bauteile anbieten werden. Diese
                    frühzeitige Identifizierung potenzieller Quellen ermöglicht es mir, meine Planung entsprechend
                    auszurichten und langfristige Kooperationen zu initiieren. Diese proaktive Herangehensweise ist
-                   nicht nur wirtschaftlich sinnvoll, sondern trägt auch maßgeblich zu einer umweltfreundlichen
+                   nicht nur wirtschaftlich sinnvoll, sondern trägt auch massgeblich zu einer umweltfreundlichen
                    Bauweise bei. Ich möchte diese Plattform nutzen, um mit Gleichgesinnten in Kontakt zu treten,
                    die ebenfalls an der Integration von Second Hand Materialien interessiert sind. Gemeinsam können
                    wir Synergien schaffen und die Verfügbarkeit solcher Materialien in unserer Branche fördern.
