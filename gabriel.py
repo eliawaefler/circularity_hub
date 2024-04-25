@@ -3,7 +3,7 @@ import pandas as pd
 import pydeck as pdk
 
 def speckle():
-    st.title('Webseite Einbetten')
+    st.title('Das Speckle Dashboard')
     # Setze die URL, die du einbetten möchtest
     url = 'https://app.speckle.systems/projects/99d586a085'
     # Erstelle einen iframe, um die Webseite einzubetten
