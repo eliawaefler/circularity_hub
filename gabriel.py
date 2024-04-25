@@ -1,6 +1,7 @@
 import streamlit as st
-import pandas as pd
-import pydeck as pdk
+# import pandas as pd
+# import pydeck as pdk
+
 
 def speckle():
     st.title('Webseite Einbetten')
