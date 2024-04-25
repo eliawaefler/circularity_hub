@@ -101,7 +101,7 @@ def community_space():
 
     # Button zum Hinzufügen neuer Beiträge
     if st.button('Add New Post'):
-        create_new_topic()
+        set_create_new_topic 
         new_topic()
 
 
