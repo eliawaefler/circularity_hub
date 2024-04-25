@@ -10,5 +10,3 @@ def speckle():
     iframe_code = f'<iframe src="{url}" width="150%" height="700" style="border:none;"></iframe>'
     # Zeige den iframe im Streamlit Dashboard an
     st.markdown(iframe_code, unsafe_allow_html=True)
-
-    #test
