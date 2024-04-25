@@ -2,6 +2,7 @@ import time
 import streamlit as st
 import pandas as pd
 import pydeck as pdk
+from PIL import Image
 
 
 def user_space():
@@ -20,6 +21,7 @@ def user_space():
 
     elif st.session_state.user_space == "deconstruction":
         st.subheader("Abbruch MFH Holzweg 13")
+        st.image(Image.open("images/abbruch.webp"), caption="Abbruch Mehrfamilienhaus")
         st.button("Informationen erfassen")
         file_downloader()
         if st.button("back"):
@@ -27,6 +29,7 @@ def user_space():
 
     elif st.session_state.user_space == "construction":
         st.subheader("Neubau EFH Eichenstrasse 45")
+        st.image(Image.open("images/efh.webp"), caption="neues Einfamilienhaus rendering")
         st.button("InInformationen erfassen")
         if st.button("geeignete 'Materiallager' auf Karte anzeigen"):
             show_map()
