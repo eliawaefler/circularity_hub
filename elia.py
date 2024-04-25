@@ -42,6 +42,7 @@ def user_space():
         st.radio("Projekttyp", ["Abbruch", "Neubau", "Umbau"])
         st.text_input("Projektname:")
         st.text_input("Adresse:")
+        st.text_input("Speckle link: ")
         st.text_input("PLZ / Ort:")
         st.write("Upload files.")
         file_uploader()
