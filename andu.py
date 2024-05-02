@@ -21,6 +21,18 @@ def community_space():
     st.title("Community Space")
     st.write("Share your Ideas with your Community")
 
+    # Define the CSS style for the container
+    container_style = """
+       <style>
+           .styledContainer {
+               background-color: #f0f0f0; /* Light grey background */
+               border-radius: 10px;      /* Rounded corners */
+               padding: 20px;            /* Padding around the content */
+               margin: 10px 0;           /* Margin for some space around the container */
+           }
+       </style>
+       """
+
     # CSS für die individuellen Beitragsboxen
     st.markdown("""
         <style>
@@ -76,7 +88,7 @@ def community_space():
     # Eintrag von Planer
     with st.container(border=True):
         st.subheader("Integration von Second Hand Bauteilen in den Planungsprozess")
-        col1, col2 = st.columns([1, 5])
+        col1, col2 = st.columns([1, 6])
         with col1:
             st.image("images/user_planer.webp")
             st.write("Dennis Draft")
@@ -91,7 +103,7 @@ def community_space():
     # Eintrag von Bauherrn
     with st.container(border=True):
         st.subheader("Strategische Planung für die Wiederverwendung von Bauteilen")
-        col1, col2 = st.columns([1, 5])
+        col1, col2 = st.columns([1, 6])
         with col1:
             st.image("images/user_bauherr.webp")
             st.write("Beni Burkhalter")
@@ -106,11 +118,15 @@ def community_space():
     # Eintrag von Handwerker
     with st.container(border=True):
         st.subheader("Effizienzsteigerung durch präzise Bauteil-Identifikation im Handwerk")
-        col1, col2 = st.columns([1, 5])
+        col1, col2 = st.columns([1, 6])
         with col1:
             st.image("images/user_handwerker.webp")
             st.write("Arnold Armstrong")
-            st.write("Handwerker")
+            with st.container():
+                st.markdown('<div class="styledContainer">', unsafe_allow_html=True)
+                st.write("Handwerker")
+                st.markdown('</div>', unsafe_allow_html=True)
+
         with col2:
             st.image("images/gtin.webp")
             st.write(handwerker_text)
@@ -164,4 +180,3 @@ def use_crop_images():
     output_image_path = 'images/user_handwerker.webp'
     crop_box = (700, 0, 1024, 1024)  # Example crop box: (left, upper, right, lower)
     crop_webp_image(input_image_path, output_image_path, crop_box)
-

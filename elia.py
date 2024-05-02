@@ -74,8 +74,8 @@ def show_map():
     st.write("Die besten Materiallager für dein Projekt.")
     # Sample data: Latitude and Longitude of some cities
     data = {
-        "latitude": [47.559401, 47.55546, 47.519401],
-        "longitude": [7.588576, 7.60522, 7.518576],
+        "latitude": [47.556401, 47.55246, 47.51901],
+        "longitude": [7.584576, 7.60572, 7.53976],
         "city": ["1", "2", "3"],
         "citydata": ["Industriestrasse 48: Score=0.971", "Althausstrasse 11: Score=0.921", "Kreuzweg 3: Score=0.913"]
     }
