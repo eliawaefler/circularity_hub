@@ -1,8 +1,73 @@
-import time
 import streamlit as st
 import pandas as pd
 import pydeck as pdk
 from PIL import Image
+import os
+import uuid
+import json
+
+
+def create_project(project_type, project_name, address, speckle_link, plz_ort, uploaded_files, baujahr, reno_jahr,
+                   geb_lang, geb_breit, geb_hoch, mat_wand, mat_fen, mat_tur):
+    # Ensure the /images directory exists
+    if not os.path.exists('database/user_images'):
+        os.makedirs('database/user_images')
+
+    # Process and save files, storing their GUIDs
+    file_guids = {}
+    for file in uploaded_files:
+        guid = str(uuid.uuid4())
+        file_path = os.path.join('database/user_images', f'{guid}.jpg')  # Assuming all files are images
+        with open(file_path, "wb") as f:
+            f.write(file.getbuffer())
+        file_guids[file.name] = guid
+
+    # Create the project data JSON structure
+    project_data = {
+        "PK": str(uuid.uuid4()),
+        "metadata": {
+            "author_type": "user",
+            "author_name": st.session_state.username,
+            "name": project_name,
+            "projectType": project_type
+        },
+        "circ_data": {
+            "address": {
+                "full_address": address,
+                "zip_code": plz_ort.split('/')[0].strip(),
+                "city": plz_ort.split('/')[1].strip()
+            },
+            "time": {
+                "year_built": baujahr,
+                "last_renovation": reno_jahr,
+                "expected_deconstruction": str(int(baujahr)+50)
+            },
+            "size": {
+                "volume_m3": str(int(geb_lang)*int(geb_hoch)*int(geb_breit)),
+                "length_m": geb_lang,
+                "width_m": geb_breit,
+                "height_m": geb_hoch
+            },
+            "materials": {
+                "walls_type": mat_wand,
+                "windows": mat_fen,
+                "doors": mat_tur
+            },
+            "links": {
+                "speckle": speckle_link
+            }
+        },
+        "content": {
+            "files": file_guids
+        }
+    }
+
+    # Save the project data as JSON
+    json_path = os.path.join('projects', f'{project_name.replace(" ", "_")}.json')
+    if not os.path.exists('projects'):
+        os.makedirs('projects')
+    with open(json_path, 'w') as f:
+        json.dump(project_data, f, indent=4)
 
 
 def user_space():
@@ -38,20 +103,34 @@ def user_space():
             st.session_state.user_space = "menu"
 
     elif st.session_state.user_space == "new":
-        st.subheader("neues Projekt")
-        st.radio("Projekttyp", ["Abbruch", "Neubau", "Umbau"])
-        st.text_input("Projektname:")
-        st.text_input("Adresse:")
-        st.text_input("Speckle link: ")
-        st.text_input("PLZ / Ort:")
-        st.write("Upload files.")
-        file_uploader()
+        st.subheader("Neues Projekt")
+        project_type = st.radio("Projekttyp", ["Abbruch", "Neubau", "Umbau"])
+        project_name = st.text_input("Projektname:")
+        address = st.text_input("Strasse, Hausnummer")
+        plz_ort = st.text_input("PLZ / Ort: (zwingend mit / trennen)")
+        baujahr = st.text_input("Baujahr: [YYYY]")
+        reno_jahr = st.text_input("letzte Renovierung Jahr: [YYYY]")
+        geb_lang = st.text_input("Gebäudelänge: [m]")
+        geb_breit = st.text_input("Gebäudebreite: [m]")
+        geb_hoch = st.text_input("Gebäudehöhe: [m]")
+        uploaded_files = st.file_uploader("Upload files, IFC, PDF-Pläne, Bilder, usw", accept_multiple_files=True)
+        speckle_link = st.text_input("Speckle link: ")
+        mat_wand = st.text_input("Material Wände: ")
+        mat_fen = st.text_input("Fenster Material (HolzMetall, Holz, ...): ")
+        mat_tur = st.text_input("Tür Materialisierung: ")
+
         if st.button("Process upload"):
             with st.spinner("Processing"):
-                time.sleep(2)
-                st.success("upload successful")
+                if uploaded_files:
+                    create_project(project_type, project_name, address, speckle_link, plz_ort, uploaded_files,
+                                   baujahr,
+                                   reno_jahr, geb_lang, geb_breit, geb_hoch, mat_wand, mat_fen, mat_tur)
+                    st.success("Upload successful")
+                else:
+                    st.error("Please upload at least one file.")
             st.session_state.user_space = "menu"
-        if st.button("back"):
+
+        if st.button("Back"):
             st.session_state.user_space = "menu"
 
 

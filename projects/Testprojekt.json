@@ -1,0 +1,40 @@
+{
+    "PK": "50d94998-9455-4118-897b-93f45b770a82",
+    "metadata": {
+        "author_type": "user",
+        "author_name": "Marcel",
+        "name": "Testprojekt",
+        "projectType": "Abbruch"
+    },
+    "circ_data": {
+        "address": {
+            "full_address": "Marcel 23",
+            "zip_code": "1234",
+            "city": "Marcelllona"
+        },
+        "time": {
+            "year_built": "1234",
+            "last_renovation": "4321",
+            "expected_deconstruction": "1284"
+        },
+        "size": {
+            "volume_m3": "27",
+            "length_m": "3",
+            "width_m": "3",
+            "height_m": "3"
+        },
+        "materials": {
+            "walls_type": "holz",
+            "windows": "beton",
+            "doors": "glass"
+        },
+        "links": {
+            "speckle": ""
+        }
+    },
+    "content": {
+        "files": {
+            "IMG_9645.JPG": "ed4a08e1-ab3b-4695-a681-1ec1d5967774"
+        }
+    }
+}
