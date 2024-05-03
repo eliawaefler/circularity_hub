@@ -1,0 +1,49 @@
+{
+    "PK": "000e4567-e89b-12d3-a456-426614174111",
+    "author": {
+        "type": "user",
+        "name": "Max Muster"
+    },
+    "circ_data": {
+        "address": {
+            "country": "CH",
+            "city": "Basel",
+            "zip_code": 4052,
+            "street": "St. Alban-Vorstadt",
+            "number": 86
+        },
+        "time": {
+            "year_built": 1956,
+            "last_renovation": 2006,
+            "expected_deconstruction": 2026
+        },
+        "classification": {
+            "usage": "residential",
+            "type": "residential"
+        },
+        "materials": {
+            "walls_type": "BN_AD_Putz",
+            "windows": "2xHolz",
+            "doors": "Glas_Metall"
+        },
+        "size": {
+            "volume_m3": 800,
+            "length_m": 10,
+            "width_m": 10,
+            "height_m": 8
+        }
+    },
+    "links": {
+        "author": "123e4567-e89b-12d3-a456-426614174000",
+        "model": "456e4567-e89b-12d3-a456-426614174001"
+    },
+    "content": {
+        "text": {
+            "full": "THE_FULL_TEXT"
+        },
+        "images": {
+            "img_1": "abc.jpg",
+            "img_2": "def.jpg"
+        }
+    }
+}

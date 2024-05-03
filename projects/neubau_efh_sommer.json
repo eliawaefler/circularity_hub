@@ -1,0 +1,43 @@
+{
+    "PK": "97079786-a5f7-4bbc-8c10-3d1340bc003a",
+    "metadata": {
+        "authortype": "user",
+        "authorname": "Testuser",
+        "name": "neubau efh sommer",
+        "projectType": "Neubau"
+    },
+    "circ_data": {
+        "address": {
+            "full_address": "ABCstrase 123",
+            "zip_code": "3602",
+            "city": "Thun"
+        },
+        "time": {
+            "year_built": "2025",
+            "last_renovation": "2025",
+            "expected_deconstruction": "2075"
+        },
+        "size": {
+            "volume_m3": "560",
+            "length_m": "10",
+            "width_m": "8",
+            "height_m": "7"
+        },
+        "materials": {
+            "walls_type": "Metall",
+            "windows": "Metall",
+            "doors": "Metall"
+        },
+        "links": {
+            "speckle": ""
+        }
+    },
+    "content": {
+        "files": {
+            "IMG_9634.JPG": "c050d5ae-7627-41c4-86d6-588b053dcae4",
+            "IMG_9642.JPG": "e21effee-b800-4cb4-a495-6e167e7cd349",
+            "IMG_9645.JPG": "df57b9cb-a449-4ec4-9a28-bd58a54d9cff",
+            "IMG_9672.JPG": "47d1226c-c6e3-4559-8242-c2078b5916ff"
+        }
+    }
+}

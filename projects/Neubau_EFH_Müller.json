@@ -1,0 +1,38 @@
+{
+    "metadata": {
+        "authortype": "user",
+        "authorname": "",
+        "name": "Neubau EFH M\u00fcller",
+        "projectType": "Abbruch"
+    },
+    "circ_data": {
+        "address": {
+            "full_address": "holzweg 14",
+            "zip_code": "3602",
+            "city": "Thun"
+        },
+        "time": {
+            "year_built": "2025",
+            "last_renovation": "2025"
+        },
+        "size": {
+            "length_m": "10",
+            "width_m": "8",
+            "height_m": "7"
+        },
+        "materials": {
+            "walls_type": "Backstein",
+            "windows": "Holz",
+            "doors": "Metall"
+        },
+        "links": {
+            "speckle": ""
+        }
+    },
+    "content": {
+        "files": {
+            "danja.JPG": "7bea5360-dd17-4cb1-8a2e-50d3ab3dc7f0",
+            "dip.png": "35b980b9-fb30-4f3f-8304-9b8f1f7af179"
+        }
+    }
+}
