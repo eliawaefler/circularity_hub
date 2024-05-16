@@ -29,28 +29,27 @@ def main():
 
         # Initialize database connection using SQLAlchemy
         engine = create_engine(db_url)
-
+        st.write("now")
         def add_to_db(name, pet):
             sql_command = "INSERT INTO home (name, pet) VALUES (:name, :pet)"
-            parameters = {'name': name, 'pet': pet}
+            parameters = {'name': name, 'pet': pet}  # Single dictionary for single record insertion
+
             with engine.connect() as conn:
                 try:
-                    # Begin a transaction
-                    with conn.begin():
-                        # Execute the SQL command with parameters
-                        conn.execute(sql_command, parameters)
+                    # Execute the SQL command with parameters
+                    result = conn.execute(sql_command, parameters)
                     st.success("Added to database successfully!")
                 except Exception as e:
                     st.error(f"Failed to add to database: {str(e)}")
-                    st.error("Check that the types and values are correct for the database schema.")
+                    st.error("Ensure that the SQL command and parameters are correctly formatted.")
 
         # User interface for adding new entries
         st.header("Add New Entry")
-        name = st.text_input("Name:")
-        pet = st.text_input("Pet:")
+        user_name = st.text_input("Name:")
+        user_pet = st.text_input("Pet:")
 
         if st.button("Add to Database"):
-            add_to_db(name, pet)
+            add_to_db(user_name, user_pet)
             st.success("Added to database successfully!")
 
         # Display existing entries
