@@ -4,7 +4,7 @@ import andu
 import gabriel
 import elia
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 # im terminal: streamlit run app.py
 
 
@@ -24,39 +24,47 @@ def main():
     
     elif choice == "test_db":
 
-        # Load secrets
+        # Setup the database connection using SQLAlchemy
         db_url = st.secrets["connections"]["neon"]["url"]
-
-        # Initialize database connection using SQLAlchemy
         engine = create_engine(db_url)
-        st.write("now")
+
+        # Function to add new entry to the database
         def add_to_db(name, pet):
-            sql_command = "INSERT INTO home (name, pet) VALUES (:name, :pet)"
-            parameters = {'name': name, 'pet': pet}  # Single dictionary for single record insertion
-
-            with engine.connect() as conn:
-                try:
-                    # Execute the SQL command with parameters
-                    result = conn.execute(sql_command, parameters)
+            try:
+                with engine.connect() as conn:
+                    # Use the text() function to ensure the query is treated as a SQL expression
+                    query = text("INSERT INTO home (name, pet) VALUES (:name, :pet)")
+                    conn.execute(query, {"name": name, "pet": pet})
                     st.success("Added to database successfully!")
-                except Exception as e:
-                    st.error(f"Failed to add to database: {str(e)}")
-                    st.error("Ensure that the SQL command and parameters are correctly formatted.")
+            except Exception as e:
+                st.error(f"Failed to add to database: {str(e)}")
 
-        # User interface for adding new entries
-        st.header("Add New Entry")
-        user_name = st.text_input("Name:")
-        user_pet = st.text_input("Pet:")
+        # Function to fetch entries from the database
+        def fetch_entries():
+            try:
+                with engine.connect() as conn:
+                    result = conn.execute(text("SELECT * FROM home"))
+                    return result.fetchall()
+            except Exception as e:
+                st.error(f"Failed to fetch data: {str(e)}")
+                return []
 
-        if st.button("Add to Database"):
-            add_to_db(user_name, user_pet)
-            st.success("Added to database successfully!")
+        # Streamlit UI components
+        st.title('Neon Database Interaction')
 
-        # Display existing entries
-        st.header("Existing Entries")
-        query = "SELECT * FROM home;"
-        df = pd.read_sql(query, engine)
-        st.write(df)
+        st.header('Add New Entry to Database')
+        name = st.text_input("Enter name:")
+        pet = st.text_input("Enter pet:")
+        if st.button('Add Entry'):
+            add_to_db(name, pet)
+
+        st.header('Existing Entries in Database')
+        entries = fetch_entries()
+        if entries:
+            for id, name, pet in entries:
+                st.write(f"ID: {id}, Name: {name}, Pet: {pet}")
+        else:
+            st.write("No entries found.")
             
     elif choice == "Map View":
         elia.show_map()
