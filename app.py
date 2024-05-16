@@ -8,7 +8,7 @@ import elia
 
 def main():
     st.sidebar.title("Navigation")
-    choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace", "Community", "Speckle"))
+    choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace", "Community", "Speckle", "test_db"))
     if "username" not in st.session_state:
         st.session_state.username = ""
     if "user_pw" not in st.session_state:
@@ -19,7 +19,18 @@ def main():
         st.title("Circularity Hub")
         st.write("Die Plattform für zirkuläres Bauen.")
         st.image(Image.open("images/circ.webp"), caption="circular building industry")
-
+    
+    elif choice == "test_db":   
+        # Initialize connection.
+        conn = st.connection("neon", type="sql")
+        
+        # Perform query.
+        df = conn.query('SELECT * FROM home;', ttl="10m")
+        
+        # Print results.
+        for row in df.itertuples():
+            st.write(f"{row.name} has a :{row.pet}:")
+            
     elif choice == "Map View":
         elia.show_map()
 
