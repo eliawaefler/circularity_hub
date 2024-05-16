@@ -35,13 +35,14 @@ def main():
             parameters = {'name': name, 'pet': pet}
             with engine.connect() as conn:
                 try:
-                    # Execute the SQL command with parameters.
-                    # conn.execute() expects a text or SQL construct as the first argument, and a dictionary for parameters.
-                    result = conn.execute(sql_command, parameters)
+                    # Begin a transaction
+                    with conn.begin():
+                        # Execute the SQL command with parameters
+                        conn.execute(sql_command, parameters)
                     st.success("Added to database successfully!")
                 except Exception as e:
                     st.error(f"Failed to add to database: {str(e)}")
-                    st.error("Ensure that the SQL command and parameters are correctly formatted.")
+                    st.error("Check that the types and values are correct for the database schema.")
 
         # User interface for adding new entries
         st.header("Add New Entry")
