@@ -29,7 +29,8 @@ def main():
         
         # Print results.
         for row in df.itertuples():
-    st.write(f"{row.name} has a :{row.pet}:")
+            st.write(f"{row.name} has a :{row.pet}:")
+            
     elif choice == "Map View":
         elia.show_map()
 
