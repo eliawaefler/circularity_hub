@@ -22,48 +22,54 @@ def main():
         st.image(Image.open("images/circ.webp"), caption="circular building industry")
     
     elif choice == "test_db":
-        # Set up the database connection using SQLAlchemy
-        db_url = st.secrets["connections"]["neon"]["url"]
-        engine = create_engine(db_url)
 
-        # Function to add new entry to the database
-        def add_to_db(your_name, your_pet):
-            try:
-                with engine.connect() as conn:
-                    # Use the text() function to ensure the query is treated as a SQL expression
-                    query = text("INSERT INTO home (name, pet) VALUES (:name, :pet)")
-                    conn.execute(query, {"name": your_name, "pet": your_pet})
+        # Load the database settings from Streamlit's secrets
+        PGHOST = st.secrets["PGHOST"]
+        PGDATABASE = st.secrets["PGDATABASE"]
+        PGUSER = st.secrets["PGUSER"]
+        PGPASSWORD = st.secrets["PGPASSWORD"]
+        PGPORT = st.secrets.get("PGPORT", "5432")  # Default PostgreSQL port
+
+        # Connection URL for SQLAlchemy
+        connection_url = f'postgresql://{PGUSER}:{PGPASSWORD}@{PGHOST}:{PGPORT}/{PGDATABASE}?sslmode=require'
+        engine = create_engine(connection_url)
+
+        def add_to_db(name, pet):
+            query = text("INSERT INTO home (name, pet) VALUES (:name, :pet)")
+            with engine.connect() as conn:
+                try:
+                    conn.execute(query, {"name": name, "pet": pet})
                     st.success("Added to database successfully!")
-            except Exception as e:
-                st.error(f"Failed to add to database: {str(e)}")
+                except Exception as e:
+                    st.error(f"Failed to add to database: {str(e)}")
 
-        # Function to fetch entries from the database
         def fetch_entries():
+            query = text("SELECT * FROM home;")
             try:
                 with engine.connect() as conn:
-                    result = conn.execute(text("SELECT * FROM home"))
+                    result = conn.execute(query)
                     return result.fetchall()
             except Exception as e:
                 st.error(f"Failed to fetch data: {str(e)}")
                 return []
 
-        # Streamlit UI components
-        st.title('New Neon Database Interaction')
+        st.title('Neon Database Interaction')
 
         st.header('Add New Entry to Database')
-        users_name = st.text_input("Enter name:")
-        users_pet = st.text_input("Enter pet:")
+        name = st.text_input("Enter name:")
+        pet = st.text_input("Enter pet:")
         if st.button('Add Entry'):
-            add_to_db(users_name, users_pet)
+            add_to_db(name, pet)
 
         st.header('Existing Entries in Database')
         entries = fetch_entries()
         if entries:
-            for entry_id, enry_name, entry_pet in entries:
-                st.write(f"ID: {entry_id}, Name: {enry_name}, Pet: {entry_pet}")
+            for id, name, pet in entries:
+                st.write(f"ID: {id}, Name: {name}, Pet: {pet}")
         else:
             st.write("No entries found.")
-            
+
+
     elif choice == "Map View":
         elia.show_map()
 
