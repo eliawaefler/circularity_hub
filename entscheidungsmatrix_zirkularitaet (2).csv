@@ -1,0 +1,20 @@
+;
+Bewertungsfaktor; Beschreibung
+Baujahr; Jahr der Errichtung des Gebäudes
+Erwarteter Lebenszyklus; Voraussichtliche Dauer bis zum Abriss oder einer grundlegenden Renovierung, bei Abrissprojekten=0
+Letzter Umbau; Jahr der letzten grösseren Renovierung, bei Neubauten = Baujahr
+Denkmalgeschützt; Ob das Gebäude unter Denkmalschutz steht
+Erhaltenswert; Bewertung gem. kantonaler Denkmalpflege
+Grundstruktur Bau; Bewertung der Grundstruktur des Gebäudes hinsichtlich ihrer Eignung für den Erhalt
+Zirkularität der Bauweise;" Typ der verwendeten Verbindungen, Summe der Bauteilindexe gem. ""Merkblatt Klassifizierung Bauteile nach Zirkularität"""
+Materialvielfalt; Anzahl unterschiedlicher Baumaterialien
+Energieeffizienz; Energieeffizienz des Gebäudes
+Wassernutzung und -wiederverwendung; Systeme zur Nutzung und Wiederverwendung von Wasser im Gebäude
+Flexibilität der Raumnutzung; Möglichkeiten zur Anpassung der Raumnutzung ohne strukturelle Änderungen
+Modularität; Bewertung der Modularität von Bauteilen und Elementen für erleichterte Demontage und Wiederverwendung
+Altlasten; Vorhandensein von Baumaterialien mit schädlichen Substanzen
+Biologische Abbaubarkeit;" Fähigkeit der Materialien, Biologisch abgebaut zu werden. Bewertungsraster gem. ""Merkblatt Biologische Abbbaubarkeit"""
+Digitales Zwillingsmodell; Vorhandensein und Qualität eines digitalen Gebäudemodells mit Material- und Konstruktionsdetails
+Zugänglichkeit für Demontage; Einfachheit der Demontage des Gebäudes für Materialwiederverwendung
+Innovative Materialnutzung; Verwendung von innovativen Bautechnologien
+Integration von grünen Technologien;"Gemäss Merkblatt ""Index für grüne Bautechnologien Kanton Bern"""
