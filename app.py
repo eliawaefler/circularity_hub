@@ -30,12 +30,18 @@ def main():
         # Initialize database connection using SQLAlchemy
         engine = create_engine(db_url)
 
-        # Function to add new entry to the database
         def add_to_db(name, pet):
+            sql_command = "INSERT INTO home (name, pet) VALUES (:name, :pet)"
+            parameters = {'name': name, 'pet': pet}
             with engine.connect() as conn:
-                conn.execute(
-                    "INSERT INTO home (name, pet) VALUES (%s, %s);", (name, pet)
-                )
+                try:
+                    # Execute the SQL command with parameters.
+                    # conn.execute() expects a text or SQL construct as the first argument, and a dictionary for parameters.
+                    result = conn.execute(sql_command, parameters)
+                    st.success("Added to database successfully!")
+                except Exception as e:
+                    st.error(f"Failed to add to database: {str(e)}")
+                    st.error("Ensure that the SQL command and parameters are correctly formatted.")
 
         # User interface for adding new entries
         st.header("Add New Entry")
