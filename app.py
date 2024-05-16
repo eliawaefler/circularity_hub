@@ -3,7 +3,6 @@ from PIL import Image
 import andu
 import gabriel
 import elia
-import pandas as pd
 from sqlalchemy import create_engine, text
 # im terminal: streamlit run app.py
 
@@ -23,18 +22,17 @@ def main():
         st.image(Image.open("images/circ.webp"), caption="circular building industry")
     
     elif choice == "test_db":
-
-        # Setup the database connection using SQLAlchemy
+        # Set up the database connection using SQLAlchemy
         db_url = st.secrets["connections"]["neon"]["url"]
         engine = create_engine(db_url)
 
         # Function to add new entry to the database
-        def add_to_db(name, pet):
+        def add_to_db(your_name, your_pet):
             try:
                 with engine.connect() as conn:
                     # Use the text() function to ensure the query is treated as a SQL expression
                     query = text("INSERT INTO home (name, pet) VALUES (:name, :pet)")
-                    conn.execute(query, {"name": name, "pet": pet})
+                    conn.execute(query, {"name": your_name, "pet": your_pet})
                     st.success("Added to database successfully!")
             except Exception as e:
                 st.error(f"Failed to add to database: {str(e)}")
@@ -53,16 +51,16 @@ def main():
         st.title('Neon Database Interaction')
 
         st.header('Add New Entry to Database')
-        name = st.text_input("Enter name:")
-        pet = st.text_input("Enter pet:")
+        users_name = st.text_input("Enter name:")
+        users_pet = st.text_input("Enter pet:")
         if st.button('Add Entry'):
-            add_to_db(name, pet)
+            add_to_db(users_name, users_pet)
 
         st.header('Existing Entries in Database')
         entries = fetch_entries()
         if entries:
-            for id, name, pet in entries:
-                st.write(f"ID: {id}, Name: {name}, Pet: {pet}")
+            for entry_id, enry_name, entry_pet in entries:
+                st.write(f"ID: {entry_id}, Name: {enry_name}, Pet: {entry_pet}")
         else:
             st.write("No entries found.")
             
