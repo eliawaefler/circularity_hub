@@ -3,6 +3,8 @@ from PIL import Image
 import andu
 import gabriel
 import elia
+import pandas as pd
+from sqlalchemy import create_engine
 # im terminal: streamlit run app.py
 
 
@@ -20,16 +22,35 @@ def main():
         st.write("Die Plattform für zirkuläres Bauen.")
         st.image(Image.open("images/circ.webp"), caption="circular building industry")
     
-    elif choice == "test_db":   
-        # Initialize connection.
-        conn = st.connection("neon", type="sql")
-        
-        # Perform query.
-        df = conn.query('SELECT * FROM home;', ttl="10m")
-        
-        # Print results.
-        for row in df.itertuples():
-            st.write(f"{row.name} has a :{row.pet}:")
+    elif choice == "test_db":
+
+        # Load secrets
+        db_url = st.secrets["connections"]["neon"]["url"]
+
+        # Initialize database connection using SQLAlchemy
+        engine = create_engine(db_url)
+
+        # Function to add new entry to the database
+        def add_to_db(name, pet):
+            with engine.connect() as conn:
+                conn.execute(
+                    "INSERT INTO home (name, pet) VALUES (%s, %s);", (name, pet)
+                )
+
+        # User interface for adding new entries
+        st.header("Add New Entry")
+        name = st.text_input("Name:")
+        pet = st.text_input("Pet:")
+
+        if st.button("Add to Database"):
+            add_to_db(name, pet)
+            st.success("Added to database successfully!")
+
+        # Display existing entries
+        st.header("Existing Entries")
+        query = "SELECT * FROM home;"
+        df = pd.read_sql(query, engine)
+        st.write(df)
             
     elif choice == "Map View":
         elia.show_map()
