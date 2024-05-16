@@ -48,7 +48,7 @@ def main():
                 return []
 
         # Streamlit UI components
-        st.title('Neon Database Interaction')
+        st.title('New Neon Database Interaction')
 
         st.header('Add New Entry to Database')
         users_name = st.text_input("Enter name:")
