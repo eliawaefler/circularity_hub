@@ -80,5 +80,6 @@ def main():
     print("")
     read_db(table_name)
 
+
 if __name__ == "__main__":
     main()
