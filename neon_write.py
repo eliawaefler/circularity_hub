@@ -1,3 +1,7 @@
+#nicht aktuell
+
+
+
 import os
 import psycopg2
 
