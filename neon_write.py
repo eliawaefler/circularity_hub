@@ -5,6 +5,8 @@ import psycopg2
 
 
 def write_to_db(table, data):
+    # write_to_db("User", [('SRUU_5678_XYZ', 'Jane_Doe', 'Example Corp', 'jane.doe@example.com', '1985-05-15')])
+
     """
     Write data to the specified table in the database after fetching the column names.
 
