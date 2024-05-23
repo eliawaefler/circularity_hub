@@ -5,8 +5,154 @@ from PIL import Image
 import os
 import uuid
 import json
+import psycopg2
+from psycopg2 import sql
+from app import PGHOST, PGDATABASE, PGUSER, PGPASSWORD, PGPORT
+
+# Funktion zur Verbindung mit der NeonDB
+def connect_to_neon():
+    return psycopg2.connect(
+        dbname=PGDATABASE,
+        user=PGUSER,
+        password=PGPASSWORD,
+        host=PGHOST,
+        port=PGPORT
+    )
+
+# Funktion zum Einfügen von Daten in die Tabelle "Projekt"
+def insert_project_data(project_data):
+    try:
+        conn = connect_to_neon()
+        cursor = conn.cursor()
+        insert_query = sql.SQL("""
+            INSERT INTO Projekt (
+                pk, author_type, author_name, name, project_type,
+                address, zip_code, city, year_built, last_renovation,
+                expected_deconstruction, volume_m3, length_m, width_m,
+                height_m, walls_type, windows, doors, speckle_link, files
+            ) VALUES (
+                %(pk)s, %(author_type)s, %(author_name)s, %(name)s, %(project_type)s,
+                %(address)s, %(zip_code)s, %(city)s, %(year_built)s, %(last_renovation)s,
+                %(expected_deconstruction)s, %(volume_m3)s, %(length_m)s, %(width_m)s,
+                %(height_m)s, %(walls_type)s, %(windows)s, %(doors)s, %(speckle_link)s, %(files)s
+            )
+        """)
+        cursor.execute(insert_query, project_data)
+        conn.commit()
+        cursor.close()
+        conn.close()
+        st.success("Daten erfolgreich eingefügt")
+    except Exception as e:
+        st.error(f"Fehler beim Einfügen der Daten: {e}")
+
+def create_project(project_type, project_name, address, speckle_link, plz_ort, uploaded_files, baujahr, reno_jahr,
+                   geb_lang, geb_breit, geb_hoch, mat_wand, mat_fen, mat_tur):
+    if not os.path.exists('database/user_images'):
+        os.makedirs('database/user_images')
+
+    file_guids = {}
+    for file in uploaded_files:
+        guid = str(uuid.uuid4())
+        file_path = os.path.join('database/user_images', f'{guid}.jpg')
+        with open(file_path, "wb") as f:
+            f.write(file.getbuffer())
+        file_guids[file.name] = guid
+
+    project_data = {
+        "pk": str(uuid.uuid4()),
+        "author_type": "user",
+        "author_name": st.session_state.username,
+        "name": project_name,
+        "project_type": project_type,
+        "address": address,
+        "zip_code": plz_ort.split('/')[0].strip(),
+        "city": plz_ort.split('/')[1].strip(),
+        "year_built": baujahr,
+        "last_renovation": reno_jahr,
+        "expected_deconstruction": str(int(baujahr) + 50),
+        "volume_m3": str(int(geb_lang) * int(geb_hoch) * int(geb_breit)),
+        "length_m": geb_lang,
+        "width_m": geb_breit,
+        "height_m": geb_hoch,
+        "walls_type": mat_wand,
+        "windows": mat_fen,
+        "doors": mat_tur,
+        "speckle_link": speckle_link,
+        "files": json.dumps(file_guids)
+    }
+
+    insert_project_data(project_data)
+
+def user_space():
+    if st.session_state.user_space == "menu":
+        st.subheader("meine Projekte")
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            if st.button("Neubau EFH Eichenstrasse 45"):
+                st.session_state.user_space = "construction"
+        with col2:
+            if st.button("Abbruch MFH Holzweg 13"):
+                st.session_state.user_space = "deconstruction"
+        with col3:
+            if st.button("neues Projekt"):
+                st.session_state.user_space = "new"
+
+    elif st.session_state.user_space == "deconstruction":
+        st.subheader("Abbruch MFH Holzweg 13")
+        st.image(Image.open("images/abbruch.webp"), caption="Abbruch Mehrfamilienhaus")
+        st.button("Informationen erfassen")
+        file_downloader()
+        if st.button("back"):
+            st.session_state.user_space = "menu"
+
+    elif st.session_state.user_space == "construction":
+        st.subheader("Neubau EFH Eichenstrasse 45")
+        st.image(Image.open("images/efh.webp"), caption="neues Einfamilienhaus rendering")
+        st.button("InInformationen erfassen")
+        if st.button("geeignete 'Materiallager' auf Karte anzeigen"):
+            show_map()
+        file_downloader()
+        if st.button("back"):
+            st.session_state.user_space = "menu"
+
+    elif st.session_state.user_space == "new":
+        st.subheader("Neues Projekt")
+        project_type = st.radio("Projekttyp", ["Abbruch", "Neubau", "Umbau"])
+        project_name = st.text_input("Projektname:")
+        address = st.text_input("Strasse, Hausnummer")
+        plz_ort = st.text_input("PLZ / Ort: (zwingend mit / trennen)")
+        baujahr = st.text_input("Baujahr: [YYYY]")
+        reno_jahr = st.text_input("letzte Renovierung Jahr: [YYYY]")
+        geb_lang = st.text_input("Gebäudelänge: [m]")
+        geb_breit = st.text_input("Gebäudebreite: [m]")
+        geb_hoch = st.text_input("Gebäudehöhe: [m]")
+        uploaded_files = st.file_uploader("Upload files, IFC, PDF-Pläne, Bilder, usw", accept_multiple_files=True)
+        speckle_link = st.text_input("Speckle link: ")
+        mat_wand = st.text_input("Material Wände: ")
+        mat_fen = st.text_input("Fenster Material (HolzMetall, Holz, ...): ")
+        mat_tur = st.text_input("Tür Materialisierung: ")
+
+        if st.button("Process upload"):
+            with st.spinner("Processing"):
+                if uploaded_files:
+                    create_project(project_type, project_name, address, speckle_link, plz_ort, uploaded_files,
+                                   baujahr, reno_jahr, geb_lang, geb_breit, geb_hoch, mat_wand, mat_fen, mat_tur)
+                    st.success("Upload successful")
+                else:
+                    st.error("Please upload at least one file.")
+            st.session_state.user_space = "menu"
+
+        if st.button("Back"):
+            st.session_state.user_space = "menu"
+
+if __name__ == "__main__":
+    st.session_state.username = "BeispielBenutzer"  # Beispiel-Username für Demonstrationszwecke
+    if 'user_space' not in st.session_state:
+        st.session_state.user_space = "menu"
+    user_space()
 
 
+"""
 def create_project(project_type, project_name, address, speckle_link, plz_ort, uploaded_files, baujahr, reno_jahr,
                    geb_lang, geb_breit, geb_hoch, mat_wand, mat_fen, mat_tur):
     # Ensure the /images directory exists
@@ -132,7 +278,7 @@ def user_space():
 
         if st.button("Back"):
             st.session_state.user_space = "menu"
-
+"""
 
 def set_username():
     st.session_state.user_pw = True
