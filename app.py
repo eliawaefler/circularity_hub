@@ -20,6 +20,9 @@ def checkpw():
     elia.set_username()
 
 
+
+
+
 def main():
     st.sidebar.title("Navigation")
     choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace", "Community", "Speckle", "test_db"))
