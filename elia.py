@@ -8,45 +8,6 @@ import json
 import psycopg2
 from psycopg2 import sql
 
-def gabriel():
-    #from app import PGHOST, PGDATABASE, PGUSER, PGPASSWORD, PGPORT
-
-    # Funktion zur Verbindung mit der NeonDB
-    def connect_to_neon():
-        return psycopg2.connect(
-            dbname=PGDATABASE,
-            user=PGUSER,
-            password=PGPASSWORD,
-            host=PGHOST,
-            port=PGPORT
-        )
-
-    # Funktion zum Einfügen von Daten in die Tabelle "Projekt"
-    def insert_project_data(project_data):
-        try:
-            conn = connect_to_neon()
-            cursor = conn.cursor()
-            insert_query = sql.SQL("""
-                INSERT INTO Projekt (
-                    pk, author_type, author_name, name, project_type,
-                    address, zip_code, city, year_built, last_renovation,
-                    expected_deconstruction, volume_m3, length_m, width_m,
-                    height_m, walls_type, windows, doors, speckle_link, files
-                ) VALUES (
-                    %(pk)s, %(author_type)s, %(author_name)s, %(name)s, %(project_type)s,
-                    %(address)s, %(zip_code)s, %(city)s, %(year_built)s, %(last_renovation)s,
-                    %(expected_deconstruction)s, %(volume_m3)s, %(length_m)s, %(width_m)s,
-                    %(height_m)s, %(walls_type)s, %(windows)s, %(doors)s, %(speckle_link)s, %(files)s
-                )
-            """)
-            cursor.execute(insert_query, project_data)
-            conn.commit()
-            cursor.close()
-            conn.close()
-            st.success("Daten erfolgreich eingefügt")
-        except Exception as e:
-            st.error(f"Fehler beim Einfügen der Daten: {e}")
-
 
 def create_project(project_type, project_name, address, speckle_link, plz_ort, uploaded_files, baujahr, reno_jahr,
                    geb_lang, geb_breit, geb_hoch, mat_wand, mat_fen, mat_tur):
