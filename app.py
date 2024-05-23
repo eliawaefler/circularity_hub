@@ -14,13 +14,22 @@ def checkpw() -> None:
     except:
         st.warning("user not found")
         return
-    if user_from_db.pw_hash == hash(st.session_state.user_pw):
+    if user_from_db.pw_hash == st.session_state.user_pw:
         elia.set_username()
     else:
         st.warning("incorrect Password")
         return
 
+def createuser() -> None:
+    try:
+        uname = st.session_state.username
 
+        neon_write.write_to_db("User", [(str(hash(uname)), uname, st.session_state.corp,
+                                        st.session_state.email,
+                                        st.session_state.birthday,
+                                        str(hash(st.session_state.password)))])
+    except Exception as e:
+        st.write(e)
 
 
 def main():
@@ -94,10 +103,18 @@ def main():
         if st.session_state.user_pw:
             elia.user_space()
         else:
-            st.session_state.username = st.text_input("username")
-            st.session_state.user_pw = st.text_input("password", type="password", on_change=checkpw)
-
-    elif choice == "Speckle":
+            if st.toggle("login/signup"):
+                st.session_state.username = st.text_input("username")
+                st.session_state.user_pw = st.text_input("password", type="password", on_change=checkpw)
+            else:
+                st.session_state.username = st.text_input("NEW username")
+                st.session_state.user_pw = str(hash(st.text_input("NEW password", type="password")))
+                st.session_state.email = st.text_input("EMAIL")
+                st.session_state.corp = st.text_input("company")
+                st.session_state.user_pw = st.text_input("Birthday")
+                if st.button("Create!"):
+                    createuser()
+elif choice == "Speckle":
         gabriel.speckle()
 
     elif choice == "Community":
