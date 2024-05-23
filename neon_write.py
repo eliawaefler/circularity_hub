@@ -4,6 +4,15 @@ import os
 import psycopg2
 
 
+def add_to_db(table, data):
+    query = text(f"INSERT INTO {table} (name, pet) VALUES (:name, :pet)")
+    with engine.connect() as conn:
+        try:
+            conn.execute(query, {"name": name, "pet": pet})
+            st.success("Added to database successfully!")
+        except Exception as e:
+            st.error(f"Failed to add to database: {str(e)}")
+
 def write_to_db(table, data):
     # write_to_db("User", [('SRUU_5678_XYZ', 'Jane_Doe', 'Example Corp', 'jane.doe@example.com', '1985-05-15', )])
 
@@ -20,15 +29,21 @@ def write_to_db(table, data):
 
     # Fetch column names from the table
     cur.execute(f"SELECT column_name FROM information_schema.columns WHERE table_name = '{table}'")
-    columns = [row[0] for row in cur.fetchall() if row[0] != 'id']  # Assuming 'id' is auto-increment and not needed in the insert
-
+    columns = [row[0] for row in cur.fetchall() if row[0] != 'user_id']  # Assuming 'id' is auto-increment and not needed in the insert
     # Prepare the SQL command using the column names
     columns_sql = ', '.join(columns)
     placeholders = ', '.join(['%s'] * len(columns))
-    query = f"INSERT INTO {table} ({columns_sql}) VALUES ({placeholders})"
-
+    print(columns_sql)
     # Execute SQL commands to write to the database
-    cur.executemany(query, data)
+    #print(query)
+    print(data)
+
+    columns_sql.replace('null', "0")
+
+    for e in data:
+        query = f"INSERT INTO {table} ({columns_sql}) VALUES {e}"
+        print(query, e)
+        cur.executemany(query, e)
 
     # Commit the transaction
     conn.commit()

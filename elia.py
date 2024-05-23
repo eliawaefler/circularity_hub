@@ -245,7 +245,8 @@ def user_space():
 """
 
 def set_username():
-    st.session_state.user_pw = True
+    st.session_state.user_logged_in = True
+
 
 
 def add_tag():

@@ -10,7 +10,7 @@ import neon_write
 
 def checkpw() -> None:
     try:
-        user_from_db = neon_write.read_db("User", f"name='{st.session_state.userpw}'")
+        user_from_db = neon_write.read_db("user_table", f"name='{st.session_state.userpw}'")
     except:
         st.warning("user not found")
         return
@@ -20,17 +20,22 @@ def checkpw() -> None:
         st.warning("incorrect Password")
         return
 
+
 def createuser() -> None:
     try:
         uname = st.session_state.username
-
-        neon_write.write_to_db("User", [(str(hash(uname)), uname, st.session_state.corp,
-                                        st.session_state.email,
-                                        st.session_state.birthday,
-                                        str(hash(st.session_state.password)))])
+        # user_id = str(hash(uname))
+        neon_write.write_to_db("user_table", [(str(hash(uname)),
+                                               str(st.session_state.birthday),
+                                               str(uname),
+                                               str(st.session_state.corp),
+                                               str(st.session_state.email),
+                                               str(hash(st.session_state.user_pw)))])
+        return True
     except Exception as e:
         st.write(e)
 
+        return False
 
 def main():
     st.sidebar.title("Navigation")
@@ -41,6 +46,8 @@ def main():
         st.session_state.user_pw = False
     if "user_space" not in st.session_state:
         st.session_state.user_space = "menu"
+    if "user_logged_in" not in st.session_state:
+        st.session_state.user_logged_in = False
     if choice == "Home":
         st.title("Circularity Hub")
         st.write("Die Plattform für zirkuläres Bauen.")
@@ -100,7 +107,7 @@ def main():
 
     elif choice == "UserSpace":
         st.title(f"welcome {st.session_state.username}")
-        if st.session_state.user_pw:
+        if st.session_state.user_logged_in:
             elia.user_space()
         else:
             if st.toggle("login/signup"):
@@ -111,9 +118,13 @@ def main():
                 st.session_state.user_pw = str(hash(st.text_input("NEW password", type="password")))
                 st.session_state.email = st.text_input("EMAIL")
                 st.session_state.corp = st.text_input("company")
-                st.session_state.user_pw = st.text_input("Birthday")
+                st.session_state.birthday = st.text_input("Birthday")
                 if st.button("Create!"):
-                    createuser()
+                    if createuser():
+                        st.success("login")
+                    else:
+                        st.warning("didnt work")
+
     elif choice == "Speckle":
         gabriel.speckle()
 
