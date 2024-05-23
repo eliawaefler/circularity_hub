@@ -63,6 +63,8 @@ def read_db(table, criteria='1=1'):
     cur.close()
     conn.close()
 
+    return rows
+
 
 def main():
     table_name = "home"

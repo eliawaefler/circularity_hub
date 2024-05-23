@@ -5,6 +5,19 @@ import gabriel
 import elia
 from sqlalchemy import create_engine, text
 # im terminal: streamlit run app.py
+import neon_write
+
+
+def checkpw():
+    if:
+        "User_ID = 'SRUU_5678_XYZ'"
+        name = 'John'
+    try:
+        user_from_db = neon_write.read_db("User", f"name='{st.session_state.userpw}'")
+    except:
+        st.warning("user not found")
+    if user_from_db
+    elia.set_username()
 
 
 def main():
@@ -79,7 +92,7 @@ def main():
             elia.user_space()
         else:
             st.session_state.username = st.text_input("username")
-            st.session_state.user_pw = st.text_input("password", type="password", on_change=elia.set_username)
+            st.session_state.user_pw = st.text_input("password", type="password", on_change=checkpw)
 
     elif choice == "Speckle":
         gabriel.speckle()
