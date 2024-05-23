@@ -8,17 +8,17 @@ from sqlalchemy import create_engine, text
 import neon_write
 
 
-def checkpw():
-    if:
-        "User_ID = 'SRUU_5678_XYZ'"
-        name = 'John'
+def checkpw() -> None:
     try:
         user_from_db = neon_write.read_db("User", f"name='{st.session_state.userpw}'")
     except:
         st.warning("user not found")
-    if user_from_db
-    elia.set_username()
-
+        return
+    if user_from_db.pw_hash == hash(st.session_state.user_pw):
+        elia.set_username()
+    else:
+        st.warning("incorrect Password")
+        return
 
 
 
