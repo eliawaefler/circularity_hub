@@ -7,6 +7,9 @@ from sqlalchemy import create_engine, text
 # im terminal: streamlit run app.py
 
 
+
+
+
 def main():
     st.sidebar.title("Navigation")
     choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace", "Community", "Speckle", "test_db"))
