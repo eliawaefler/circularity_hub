@@ -45,7 +45,7 @@ def create_project(project_type, project_name, address, speckle_link, plz_ort, u
         "files": json.dumps(file_guids)
     }
 
-    insert_project_data(project_data)
+    #insert_project_data(project_data)
 
 def user_space():
     if st.session_state.user_space == "menu":
