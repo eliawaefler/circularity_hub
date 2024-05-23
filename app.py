@@ -114,7 +114,7 @@ def main():
                 st.session_state.user_pw = st.text_input("Birthday")
                 if st.button("Create!"):
                     createuser()
-elif choice == "Speckle":
+    elif choice == "Speckle":
         gabriel.speckle()
 
     elif choice == "Community":
