@@ -54,13 +54,14 @@ def main():
         st.image(Image.open("images/circ.webp"), caption="circular building industry")
     
     elif choice == "test_db":
-
+        n = 0
         # Connection URL for SQLAlchemy
         connection_url = st.secrets["NEON_NEW"]
         engine = create_engine(connection_url)
 
-        def add_to_db(name, pet):
-            query = text("INSERT INTO home (name, pet) VALUES (:name, :pet)")
+        def add_to_db(n, name, pet):
+            n += 1
+            query = text("INSERT INTO home (id, name, pet) VALUES (:n :name, :pet)")
             with engine.connect() as conn:
                 try:
                     conn.execute(query, {"name": name, "pet": pet})
