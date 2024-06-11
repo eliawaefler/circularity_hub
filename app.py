@@ -76,13 +76,10 @@ def main():
                     st.error(f"Failed to add to database: {str(e)}")
                     
         def add_to_circdb(my_id, my_name, my_pet):
-            from sqlalchemy import text
-            import streamlit as st
-        
-            # Define the query for insertion in dev_branch
-            insert_query = text("INSERT INTO dev_branch.home (id, name, pet) VALUES (:id, :name, :pet)")
-            # Define the query for checking the entry in dev_branch
-            check_query = text("SELECT * FROM dev_branch.home WHERE id = :id AND name = :name AND pet = :pet")
+            # Define the query for insertion
+            insert_query = text("INSERT INTO home (id, name, pet) VALUES (:id, :name, :pet)")
+            # Define the query for checking the entry
+            check_query = text("SELECT * FROM home WHERE id = :id AND name = :name AND pet = :pet")
         
             with engine.connect() as conn:
                 try:
