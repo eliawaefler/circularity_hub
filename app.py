@@ -66,7 +66,7 @@ def main():
         connection_url = st.secrets["NEON_NEW"]
         engine = create_engine(connection_url)
 
-        def add_to_circdb(my_id, my_name, my_pet):            
+        def add_to_circdb_(my_id, my_name, my_pet):            
             query = text("INSERT INTO home (id, name, pet) VALUES (:id, :name, :pet)")
             with engine.connect() as conn:
                 try:
@@ -74,7 +74,34 @@ def main():
                     st.success("Added to database successfully!")
                 except Exception as e:
                     st.error(f"Failed to add to database: {str(e)}")
-
+                    
+        def add_to_circdb(my_id, my_name, my_pet):
+            from sqlalchemy import text, select
+            import streamlit as st
+        
+            # Define the query for insertion
+            insert_query = text("INSERT INTO home (id, name, pet) VALUES (:id, :name, :pet)")
+            # Define the query for checking the entry
+            check_query = text("SELECT * FROM home WHERE id = :id AND name = :name AND pet = :pet")
+        
+            with engine.connect() as conn:
+                try:
+                    # Insert the entry into the database
+                    conn.execute(insert_query, {"id": my_id, "name": my_name, "pet": my_pet})
+                    st.warning("Insertion step completed for table 'home', branch 'home_inserts'.")
+        
+                    # Check if the entry was successfully added
+                    result = conn.execute(check_query, {"id": my_id, "name": my_name, "pet": my_pet}).fetchone()
+                    st.warning("Verification step completed for table 'home', branch 'home_checks'.")
+        
+                    if result:
+                        st.success("Added to database successfully!")
+                    else:
+                        st.error("Entry was not added to the database.")
+        
+                except Exception as e:
+                    st.error(f"Failed to add to database: {str(e)}")
+                
         def fetch_entries():
             query = text("SELECT * FROM home;")
             try:
