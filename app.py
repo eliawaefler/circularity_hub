@@ -59,7 +59,7 @@ def main():
         connection_url = st.secrets["NEON_NEW"]
         engine = create_engine(connection_url)
 
-        def add_to_circdb(n, name, pet):
+        def add_to_circdb(name, pet):
             id += 1
             query = text("INSERT INTO home (id, name, pet) VALUES (:id :name, :pet)")
             with engine.connect() as conn:
