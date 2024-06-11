@@ -29,6 +29,6 @@ def speckle():
     url = st.session_state['url']
 
     # Erstelle einen iframe, um die Webseite einzubetten
-    iframe_code = f'<iframe src="{url}" width="150%" height="800" style="border:none;"></iframe>'
+    iframe_code = f'<iframe src="{url}" width="100%" height="800" style="border:none;"></iframe>'
     # Zeige den iframe im Streamlit Dashboard an
     st.markdown(iframe_code, unsafe_allow_html=True)
