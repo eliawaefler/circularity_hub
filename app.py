@@ -54,17 +54,17 @@ def main():
         st.image(Image.open("images/circ.webp"), caption="circular building industry")
     
     elif choice == "test_db":
-        n = 0
+        id = 50
         # Connection URL for SQLAlchemy
         connection_url = st.secrets["NEON_NEW"]
         engine = create_engine(connection_url)
 
-        def add_to_db(n, name, pet):
-            n += 1
-            query = text("INSERT INTO home (id, name, pet) VALUES (:n :name, :pet)")
+        def add_to_circdb(n, name, pet):
+            id += 1
+            query = text("INSERT INTO home (id, name, pet) VALUES (:id :name, :pet)")
             with engine.connect() as conn:
                 try:
-                    conn.execute(query, {"name": name, "pet": pet})
+                    conn.execute(query, {"id": id, "name": name, "pet": pet})
                     st.success("Added to database successfully!")
                 except Exception as e:
                     st.error(f"Failed to add to database: {str(e)}")
