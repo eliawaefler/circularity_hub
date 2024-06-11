@@ -6,8 +6,6 @@ import elia
 from sqlalchemy import create_engine, text
 # im terminal: streamlit run app.py
 import neon_write
-
-
 def checkpw() -> None:
     try:
         user_from_db = neon_write.read_db("user_table", f"name='{st.session_state.userpw}'")
@@ -19,8 +17,6 @@ def checkpw() -> None:
     else:
         st.warning("incorrect Password")
         return
-
-
 def createuser() -> None:
     try:
         uname = st.session_state.username
@@ -34,9 +30,7 @@ def createuser() -> None:
         return True
     except Exception as e:
         st.write(e)
-
         return False
-
 def main():
     st.set_page_config(
         page_title="My Streamlit App",
@@ -44,7 +38,6 @@ def main():
         layout="wide",  # 'centered' or 'wide'
         initial_sidebar_state="expanded"  # 'auto', 'expanded', or 'collapsed'
     )
-
     st.sidebar.title("Navigation")
     choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace", "Community", "Speckle", "test_db"))
     if "username" not in st.session_state:
@@ -61,11 +54,9 @@ def main():
         st.image(Image.open("images/circ.webp"), caption="circular building industry")
     
     elif choice == "test_db":
-
         # Connection URL for SQLAlchemy
         connection_url = st.secrets["NEON_NEW"]
         engine = create_engine(connection_url)
-
         def add_to_circdb_(my_id, my_name, my_pet):            
             query = text("INSERT INTO home (id, name, pet) VALUES (:id, :name, :pet)")
             with engine.connect() as conn:
@@ -74,14 +65,20 @@ def main():
                     st.success("Added to database successfully!")
                 except Exception as e:
                     st.error(f"Failed to add to database: {str(e)}")
-   
-        
+
         def add_to_circdb(my_id, my_name, my_pet):
+            from sqlalchemy import text
+            import streamlit as st
+
+            # Define the query for insertion in dev_branch
+            insert_query = text("INSERT INTO dev_branch.home (id, name, pet) VALUES (:id, :name, :pet)")
+            # Define the query for checking the entry in dev_branch
+            check_query = text("SELECT * FROM dev_branch.home WHERE id = :id AND name = :name AND pet = :pet")
             # Define the query for insertion
             insert_query = text("INSERT INTO home (id, name, pet) VALUES (:id, :name, :pet)")
             # Define the query for checking the entry
             check_query = text("SELECT * FROM home WHERE id = :id AND name = :name AND pet = :pet")
-        
+
             with engine.connect() as conn:
                 try:
                     # Insert the entry into the database
@@ -99,7 +96,7 @@ def main():
         
                 except Exception as e:
                     st.error(f"Failed to add to database: {str(e)}")
-        
+                
         def fetch_entries():
             query = text("SELECT * FROM home;")
             try:
@@ -109,34 +106,27 @@ def main():
             except Exception as e:
                 st.error(f"Failed to fetch data: {str(e)}")
                 return []
-        
-                st.title('Neon Database Interaction')
-        
-                st.header('Add New Entry to Database')
-                new_id = st.text_input("Enter id:")
-                new_name = st.text_input("Enter name:")
-                new_pet = st.text_input("Enter pet:")
-                if new_id:
-                    if new_name:
-                        if new_pet:
-                            if st.button('Add Entry'):
-                                add_to_circdb(new_id, new_name, new_pet)
-        
-                st.header('Existing Entries in Database')
-                entries = fetch_entries()
-                if entries:
-                    st.write(entries)
-                    for entry in entries:
-                        read_id, read_name, read_pet = entry
-                        print(f"ID: {read_id}, Name: {read_name}, Pet: {read_pet}")
-        
-                else:
-                    st.write("No entries found.")
-
-
+        st.title('Neon Database Interaction')
+        st.header('Add New Entry to Database')
+        new_id = st.text_input("Enter id:")
+        new_name = st.text_input("Enter name:")
+        new_pet = st.text_input("Enter pet:")
+        if new_id:
+            if new_name:
+                if new_pet:
+                    if st.button('Add Entry'):
+                        add_to_circdb(new_id, new_name, new_pet)
+        st.header('Existing Entries in Database')
+        entries = fetch_entries()
+        if entries:
+            st.write(entries)
+            for entry in entries:
+                read_id, read_name, read_pet = entry
+                print(f"ID: {read_id}, Name: {read_name}, Pet: {read_pet}")
+        else:
+            st.write("No entries found.")
     elif choice == "Map View":
         elia.show_map()
-
     elif choice == "UserSpace":
         st.title(f"welcome {st.session_state.username}")
         if st.session_state.user_logged_in:
@@ -156,14 +146,10 @@ def main():
                         st.success("login")
                     else:
                         st.warning("didnt work")
-
     elif choice == "Speckle":
         gabriel.speckle()
-
     elif choice == "Community":
         andu.community_space()
         st.session_state.create_new_topic = False
-
-
 if __name__ == "__main__":
     main()
