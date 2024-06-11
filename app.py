@@ -96,8 +96,10 @@ def main():
         st.header('Existing Entries in Database')
         entries = fetch_entries()
         if entries:
-            for id, name, pet in entries:
-                st.write(f"ID: {id}, Name: {name}, Pet: {pet}")
+            st.write(entries)
+            
+            #for id, name, pet in entries:
+            #    st.write(f"ID: {id}, Name: {name}, Pet: {pet}")
         else:
             st.write("No entries found.")
 
