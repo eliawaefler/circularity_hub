@@ -83,8 +83,10 @@ def main():
         st.header('Add New Entry to Database')
         name = st.text_input("Enter name:")
         pet = st.text_input("Enter pet:")
-        if st.button('Add Entry'):
-            add_to_db(name, pet)
+        if name:
+            if pet:
+                if st.button('Add Entry'):
+                    add_to_db(name, pet)
 
         st.header('Existing Entries in Database')
         entries = fetch_entries()
