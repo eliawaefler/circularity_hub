@@ -55,15 +55,8 @@ def main():
     
     elif choice == "test_db":
 
-        # Load the database settings from Streamlit's secrets
-        PGHOST = st.secrets["PGHOST"]
-        PGDATABASE = st.secrets["PGDATABASE"]
-        PGUSER = st.secrets["PGUSER"]
-        PGPASSWORD = st.secrets["PGPASSWORD"]
-        PGPORT = st.secrets.get("PGPORT", "5432")  # Default PostgreSQL port
-
         # Connection URL for SQLAlchemy
-        connection_url = f'postgresql://{PGUSER}:{PGPASSWORD}@{PGHOST}:{PGPORT}/{PGDATABASE}?sslmode=require'
+        connection_url = st.secrets["NEON_URL"]
         engine = create_engine(connection_url)
 
         def add_to_db(name, pet):
