@@ -56,7 +56,7 @@ def main():
     elif choice == "test_db":
 
         # Connection URL for SQLAlchemy
-        connection_url = st.secrets["NEON_URL"]
+        connection_url = st.secrets["NEON_NEW"]
         engine = create_engine(connection_url)
 
         def add_to_db(name, pet):
