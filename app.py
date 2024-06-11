@@ -54,21 +54,16 @@ def main():
         st.image(Image.open("images/circ.webp"), caption="circular building industry")
     
     elif choice == "test_db":
-        global id
-        id = 50
 
         # Connection URL for SQLAlchemy
         connection_url = st.secrets["NEON_NEW"]
         engine = create_engine(connection_url)
 
-        def add_to_circdb(name, pet):
-
-            id += 1
-            
+        def add_to_circdb(my_id, my_name, my_pet):            
             query = text("INSERT INTO home (id, name, pet) VALUES (:id :name, :pet)")
             with engine.connect() as conn:
                 try:
-                    conn.execute(query, {"id": id, "name": name, "pet": pet})
+                    conn.execute(query, {"id": my_id, "name": my_name, "pet": my_pet})
                     st.success("Added to database successfully!")
                 except Exception as e:
                     st.error(f"Failed to add to database: {str(e)}")
@@ -86,20 +81,22 @@ def main():
         st.title('Neon Database Interaction')
 
         st.header('Add New Entry to Database')
-        name = st.text_input("Enter name:")
-        pet = st.text_input("Enter pet:")
-        if name:
-            if pet:
-                if st.button('Add Entry'):
-                    add_to_circdb(name, pet)
+        new_id = st.text_input("Enter id:")
+        new_name = st.text_input("Enter name:")
+        new_pet = st.text_input("Enter pet:")
+        if id:
+            if name:
+                if pet:
+                    if st.button('Add Entry'):
+                        add_to_circdb(new_id, new_name, new_pet)
 
         st.header('Existing Entries in Database')
         entries = fetch_entries()
         if entries:
             st.write(entries)
             for entry in entries:
-                id, name, pet = entry
-                print(f"ID: {id}, Name: {name}, Pet: {pet}")
+                read_id, read_name, read_pet = entry
+                print(f"ID: {read_id}, Name: {read_name}, Pet: {read_pet}")
 
         else:
             st.write("No entries found.")
