@@ -16,7 +16,7 @@ def speckle():
     # Dropdown-Menü für vordefinierte URLs
     predefined_urls = {
         'Tür': 'https://app.speckle.systems/projects/99d586a085/models/405c047b71',
-        'Betonwand': 'https://app.speckle.systems/projects/99d586a085/models/ff98034292',
+        'Betonmasse': 'https://app.speckle.systems/projects/99d586a085/models/ff98034292',
         'Waschbecken': 'https://app.speckle.systems/projects/99d586a085/models/77a1abfe44',
         'Gesamt': 'https://app.speckle.systems/projects/99d586a085/models/2ffc61a729'
     }
