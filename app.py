@@ -97,8 +97,9 @@ def main():
         entries = fetch_entries()
         if entries:
             for entry in entries:
-                for id, name, pet in entry:
-                    st.write(f"ID: {id}, Name: {name}, Pet: {pet}")
+                st.write(entry)
+                #for id, name, pet in entry:
+                #    st.write(f"ID: {id}, Name: {name}, Pet: {pet}")
         else:
             st.write("No entries found.")
 
