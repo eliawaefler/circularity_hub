@@ -89,6 +89,7 @@ def main():
         st.header('Existing Entries in Database')
         entries = fetch_entries()
         if entries:
+            st.write(entries)
             for entry in entries:
                 id, name, pet = entry
                 print(f"ID: {id}, Name: {name}, Pet: {pet}")
