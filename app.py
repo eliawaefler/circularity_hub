@@ -84,9 +84,9 @@ def main():
         new_id = st.text_input("Enter id:")
         new_name = st.text_input("Enter name:")
         new_pet = st.text_input("Enter pet:")
-        if id:
-            if name:
-                if pet:
+        if new_id:
+            if new_name:
+                if new_pet:
                     if st.button('Add Entry'):
                         add_to_circdb(new_id, new_name, new_pet)
 
