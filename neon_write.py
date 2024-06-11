@@ -3,6 +3,9 @@ import psycopg2
 
 def add_to_db(table, name, pet):
     connection_string = os.environ.get('NEON_URL')
+    if not connection_string:
+        raise ValueError("NEON_URL environment variable is not set")
+    
     conn = psycopg2.connect(connection_string)
     cur = conn.cursor()
 
@@ -19,6 +22,9 @@ def add_to_db(table, name, pet):
 
 def write_to_db(table, data):
     connection_string = os.environ.get('NEON_URL')
+    if not connection_string:
+        raise ValueError("NEON_URL environment variable is not set")
+    
     conn = psycopg2.connect(connection_string)
     cur = conn.cursor()
 
@@ -39,6 +45,9 @@ def write_to_db(table, data):
 
 def read_db(table, criteria='1=1'):
     connection_string = os.environ.get('NEON_URL')
+    if not connection_string:
+        raise ValueError("NEON_URL environment variable is not set")
+    
     conn = psycopg2.connect(connection_string)
     cur = conn.cursor()
 
