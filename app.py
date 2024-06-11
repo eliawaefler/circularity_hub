@@ -74,7 +74,8 @@ def main():
                     st.success("Added to database successfully!")
                 except Exception as e:
                     st.error(f"Failed to add to database: {str(e)}")
-                    
+   
+        
         def add_to_circdb(my_id, my_name, my_pet):
             # Define the query for insertion
             insert_query = text("INSERT INTO home (id, name, pet) VALUES (:id, :name, :pet)")
@@ -98,7 +99,7 @@ def main():
         
                 except Exception as e:
                     st.error(f"Failed to add to database: {str(e)}")
-                
+        
         def fetch_entries():
             query = text("SELECT * FROM home;")
             try:
@@ -108,29 +109,29 @@ def main():
             except Exception as e:
                 st.error(f"Failed to fetch data: {str(e)}")
                 return []
-
-        st.title('Neon Database Interaction')
-
-        st.header('Add New Entry to Database')
-        new_id = st.text_input("Enter id:")
-        new_name = st.text_input("Enter name:")
-        new_pet = st.text_input("Enter pet:")
-        if new_id:
-            if new_name:
-                if new_pet:
-                    if st.button('Add Entry'):
-                        add_to_circdb(new_id, new_name, new_pet)
-
-        st.header('Existing Entries in Database')
-        entries = fetch_entries()
-        if entries:
-            st.write(entries)
-            for entry in entries:
-                read_id, read_name, read_pet = entry
-                print(f"ID: {read_id}, Name: {read_name}, Pet: {read_pet}")
-
-        else:
-            st.write("No entries found.")
+        
+                st.title('Neon Database Interaction')
+        
+                st.header('Add New Entry to Database')
+                new_id = st.text_input("Enter id:")
+                new_name = st.text_input("Enter name:")
+                new_pet = st.text_input("Enter pet:")
+                if new_id:
+                    if new_name:
+                        if new_pet:
+                            if st.button('Add Entry'):
+                                add_to_circdb(new_id, new_name, new_pet)
+        
+                st.header('Existing Entries in Database')
+                entries = fetch_entries()
+                if entries:
+                    st.write(entries)
+                    for entry in entries:
+                        read_id, read_name, read_pet = entry
+                        print(f"ID: {read_id}, Name: {read_name}, Pet: {read_pet}")
+        
+                else:
+                    st.write("No entries found.")
 
 
     elif choice == "Map View":
