@@ -54,13 +54,15 @@ def main():
         st.image(Image.open("images/circ.webp"), caption="circular building industry")
     
     elif choice == "test_db":
-        id = 50
         global id
+        id = 50
+
         # Connection URL for SQLAlchemy
         connection_url = st.secrets["NEON_NEW"]
         engine = create_engine(connection_url)
 
         def add_to_circdb(name, pet):
+
             id += 1
             
             query = text("INSERT INTO home (id, name, pet) VALUES (:id :name, :pet)")
