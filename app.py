@@ -87,7 +87,7 @@ def main():
         if name:
             if pet:
                 if st.button('Add Entry'):
-                    add_to_db(name, pet)
+                    add_to_circdb(name, pet)
 
         st.header('Existing Entries in Database')
         entries = fetch_entries()
