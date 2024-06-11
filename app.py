@@ -38,6 +38,13 @@ def createuser() -> None:
         return False
 
 def main():
+    st.set_page_config(
+        page_title="My Streamlit App",
+        page_icon=":smiley:",  # You can use emojis or path to an image file
+        layout="wide",  # 'centered' or 'wide'
+        initial_sidebar_state="expanded"  # 'auto', 'expanded', or 'collapsed'
+    )
+
     st.sidebar.title("Navigation")
     choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace", "Community", "Speckle", "test_db"))
     if "username" not in st.session_state:
