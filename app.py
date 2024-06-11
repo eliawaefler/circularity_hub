@@ -65,20 +65,12 @@ def main():
                     st.success("Added to database successfully!")
                 except Exception as e:
                     st.error(f"Failed to add to database: {str(e)}")
-
         def add_to_circdb(my_id, my_name, my_pet):
-            from sqlalchemy import text
-            import streamlit as st
-
-            # Define the query for insertion in dev_branch
-            insert_query = text("INSERT INTO dev_branch.home (id, name, pet) VALUES (:id, :name, :pet)")
-            # Define the query for checking the entry in dev_branch
-            check_query = text("SELECT * FROM dev_branch.home WHERE id = :id AND name = :name AND pet = :pet")
             # Define the query for insertion
             insert_query = text("INSERT INTO home (id, name, pet) VALUES (:id, :name, :pet)")
             # Define the query for checking the entry
             check_query = text("SELECT * FROM home WHERE id = :id AND name = :name AND pet = :pet")
-
+        
             with engine.connect() as conn:
                 try:
                     # Insert the entry into the database
@@ -96,7 +88,7 @@ def main():
         
                 except Exception as e:
                     st.error(f"Failed to add to database: {str(e)}")
-                
+        
         def fetch_entries():
             query = text("SELECT * FROM home;")
             try:
@@ -106,6 +98,7 @@ def main():
             except Exception as e:
                 st.error(f"Failed to fetch data: {str(e)}")
                 return []
+        
         st.title('Neon Database Interaction')
         st.header('Add New Entry to Database')
         new_id = st.text_input("Enter id:")
