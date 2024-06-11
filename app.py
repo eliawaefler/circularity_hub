@@ -60,7 +60,7 @@ def main():
         engine = create_engine(connection_url)
 
         def add_to_circdb(my_id, my_name, my_pet):            
-            query = text("INSERT INTO home (id, name, pet) VALUES (:id :name, :pet)")
+            query = text("INSERT INTO home (id, name, pet) VALUES (:id, :name, :pet)")
             with engine.connect() as conn:
                 try:
                     conn.execute(query, {"id": my_id, "name": my_name, "pet": my_pet})
