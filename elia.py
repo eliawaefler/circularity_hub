@@ -91,7 +91,7 @@ def user_space():
                 nutzung = st.selectbox('Nutzung', options=nutzung_options)
                 typ_options = ['Neubau', 'Abbruch', 'Umbau', 'Anderes']
                 typ = st.selectbox('Typ', options=typ_options)
-                name = st.text_input('Name des Gebäudes Projekts', max_chars=200)
+                name = st.text_input('Name des Gebäudes/Projekts', max_chars=200)
                 adresse = st.text_input('Adresse')
                 ort = st.text_input('Ort')
                 #speckle_link = st.text_input('speckle_link (wenn vorhanden)')
