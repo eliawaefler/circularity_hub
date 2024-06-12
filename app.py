@@ -200,7 +200,7 @@ def main():
                 st.session_state.user_pw = str(hash(st.text_input("password", type="password")))
                 if st.button("login"):
                     if checkpw():
-                        st.success("logged in")
+                        elia.user_space()
                     else:
                         st.error("wrong pw / username")
             else:
