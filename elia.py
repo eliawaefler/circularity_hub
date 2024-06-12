@@ -68,7 +68,7 @@ def user_space():
                 for match in sorted_p[:3]:
                     l, r = st.columns(2)
                     with l:
-                        st.write(f"1. das Projekt {match[1]}, {match[2]} "
+                        st.write(f"{sorted_p.index(match)+1}. das Projekt **{match[1]}**, {match[2]} "
                                  f"ist ein Typ {match[4]} mit Baujahr {match[6]} "
                                  f"clicke rechts für die Kontaktaufnahme")
                     with r:
