@@ -69,10 +69,8 @@ def user_space():
                     l, r = st.columns(2)
                     with l:
                         st.write(f"{sorted_p.index(match)+1}. das Projekt **{match[1]}**, {match[2]} "
-                                 f"ist ein Typ {match[4]} mit Baujahr {match[6]} "
-                                 f"clicke rechts für die Kontaktaufnahme")
-                    with r:
-                        pass
+                                 f"ist ein Typ {match[4]} mit Baujahr {match[6]}.   "
+                                 f"Deine Kontaktperson ist **{match[3]}**.")
 
 
     elif st.session_state.user_space == "new":
