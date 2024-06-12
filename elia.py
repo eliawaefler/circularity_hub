@@ -63,7 +63,7 @@ def user_space():
                 st.write(p)
                 if st.toggle("show_matches"):
                     all_p = neon.read_db(st.secrets["NEON_URL"], "geb", condition=f"typ <> '{p[7]}'")
-                    st.write(str(all_p))
+                    st.write("hello" + str(all_p))
                     sorted_p = sorted(all_p, key=lambda x: x[6])
                     st.write(str(sorted_p))
 
