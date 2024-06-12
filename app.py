@@ -20,8 +20,7 @@ def checkpw() -> bool:
     except:
         st.warning("user not found")
         return False
-    st.write(user_from_db)
-    if user_from_db.pw_hash == sha256.secure_hash(f"{st.session_state.user_pw}{st.session_state.username}"):
+    if user_from_db[0][2] == sha256.secure_hash(f"{st.session_state.user_pw}{st.session_state.username}"):
         elia.set_username()
         return True
     else:
