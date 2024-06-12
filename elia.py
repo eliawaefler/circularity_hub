@@ -87,10 +87,8 @@ def user_space():
             with st.form("building_form"):
                 # Fields for user to fill
                 baujahr = st.number_input('Baujahr', min_value=1900, max_value=2050, value=1990, step=1)
-                renojahr = st.number_input('Renovationsjahr (wenn vorhanden)', min_value=1900, max_value=2020,
-                                           value=2024, step=1)
-                abbruchjahr = st.number_input('geplanter Rückbau: Jahr (wenn bakannt:)', min_value=1900,
-                                          max_value=2200, value=2050, step=1) # noch nicht
+                renojahr = st.number_input('Renovationsjahr (wenn vorhanden)', min_value=1900, max_value=2020, value=2024, step=1)
+                abbruchjahr = st.number_input('geplanter Rückbau: Jahr (wenn bakannt:)', min_value=1900, max_value=2200, value=2050, step=1) # noch nicht
                 nutzung_options = ['Wohnen', 'Gewerbe', 'Industrie', 'Landwirtschaft']
                 nutzung = st.selectbox('Nutzung', options=nutzung_options)
                 typ_options = ['Neubau', 'Abbruch', 'Umbau', 'Anderes']
