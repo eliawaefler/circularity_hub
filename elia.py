@@ -64,7 +64,8 @@ def user_space():
                 if st.button("show_matches"):
 
                     def make_match(project):
-                        all_p = neon.read_db(st.secrets["NEON_URL"], "geb", f"typ <> '{project[7]}'")
+                        all_p = neon.read_db(st.secrets["NEON_URL"], "geb")
+
                         st.write(all_p)
                         sorted_p = sorted(all_p, key=lambda x: x[6])
                         st.write(sorted_p)
