@@ -175,6 +175,7 @@ def show_map():
     st.subheader("Map View")
     st.write("Die besten Materiallager für dein Projekt.")
     # Sample data: Latitude and Longitude of some cities
+    #r = random()/100
     r = random()/100
     data = {
 
