@@ -148,8 +148,9 @@ def main():
 
             if submitted:
                 # Create data object
+                #last_id = neon.read_db(st.secrets["NEON_URL"], "geb")
                 data = {
-                    'id': int(sha256.sha_dez(f"{name}+{time.time()}")),
+                    #'id': int(sha256.sha_dez(f"{name}+{time.time()}")),
                     'baujahr': baujahr,
                     'user_name': st.session_state['username'],
                     'nutzung': nutzung,
@@ -160,6 +161,7 @@ def main():
                     'adresse': f"{adresse} {ort}"
                 }
                 with st.spinner("adding to db"):
+
                     add_2_db_res = neon.write_to_db(st.secrets["NEON_URL"], "geb", data)
                     if add_2_db_res == "":
                         st.success("entry added to db")
