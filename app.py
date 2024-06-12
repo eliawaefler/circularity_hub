@@ -146,46 +146,6 @@ def main():
                 print(f"ID: {read_id}, Name: {read_name}, Pet: {read_pet}")
         else:
             st.write("No entries found.")
-    elif choice == "newDBtest":
-
-        # Define the page layout and form elements
-        st.title("Data Entry for Building")
-        with st.form("building_form"):
-            # Fields for user to fill
-            baujahr = st.number_input('Baujahr', min_value=1900, max_value=2023, value=1990, step=1)
-            nutzung_options = ['Wohnen', 'Gewerbe', 'Industrie', 'Landwirtschaft']
-            nutzung = st.selectbox('Nutzung', options=nutzung_options)
-            typ_options = ['neu', 'abbruch', 'umbau', 'andere']
-            typ = st.selectbox('Typ', options=typ_options)
-            name = st.text_input('Name des Gebäudes', max_chars=200)
-            adresse = st.text_input('Adresse')
-            ort = st.text_input('Ort')
-
-            # Submit button
-            submitted = st.form_submit_button("Submit")
-
-            if submitted:
-                # Create data object
-                next_id = len(neon.read_db(st.secrets["NEON_URL"], "geb")) + 1
-                data = {
-                    #'id': int(sha256.sha_dez(f"{name}+{time.time()}")),   DAS Wäre für unique id
-                    'id': next_id,
-                    'baujahr': baujahr,
-                    'user_name': st.session_state['username'],
-                    'nutzung': nutzung,
-                    'datenstufe': '3' if baujahr and nutzung and typ and name and adresse and ort else '2',
-                    'autor': 'webscraper',
-                    'typ': typ,
-                    'name': name,
-                    'adresse': f"{adresse} {ort}"
-                }
-                with st.spinner("adding to db"):
-
-                    add_2_db_res = neon.write_to_db(st.secrets["NEON_URL"], "geb", data)
-                    if add_2_db_res == "":
-                        st.success("entry added to db")
-                    else:
-                        st.error(add_2_db_res)
 
 
     elif choice == "Map View":
