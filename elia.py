@@ -54,9 +54,11 @@ def user_space():
             st.session_state.user_space = "new"
         st.subheader("meine Projekte")
         my_projects = neon.read_db(st.secrets["NEON_URL"], "geb", condition=f"user_name = '{st.session_state.username}'")
+        st.write(my_projects)
         for p in my_projects:
-            if st.button(p):
-                st.subheader(p[1])
+
+            if st.button(str(p[1])):
+                st.subheader(str(p[1]))
                 st.write(p)
                 if st.button("show_matches"):
                     show_map()
