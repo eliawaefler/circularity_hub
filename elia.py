@@ -50,35 +50,12 @@ def create_project(project_type, project_name, address, speckle_link, plz_ort, u
 
 def user_space():
     if st.session_state.user_space == "menu":
+        if st.button("neues Projekt"):
+            st.session_state.user_space = "new"
         st.subheader("meine Projekte")
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            if st.button("Neubau EFH Eichenstrasse 45"):
-                st.session_state.user_space = "construction"
-        with col2:
-            if st.button("Abbruch MFH Holzweg 13"):
-                st.session_state.user_space = "deconstruction"
-        with col3:
-            if st.button("neues Projekt"):
-                st.session_state.user_space = "new"
+        my_projects = neon.read_db(st.secrets["NEON_URL"], "geb", condition=f"user_name = '{st.session_state.username}'")
 
-    elif st.session_state.user_space == "deconstruction":
-        st.subheader("Abbruch MFH Holzweg 13")
-        st.image(Image.open("images/abbruch.webp"), caption="Abbruch Mehrfamilienhaus")
-        st.button("Informationen erfassen")
-        file_downloader()
-        if st.button("back"):
-            st.session_state.user_space = "menu"
 
-    elif st.session_state.user_space == "construction":
-        st.subheader("Neubau EFH Eichenstrasse 45")
-        st.image(Image.open("images/efh.webp"), caption="neues Einfamilienhaus rendering")
-        st.button("InInformationen erfassen")
-        if st.button("geeignete 'Materiallager' auf Karte anzeigen"):
-            show_map()
-        file_downloader()
-        if st.button("back"):
-            st.session_state.user_space = "menu"
 
     elif st.session_state.user_space == "new":
         def mock_project():
@@ -94,7 +71,7 @@ def user_space():
                 name = st.text_input('Name des Gebäudes', max_chars=200)
                 adresse = st.text_input('Adresse')
                 ort = st.text_input('Ort')
-
+                files = st.file_uploader("Upload Project Files")
                 # Submit button
                 submitted = st.form_submit_button("Submit")
 
@@ -150,6 +127,7 @@ def user_space():
         mock_project()
         if st.button("Back"):
             st.session_state.user_space = "menu"
+
 
 
 def set_username():
@@ -365,6 +343,40 @@ def user_space():
         if st.button("Back"):
             st.session_state.user_space = "menu"
 """
+
+
+def mock_project_view_old():
+    if st.session_state.user_space == "menu":
+
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            if st.button("Neubau EFH Eichenstrasse 45"):
+                st.session_state.user_space = "construction"
+        with col2:
+            if st.button("Abbruch MFH Holzweg 13"):
+                st.session_state.user_space = "deconstruction"
+        with col3:
+            if st.button("neues Projekt"):
+                st.session_state.user_space = "new"
+
+    elif st.session_state.user_space == "deconstruction":
+        st.subheader("Abbruch MFH Holzweg 13")
+        st.image(Image.open("images/abbruch.webp"), caption="Abbruch Mehrfamilienhaus")
+        st.button("Informationen erfassen")
+        file_downloader()
+        if st.button("back"):
+            st.session_state.user_space = "menu"
+
+    elif st.session_state.user_space == "construction":
+        st.subheader("Neubau EFH Eichenstrasse 45")
+        st.image(Image.open("images/efh.webp"), caption="neues Einfamilienhaus rendering")
+        st.button("InInformationen erfassen")
+        if st.button("geeignete 'Materiallager' auf Karte anzeigen"):
+            show_map()
+        file_downloader()
+        if st.button("back"):
+            st.session_state.user_space = "menu"
+
 
 
 if __name__ == "__main__":
