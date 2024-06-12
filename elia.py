@@ -62,16 +62,12 @@ def user_space():
                 st.subheader(str(p[1]))
                 st.write(p)
                 if st.button("show_matches"):
-
-                    def make_match(project):
+                    with st.spinner("matching"):
                         all_p = neon.read_db(st.secrets["NEON_URL"], "geb", condition=f"typ <> '{project[7]}'")
 
                         st.write(str(all_p))
                         sorted_p = sorted(all_p, key=lambda x: x[6])
                         st.write(sorted_p)
-                        return sorted_p[:3]
-
-                    with st.spinner("matching"):
                         best_matches = make_match(p)
                     st.success()
                     for m in best_matches:
