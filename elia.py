@@ -9,6 +9,11 @@ import psycopg2
 from psycopg2 import sql
 import neon
 
+def make_match(project):
+    all_p = neon.read_db(st.secrets["NEON_URL"], "geb", f"typ <> '{project[7]}'")
+    sorted_p = sorted(all_p, key=lambda x: x[6])
+    return sorted_p[:3]
+
 
 def create_project(project_type, project_name, address, speckle_link, plz_ort, uploaded_files, baujahr, reno_jahr,
                    geb_lang, geb_breit, geb_hoch, mat_wand, mat_fen, mat_tur):
@@ -56,12 +61,13 @@ def user_space():
         my_projects = neon.read_db(st.secrets["NEON_URL"], "geb", condition=f"user_name = '{st.session_state.username}'")
         #st.write(my_projects)
         for p in my_projects:
-
             if st.button(str(p[1])):
                 st.subheader(str(p[1]))
                 st.write(p)
                 if st.button("show_matches"):
-                    show_map()
+                    best_matches = make_match(p)
+                    for m in best_matches:
+                        st.write(m)
 
 
     elif st.session_state.user_space == "new":
