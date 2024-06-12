@@ -58,14 +58,17 @@ def user_space():
         my_projects = neon.read_db(st.secrets["NEON_URL"], "geb", condition=f"user_name = '{st.session_state.username}'")
         #st.write(my_projects)
         for p in my_projects:
-            if st.button(str(p[1])):
-                st.subheader(str(p[1]))
-                st.write(p)
-            if st.button("show_matches for " + str(p[1])):
-                all_p = neon.read_db(st.secrets["NEON_URL"], "geb", condition=f"typ <> '{p[7]}'")
-                st.write("hello" + str(all_p))
-                sorted_p = sorted(all_p, key=lambda x: x[6])
-                st.write(str(sorted_p))
+            l, r = st.columns([1, 4])
+            with l:
+                if st.button(str(p[1])):
+                    with r:
+                        st.subheader(str(p[1]))
+                        st.write(p)
+                        if st.button("show_matches for " + str(p[1])):
+                            all_p = neon.read_db(st.secrets["NEON_URL"], "geb", condition=f"typ <> '{p[7]}'")
+                            st.write("hello" + str(all_p))
+                            sorted_p = sorted(all_p, key=lambda x: x[6])
+                            st.write(str(sorted_p))
 
 
     elif st.session_state.user_space == "new":
