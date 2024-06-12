@@ -195,7 +195,12 @@ def main():
         else:
             if st.toggle("login/signup"):
                 st.session_state.username = st.text_input("username")
-                st.session_state.user_pw = st.text_input("password", type="password", on_change=checkpw)
+                st.session_state.user_pw = st.text_input("password", type="password")
+                if st.button("login"):
+                    if checkpw():
+                        st.success("logged in")
+                    else:
+                        st.error("wrong pw / username")
             else:
                 st.session_state.username = st.text_input("NEW username")
                 st.session_state.user_pw = str(hash(st.text_input("NEW password", type="password")))
