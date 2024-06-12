@@ -42,10 +42,9 @@ def read_db(connection_string, table, condition='1=1', printout=False):
         return e
 
 def main():
-    connection_string = os.environ["NEON_URL"]
-    table_name = "geb"
+
     data_to_insert = {
-        'id': 7,
+        'id': 1,
         'baujahr': 1990,
         'user_name': 'laptop',
         'nutzung': 'Residential',
@@ -62,4 +61,9 @@ def main():
 
 
 if __name__ == "__main__":
+    connection_string = os.environ["NEON_URL"]
+    table_name = "geb"
+    print(f"len: {len(read_db(connection_string, table_name, printout=True))}")
+
     main()
+    print(f"len: {len(read_db(connection_string, table_name, printout=True))}")
