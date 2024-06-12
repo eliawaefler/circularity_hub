@@ -179,7 +179,8 @@ def main():
                 st.session_state.birthday = st.text_input("Birthday")
                 if st.button("Create!"):
                     if createuser():
-                        #st.success("login")
+                        st.success("login")
+                        st.session_state.user_logged_in = True
                         st.rerun()
                     else:
                         st.warning("didnt work")

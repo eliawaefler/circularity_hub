@@ -1,5 +1,4 @@
 from random import random
-
 import streamlit as st
 import pandas as pd
 import pydeck as pdk
@@ -10,9 +9,6 @@ import json
 import psycopg2
 from psycopg2 import sql
 import neon
-
-
-
 
 def create_project(project_type, project_name, address, speckle_link, plz_ort, uploaded_files, baujahr, reno_jahr,
                    geb_lang, geb_breit, geb_hoch, mat_wand, mat_fen, mat_tur):
@@ -91,14 +87,20 @@ def user_space():
             with st.form("building_form"):
                 # Fields for user to fill
                 baujahr = st.number_input('Baujahr', min_value=1900, max_value=2050, value=1990, step=1)
+                renojahr = st.number_input('Renovationsjahr (wenn vorhanden)', min_value=1900, max_value=2020,
+                                           value=2024, step=1)
+                abbruchjahr = st.number_input('geplanter Rückbau: Jahr (wenn bakannt:)', min_value=1900,
+                                          max_value=2200, value=2050, step=1) # noch nicht
                 nutzung_options = ['Wohnen', 'Gewerbe', 'Industrie', 'Landwirtschaft']
                 nutzung = st.selectbox('Nutzung', options=nutzung_options)
-                typ_options = ['neu', 'abbruch', 'umbau', 'andere']
+                typ_options = ['Neubau', 'Abbruch', 'Umbau', 'Anderes']
                 typ = st.selectbox('Typ', options=typ_options)
-                name = st.text_input('Name des Gebäudes', max_chars=200)
+                name = st.text_input('Name des Gebäudes/Projekts', max_chars=200)
                 adresse = st.text_input('Adresse')
                 ort = st.text_input('Ort')
-                files = st.file_uploader("Upload Project Files")
+                speckle_link = st.text_input('speckle_link (wenn vorhanden)')
+                vol = st.text_input('Projektvolumen [m3]')
+                files = st.file_uploader("Upload Projektdokumente")
                 # Submit button
                 submitted = st.form_submit_button("Submit")
 
