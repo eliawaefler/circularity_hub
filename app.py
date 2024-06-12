@@ -160,9 +160,11 @@ def main():
                     'adresse': f"{adresse} {ort}"
                 }
                 with st.spinner("adding to db"):
-                    if neon.write_to_db(st.secrets["NEON_URL"], "geb", data):
+                    add_2_db_res = neon.write_to_db(st.secrets["NEON_URL"], "geb", data)
+                    if add_2_db_res == "":
                         st.success("entry added to db")
-
+                    else:
+                        st.error(add_2_db_res)
 
 
     elif choice == "Map View":

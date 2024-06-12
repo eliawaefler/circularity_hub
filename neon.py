@@ -16,7 +16,7 @@ def write_to_db(connection_string, table, data):
             cur.close()
         if conn:
             conn.close()
-        return True
+        return ""
     except Exception as e:
         print(f"An error occurred: {e}")
         return e
