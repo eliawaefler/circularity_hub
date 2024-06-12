@@ -25,20 +25,34 @@ def checkpw(username) -> None:
     else:
         st.warning("incorrect Password")
         return
-def createuser() -> None:
+
+
+def createuser() -> bool:
     try:
         uname = st.session_state.username
-        # user_id = str(hash(uname))
-        neon.write_to_db("user_table", [(str(hash(uname)),
-                                         str(st.session_state.birthday),
-                                         str(uname),
-                                         str(st.session_state.corp),
-                                         str(st.session_state.email),
-                                         str(hash(st.session_state.user_pw)))])
+        next_id = len(neon.read_db(st.secrets["NEON_URL"], "users")) + 2
+        data = {
+            # 'id': int(sha256.sha_dez(f"{name}+{time.time()}")),   DAS Wäre für unique id
+            'id': next_id,
+            'name': st.session_state['username'],
+            'pw_hash': sha256.secure_hash(f"{st.session_state.user_pw}{st.session_state.username}"),
+            'email': st.session_state.email,
+            'firma': st.session_state.corp,
+            'geburtstag': st.session_state.birthday
+        }
+        with st.spinner("adding to db"):
+
+            add_2_db_res = neon.write_to_db(st.secrets["NEON_URL"], "users", data)
+            if add_2_db_res == "":
+                st.success("entry added to db")
+            else:
+                st.error(add_2_db_res)
         return True
     except Exception as e:
         st.write(e)
         return False
+
+
 def main():
     st.set_page_config(
         page_title="My Streamlit App",
