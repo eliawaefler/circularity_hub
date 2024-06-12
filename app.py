@@ -1,3 +1,5 @@
+import json
+
 import streamlit as st
 from PIL import Image
 import andu
@@ -6,7 +8,7 @@ import elia
 from sqlalchemy import create_engine, text
 # im terminal: streamlit run app.py
 import neon
-import neon_write
+import neon_write_old_version
 
 def checkpw(username) -> None:
     try:
@@ -24,12 +26,12 @@ def createuser() -> None:
     try:
         uname = st.session_state.username
         # user_id = str(hash(uname))
-        neon_write.write_to_db("user_table", [(str(hash(uname)),
-                                               str(st.session_state.birthday),
-                                               str(uname),
-                                               str(st.session_state.corp),
-                                               str(st.session_state.email),
-                                               str(hash(st.session_state.user_pw)))])
+        neon.write_to_db("user_table", [(str(hash(uname)),
+                                         str(st.session_state.birthday),
+                                         str(uname),
+                                         str(st.session_state.corp),
+                                         str(st.session_state.email),
+                                         str(hash(st.session_state.user_pw)))])
         return True
     except Exception as e:
         st.write(e)
@@ -37,12 +39,12 @@ def createuser() -> None:
 def main():
     st.set_page_config(
         page_title="My Streamlit App",
-        page_icon=":smiley:",  # You can use emojis or path to an image file
+        page_icon=":circle:",  # You can use emojis or path to an image file :repeat: oder :cyclone: :radio_button: :recycle: :hammer_and_pick:
         layout="wide",  # 'centered' or 'wide'
         initial_sidebar_state="expanded"  # 'auto', 'expanded', or 'collapsed'
     )
     st.sidebar.title("Navigation")
-    choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace", "Community", "Speckle", "test_db"))
+    choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace", "Community", "Speckle", "test_db", "newDBtest"))
     if "username" not in st.session_state:
         st.session_state.username = ""
     if "user_pw" not in st.session_state:
@@ -123,8 +125,43 @@ def main():
                 print(f"ID: {read_id}, Name: {read_name}, Pet: {read_pet}")
         else:
             st.write("No entries found.")
-    elif choice == "newUserSpace":
-        pass
+    elif choice == "newDBtest":
+
+        # Define the page layout and form elements
+        st.title("Data Entry for Building")
+        with st.form("building_form"):
+            # Fields for user to fill
+            baujahr = st.number_input('Baujahr', min_value=1900, max_value=2023, value=1990, step=1)
+            nutzung_options = ['Wohnen', 'Gewerbe', 'Industrie', 'Landwirtschaft']
+            nutzung = st.selectbox('Nutzung', options=nutzung_options)
+            typ_options = ['neu', 'abbruch', 'umbau', 'andere']
+            typ = st.selectbox('Typ', options=typ_options)
+            name = st.text_input('Name des Gebäudes', max_chars=200)
+            adresse = st.text_input('Adresse')
+            ort = st.text_input('Ort')
+
+            # Submit button
+            submitted = st.form_submit_button("Submit")
+
+            if submitted:
+                # Create data object
+                data = {
+                    'id': 7,
+                    'baujahr': baujahr,
+                    'user_name': st.session_state['username'],
+                    'nutzung': nutzung,
+                    'datenstufe': '3' if baujahr and nutzung and typ and name and adresse and ort else '2',
+                    'autor': 'webscraper',
+                    'typ': typ,
+                    'name': name,
+                    'adresse': f"{adresse} {ort}"
+                }
+
+                # Display the JSON data object
+                st.json(data)
+                # Optional: convert data dictionary to JSON string if needed elsewhere
+                json_data = json.dumps(data)
+                st.text_area("JSON Output", json_data, height=300)
     elif choice == "Map View":
         elia.show_map()
     elif choice == "UserSpace":

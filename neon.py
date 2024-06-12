@@ -43,9 +43,9 @@ def main():
     connection_string = os.environ["NEON_URL"]
     table_name = "geb"
     data_to_insert = {
-        'id': 6,
+        'id': 7,
         'baujahr': 1990,
-        'user_name': 'johndoe',
+        'user_name': 'laptop',
         'nutzung': 'Residential',
         'datenstufe': 'Initial',
         'autor': 'webscraper',
