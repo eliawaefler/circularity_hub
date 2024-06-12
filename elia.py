@@ -55,24 +55,28 @@ def user_space():
         if st.button("neues Projekt"):
             st.session_state.user_space = "new"
         l, r = st.columns(2)
-        st.subheader("meine Projekte")
-        my_projects = neon.read_db(st.secrets["NEON_URL"], "geb", condition=f"user_name = '{st.session_state.username}'")
-        #st.write(my_projects)
-        for p in my_projects:
-            if st.button(str(p[1])):
-                st.subheader(str(p[1]))
-                st.write(f"projektinformationen: (Adresse: {p[2]},")
-                all_p = neon.read_db(st.secrets["NEON_URL"], "geb", condition=f"typ <> '{p[7]}'")
-                sorted_p = sorted(all_p, key=lambda x: abs(x[6]-p[6]+50))
-                st.write("")
-                st.write("Hier die besten Matches für Dein Projekt:")
-                for match in sorted_p[:3]:
-                    with l:
+        set_map = False
+        with r:
+            if set_map:
+                show_map()
+        with l:
+            st.subheader("meine Projekte")
+            my_projects = neon.read_db(st.secrets["NEON_URL"], "geb", condition=f"user_name = '{st.session_state.username}'")
+            #st.write(my_projects)
+            for p in my_projects:
+                if st.button(str(p[1])):
+                    set_map = True
+                    st.subheader(str(p[1]))
+                    st.write(f"projektinformationen: (Adresse: {p[2]},")
+                    all_p = neon.read_db(st.secrets["NEON_URL"], "geb", condition=f"typ <> '{p[7]}'")
+                    sorted_p = sorted(all_p, key=lambda x: abs(x[6]-p[6]+50))
+                    st.write("")
+                    st.write("Hier die besten Matches für Dein Projekt:")
+                    for match in sorted_p[:3]:
                         st.write(f"{sorted_p.index(match)+1}. das Projekt **{match[1]}**, *{match[2]}* "
                                  f"ist ein Typ *{match[4]}* mit Baujahr *{match[6]}*.   "
                                  f"Deine Kontaktperson ist **{match[3]}**.")
-                    with r:
-                        show_map()
+
 
 
     elif st.session_state.user_space == "new":
