@@ -14,7 +14,9 @@ import sha256
 
 
 def sha_pw():
-    return str(sha256.secure_hash(f"{st.session_state.user_pw}{st.session_state.username}"))
+    pw = str(st.session_state.user_pw)
+    un = str(st.session_state.username)
+    return str(sha256.secure_hash(f"{pw}{un}"))
 
 
 def checkpw() -> bool:
