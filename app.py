@@ -16,7 +16,7 @@ import sha256
 def checkpw() -> bool:
     try:
         user_from_db = neon.read_db(st.secrets['NEON_URL'],
-                                    'users', condition=f"WHERE name = '{st.session_state.username}'")
+                                    'users', condition=f"name = '{st.session_state.username}'")
     except:
         st.warning("user not found")
         return False
