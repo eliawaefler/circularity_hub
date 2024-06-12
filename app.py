@@ -59,8 +59,8 @@ def createuser() -> bool:
 
 def main():
     st.set_page_config(
-        page_title="My Streamlit App",
-        page_icon=":circle:",  # You can use emojis or path to an image file :repeat: oder :cyclone: :radio_button: :recycle: :hammer_and_pick:
+        page_title="Circularity Hub :cyclone::hammer_and_pick::recycle:",
+        page_icon=":cyclone:",  # You can use emojis or path to an image file :repeat: oder :cyclone: :radio_button: :recycle: :hammer_and_pick:
         layout="wide",  # 'centered' or 'wide'
         initial_sidebar_state="expanded"  # 'auto', 'expanded', or 'collapsed'
     )
