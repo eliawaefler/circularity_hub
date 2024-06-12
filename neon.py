@@ -12,14 +12,15 @@ def write_to_db(connection_string, table, data):
         query = f"INSERT INTO {table} ({columns}) VALUES ({placeholders})"
         cur.execute(query, values)
         conn.commit()
-    except Exception as e:
-        print(f"An error occurred: {e}")
-    finally:
         if cur:
             cur.close()
         if conn:
             conn.close()
         return True
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return e
+
 
 
 def read_db(connection_string, table, condition='1=1', printout=False):
@@ -31,14 +32,14 @@ def read_db(connection_string, table, condition='1=1', printout=False):
         if printout:
             for row in rows:
                 print(row)
-    except Exception as e:
-        print(f"An error occurred: {e}")
-    finally:
         if cur:
             cur.close()
         if conn:
             conn.close()
-
+        return rows
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return e
 
 def main():
     connection_string = os.environ["NEON_URL"]
