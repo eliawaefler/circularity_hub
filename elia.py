@@ -1,3 +1,5 @@
+from random import random
+
 import streamlit as st
 import pandas as pd
 import pydeck as pdk
@@ -173,9 +175,11 @@ def show_map():
     st.subheader("Map View")
     st.write("Die besten Materiallager für dein Projekt.")
     # Sample data: Latitude and Longitude of some cities
+    r = random.randint(-9, 9)/100000
     data = {
-        "latitude": [47.556401, 47.55246, 47.51901],
-        "longitude": [7.584576, 7.60572, 7.53976],
+
+        "latitude": [47.556401+r, 47.55246+r, 47.51901+r],
+        "longitude": [7.584576+r, 7.60572+r, 7.53976+r],
         "city": ["1", "2", "3"],
         "citydata": ["Industriestrasse 48: Score=0.971", "Althausstrasse 11: Score=0.921", "Kreuzweg 3: Score=0.913"]
     }
