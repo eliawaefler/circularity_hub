@@ -13,6 +13,10 @@ import neon_write_old_version
 import sha256
 
 
+def sha_pw():
+    return str(sha256.secure_hash(f"{st.session_state.user_pw}{st.session_state.username}"))
+
+
 def checkpw() -> bool:
     try:
         user_from_db = neon.read_db(st.secrets['NEON_URL'],
@@ -21,8 +25,8 @@ def checkpw() -> bool:
         st.warning("user not found")
         return False
     st.write(user_from_db[0][2])
-    st.write(sha256.secure_hash(f"{st.session_state.user_pw}{st.session_state.username}"))
-    if user_from_db[0][2] == sha256.secure_hash(f"{st.session_state.user_pw}{st.session_state.username}"):
+    st.write()
+    if user_from_db[0][2] == sha_pw():
         elia.set_username()
         return True
     else:
@@ -39,7 +43,7 @@ def createuser() -> bool:
             # 'id': int(sha256.sha_dez(f"{name}+{time.time()}")),   DAS Wäre für unique id
             'id': next_id,
             'name': st.session_state['username'],
-            'pw_hash': sha256.secure_hash(f"{st.session_state.user_pw}{st.session_state.username}"),
+            'pw_hash': sha_pw(),
             'email': st.session_state.email,
             'firma': st.session_state.corp,
             'geburtstag': st.session_state.birthday
@@ -59,7 +63,7 @@ def createuser() -> bool:
 
 def main():
     st.set_page_config(
-        page_title="Circularity Hub :cyclone::hammer_and_pick::recycle:",
+        page_title="Circularity Hub", #:cyclone::hammer_and_pick::recycle:
         page_icon=":cyclone:",  # You can use emojis or path to an image file :repeat: oder :cyclone: :radio_button: :recycle: :hammer_and_pick:
         layout="wide",  # 'centered' or 'wide'
         initial_sidebar_state="expanded"  # 'auto', 'expanded', or 'collapsed'

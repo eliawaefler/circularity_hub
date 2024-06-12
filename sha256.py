@@ -27,7 +27,7 @@ def sha_dez(any_string):
 
 if __name__ == '__main__':
     # Example usage
-    input_string = "secure example"
+    input_string = "Elia 123"
     result = secure_hash(input_string)
     print("SHA-256 Hash value:", result)
     print(sha_dez(input_string))
