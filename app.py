@@ -20,8 +20,8 @@ def checkpw() -> bool:
     except:
         st.warning("user not found")
         return False
-    st.write(user_from_db[0][2])
-    st.write(sha256.secure_hash(f"{st.session_state.user_pw}{st.session_state.username}"))
+    #st.write(user_from_db[0][2])
+    #st.write(sha256.secure_hash(f"{st.session_state.user_pw}{st.session_state.username}"))
     if user_from_db[0][2] == sha256.secure_hash(f"{st.session_state.user_pw}{st.session_state.username}"):
         elia.set_username()
         return True
@@ -160,7 +160,8 @@ def main():
                 st.session_state.user_pw = str(hash(st.text_input("password", type="password")))
                 if st.button("login"):
                     if checkpw():
-                        elia.user_space()
+                        #elia.user_space()
+                        st.rerun()
                     else:
                         st.error("wrong pw / username")
             else:
@@ -171,7 +172,8 @@ def main():
                 st.session_state.birthday = st.text_input("Birthday")
                 if st.button("Create!"):
                     if createuser():
-                        st.success("login")
+                        #st.success("login")
+                        st.rerun()
                     else:
                         st.warning("didnt work")
     elif choice == "Speckle":
