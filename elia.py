@@ -63,7 +63,7 @@ def user_space():
             #st.write(my_projects)
             for p in my_projects:
                 if st.button(str(p[1])):
-                    st.session_state.user_space = "map"
+                    st.session_state.user_space = "menu"
                     st.subheader(str(p[1]))
                     st.write(f"projektinformationen: (Adresse: {p[2]},")
                     all_p = neon.read_db(st.secrets["NEON_URL"], "geb", condition=f"typ <> '{p[7]}'")
@@ -74,6 +74,7 @@ def user_space():
                         st.write(f"{sorted_p.index(match)+1}. das Projekt **{match[1]}**, *{match[2]}* "
                                  f"ist ein Typ *{match[4]}* mit Baujahr *{match[6]}*.   "
                                  f"Deine Kontaktperson ist **{match[3]}**.")
+                    st.session_state.user_space = "map"
         with r:
             if st.session_state.user_space == "map":
                 show_map()
@@ -213,6 +214,7 @@ def show_map():
         ],
     ))
     if st.button("back"):
+        st.session_state.user_space = "menu"
         user_space()
 
 
