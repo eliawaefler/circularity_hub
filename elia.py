@@ -65,7 +65,9 @@ def user_space():
                 st.subheader(str(p[1]))
                 st.write(p)
                 if st.button("show_matches"):
-                    best_matches = make_match(p)
+                    with st.spinner("matching"):
+                        best_matches = make_match(p)
+                    st.success()
                     for m in best_matches:
                         st.write(m)
 
