@@ -62,8 +62,8 @@ def user_space():
                 st.subheader(str(p[1]))
                 st.write(f"projektinformationen: {p}")
                 all_p = neon.read_db(st.secrets["NEON_URL"], "geb", condition=f"typ <> '{p[7]}'")
-                sorted_p = sorted(all_p, key=lambda x: x[6])
-                for match in sorted_p:
+                sorted_p = sorted(all_p, key=lambda x: x[6]-p[6])
+                for match in sorted_p[:3]:
                     st.write(str(match))
 
 
@@ -73,7 +73,7 @@ def user_space():
             st.title("Data Entry for Building")
             with st.form("building_form"):
                 # Fields for user to fill
-                baujahr = st.number_input('Baujahr', min_value=1900, max_value=2023, value=1990, step=1)
+                baujahr = st.number_input('Baujahr', min_value=1900, max_value=2050, value=1990, step=1)
                 nutzung_options = ['Wohnen', 'Gewerbe', 'Industrie', 'Landwirtschaft']
                 nutzung = st.selectbox('Nutzung', options=nutzung_options)
                 typ_options = ['neu', 'abbruch', 'umbau', 'andere']
