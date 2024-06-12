@@ -94,9 +94,9 @@ def user_space():
                 name = st.text_input('Name des Gebäudes Projekts', max_chars=200)
                 adresse = st.text_input('Adresse')
                 ort = st.text_input('Ort')
-                speckle_link = st.text_input('speckle_link (wenn vorhanden)')
-                vol = st.text_input('Projektvolumen [m3]')
-                files = st.file_uploader("Upload Projektdokumente")
+                #speckle_link = st.text_input('speckle_link (wenn vorhanden)')
+                #vol = st.text_input('Projektvolumen [m3]')
+                #files = st.file_uploader("Upload Projektdokumente")
                 submitted = st.form_submit_button("Submit")
 
                 if submitted:
