@@ -72,7 +72,7 @@ def main():
         initial_sidebar_state="expanded"  # 'auto', 'expanded', or 'collapsed'
     )
     st.sidebar.title("Navigation")
-    choice = st.sidebar.radio("Go to", ("Home", "Map View", "UserSpace", "Community", "Speckle")) #"test_db", "newDBtest"
+    choice = st.sidebar.radio("Go to", ("Home", "UserSpace", "Community", "Speckle")) #"test_db", "newDBtest", "Map View",
     if "username" not in st.session_state:
         st.session_state.username = ""
     if "user_pw" not in st.session_state:

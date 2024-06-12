@@ -54,6 +54,7 @@ def user_space():
     if st.session_state.user_space == "menu":
         if st.button("neues Projekt"):
             st.session_state.user_space = "new"
+        l, r = st.columns(2)
         st.subheader("meine Projekte")
         my_projects = neon.read_db(st.secrets["NEON_URL"], "geb", condition=f"user_name = '{st.session_state.username}'")
         #st.write(my_projects)
@@ -66,7 +67,6 @@ def user_space():
                 st.write("")
                 st.write("Hier die besten Matches für Dein Projekt:")
                 for match in sorted_p[:3]:
-                    l, r = st.columns(2)
                     with l:
                         st.write(f"{sorted_p.index(match)+1}. das Projekt **{match[1]}**, *{match[2]}* "
                                  f"ist ein Typ *{match[4]}* mit Baujahr *{match[6]}*.   "
@@ -163,7 +163,7 @@ def add_tag():
 
 
 def show_map():
-    st.title("Map View")
+    st.subheader("Map View")
     st.write("Die besten Materiallager für dein Projekt.")
     # Sample data: Latitude and Longitude of some cities
     data = {
