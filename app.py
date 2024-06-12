@@ -25,7 +25,7 @@ def checkpw() -> bool:
         st.warning("user not found")
         return False
     st.write(user_from_db[0][2])
-    st.write()
+    st.write(sha_pw())
     if user_from_db[0][2] == sha_pw():
         elia.set_username()
         return True
