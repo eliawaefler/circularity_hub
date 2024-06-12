@@ -5,10 +5,13 @@ import gabriel
 import elia
 from sqlalchemy import create_engine, text
 # im terminal: streamlit run app.py
+import neon
 import neon_write
-def checkpw() -> None:
+
+def checkpw(username) -> None:
     try:
-        user_from_db = neon_write.read_db("user_table", f"name='{st.session_state.userpw}'")
+        user_from_db = neon.read_db(st.secrets['NEON_URL'], 'users')
+        #user_from_db = neon_write.read_db("user_table", f"name='{st.session_state.userpw}'")
     except:
         st.warning("user not found")
         return
@@ -57,7 +60,8 @@ def main():
         # Connection URL for SQLAlchemy
         connection_url = st.secrets["NEON_NEW"]
         engine = create_engine(connection_url)
-        def add_to_circdb_(my_id, my_name, my_pet):            
+
+        def add_to_circdb_(my_id, my_name, my_pet):
             query = text("INSERT INTO home (id, name, pet) VALUES (:id, :name, :pet)")
             with engine.connect() as conn:
                 try:
@@ -65,6 +69,7 @@ def main():
                     st.success("Added to database successfully!")
                 except Exception as e:
                     st.error(f"Failed to add to database: {str(e)}")
+
         def add_to_circdb(my_id, my_name, my_pet):
             # Define the query for insertion
             insert_query = text("INSERT INTO home (id, name, pet) VALUES (:id, :name, :pet)")
@@ -118,6 +123,8 @@ def main():
                 print(f"ID: {read_id}, Name: {read_name}, Pet: {read_pet}")
         else:
             st.write("No entries found.")
+    elif choice == "newUserSpace":
+        pass
     elif choice == "Map View":
         elia.show_map()
     elif choice == "UserSpace":
