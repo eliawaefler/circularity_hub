@@ -59,7 +59,6 @@ def user_space():
         #st.write(my_projects)
         for p in my_projects:
             if st.button(str(p[1])):
-                l, r = st.columns(2)
                 st.subheader(str(p[1]))
                 st.write(f"projektinformationen: {p}")
                 all_p = neon.read_db(st.secrets["NEON_URL"], "geb", condition=f"typ <> '{p[7]}'")
@@ -67,6 +66,7 @@ def user_space():
                 st.write("")
                 st.write("Hier die besten Matches für Dein Projekt:")
                 for match in sorted_p[:3]:
+                    l, r = st.columns(2)
                     with l:
                         st.write(f"1. das Projekt {match[1]}, {match[2]} "
                                  f"ist ein Typ {match[4]} mit Baujahr {match[6]} "
