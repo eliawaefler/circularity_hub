@@ -13,18 +13,20 @@ import neon_write_old_version
 import sha256
 
 
-def checkpw(username) -> None:
+def checkpw() -> bool:
     try:
-        user_from_db = neon.read_db(st.secrets['NEON_URL'], 'users', condition=f"WHERE name = '{st.session_state.username}'")
-        #user_from_db = neon_write.read_db("user_table", f"name='{st.session_state.userpw}'")
+        user_from_db = neon.read_db(st.secrets['NEON_URL'],
+                                    'users', condition=f"WHERE name = '{st.session_state.username}'")
     except:
         st.warning("user not found")
-        return
+        return False
     if user_from_db.pw_hash == sha256.secure_hash(f"{st.session_state.user_pw}{st.session_state.username}"):
         elia.set_username()
+        return True
     else:
         st.warning("incorrect Password")
-        return
+        return False
+
 
 
 def createuser() -> bool:
