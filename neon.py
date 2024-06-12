@@ -19,6 +19,7 @@ def write_to_db(connection_string, table, data):
             cur.close()
         if conn:
             conn.close()
+        return True
 
 
 def read_db(connection_string, table, condition='1=1', printout=False):

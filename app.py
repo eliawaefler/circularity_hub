@@ -1,4 +1,5 @@
 import json
+import time
 
 import streamlit as st
 from PIL import Image
@@ -9,6 +10,8 @@ from sqlalchemy import create_engine, text
 # im terminal: streamlit run app.py
 import neon
 import neon_write_old_version
+import sha256
+
 
 def checkpw(username) -> None:
     try:
@@ -146,7 +149,7 @@ def main():
             if submitted:
                 # Create data object
                 data = {
-                    'id': 7,
+                    'id': int(sha256.sha_dez(f"{name}+{time.time()}")),
                     'baujahr': baujahr,
                     'user_name': st.session_state['username'],
                     'nutzung': nutzung,
@@ -156,12 +159,12 @@ def main():
                     'name': name,
                     'adresse': f"{adresse} {ort}"
                 }
+                with st.spinner("adding to db"):
+                    if neon.write_to_db(st.secrets["NEON_URL"], "geb", data):
+                        st.success("entry added to db")
 
-                # Display the JSON data object
-                st.json(data)
-                # Optional: convert data dictionary to JSON string if needed elsewhere
-                json_data = json.dumps(data)
-                st.text_area("JSON Output", json_data, height=300)
+
+
     elif choice == "Map View":
         elia.show_map()
     elif choice == "UserSpace":
