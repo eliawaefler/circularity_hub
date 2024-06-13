@@ -41,7 +41,12 @@ def checkpw() -> bool:
 def createuser() -> bool:
     try:
         uname = st.session_state.username
-        next_id = len(neon.read_db(st.secrets["NEON_URL"], "users")) + 1
+        existing_users = neon.read_db(st.secrets["NEON_URL"], "users")
+        for user in existing_users:
+            if user[1] == uname:
+                st.error("username taken")
+                return False
+        next_id = len(existing_users) + 1
         data = {
             # 'id': int(sha256.sha_dez(f"{name}+{time.time()}")),   DAS Wäre für unique id
             'id': next_id,
