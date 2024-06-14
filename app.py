@@ -177,11 +177,11 @@ def main():
                     else:
                         st.error("wrong pw / username")
             else:
-                st.session_state.username = st.text_input("NEW username")
-                st.session_state.user_pw = str(hash(st.text_input("NEW password", type="password")))
-                st.session_state.email = st.text_input("EMAIL")
-                st.session_state.corp = st.text_input("company")
-                st.session_state.birthday = st.text_input("Birthday")
+                st.session_state.username = st.text_input("required: NEW username")
+                st.session_state.user_pw = str(hash(st.text_input("required: NEW password", type="password")))
+                st.session_state.email = st.text_input("required: EMAIL")
+                st.session_state.corp = st.text_input("required: company")
+                st.session_state.birthday = st.text_input("required: Birthday YYYY-MM-DD")
                 if st.button("Create!"):
                     if createuser():
                         st.success("login")
