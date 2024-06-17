@@ -96,7 +96,7 @@ def main():
                     ## Ihre Plattform für zirkuläres Bauen
 
                     ### Das Problem
-                    Die Bauindustrie ist einer der größten Verursacher von Abfällen weltweit. Jährlich werden Tonnen von Baumaterialien verschwendet, die durchaus wiederverwendet werden könnten. Die Herausforderung liegt darin, dass es bisher keine effiziente Methode gab, die vorhandenen Ressourcen so zu koordinieren, dass Abbruchmaterialien in neuen Bauprojekten genutzt werden können.
+                    Die Bauindustrie ist einer der grössten Verursacher von Abfällen weltweit. Jährlich werden Tonnen von Baumaterialien verschwendet, die durchaus wiederverwendet werden könnten. Die Herausforderung liegt darin, dass es bisher keine effiziente Methode gab, die vorhandenen Ressourcen so zu koordinieren, dass Abbruchmaterialien in neuen Bauprojekten genutzt werden können.
 
                     ### Unsere Lösung
                     Circularity Hub ist eine innovative Plattform, die das Prinzip des zirkulären Bauens verwirklicht, indem sie Projekte, die Abbruchmaterialien benötigen, mit Neubauprojekten, die diese Materialien anbieten, effizient verbindet. Unsere fortschrittliche Matching-Technologie ermöglicht es, Bau- und Abbruchprojekte optimal aufeinander abzustimmen, sodass die Wiederverwendung von Materialien maximiert und die Abfallproduktion minimiert wird.
