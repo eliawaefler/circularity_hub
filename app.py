@@ -93,20 +93,18 @@ def main():
             st.image(Image.open("images/circ.webp"), caption="circular building industry")
         with l:
             st.markdown("""
-                    ## Ihre Plattform für zirkuläres Bauen
-
-                    ### Das Problem
+                    ###   Das Problem
                     Die Bauindustrie ist einer der grössten Verursacher von Abfällen weltweit. Jährlich werden Tonnen von Baumaterialien verschwendet, die durchaus wiederverwendet werden könnten. Die Herausforderung liegt darin, dass es bisher keine effiziente Methode gab, die vorhandenen Ressourcen so zu koordinieren, dass Abbruchmaterialien in neuen Bauprojekten genutzt werden können.
 
-                    ### Unsere Lösung
+                    ###   Unsere Lösung
                     Circularity Hub ist eine innovative Plattform, die das Prinzip des zirkulären Bauens verwirklicht, indem sie Projekte, die Abbruchmaterialien benötigen, mit Neubauprojekten, die diese Materialien anbieten, effizient verbindet. Unsere fortschrittliche Matching-Technologie ermöglicht es, Bau- und Abbruchprojekte optimal aufeinander abzustimmen, sodass die Wiederverwendung von Materialien maximiert und die Abfallproduktion minimiert wird.
 
-                    ### Wie es funktioniert
+                    ###   Wie es funktioniert
                     1. **Registrierung:** Melden Sie sich an und geben Sie Informationen zu Ihrem aktuellen oder geplanten Bauprojekt ein.
                     2. **Matching:** Unsere Plattform analysiert die verfügbaren Daten und findet passende Projekte, die Ihren Bedarf an Baumaterialien decken können oder die von Ihnen angebotenen Materialien verwenden können.
                     3. **Koordination:** Nach einem erfolgreichen Match unterstützt Circularity Hub die logistische Abwicklung, um einen reibungslosen Transfer und die Wiederverwendung von Materialien zu gewährleisten.
 
-                    ### Treten Sie unserer Bewegung bei
+                    ###   Treten Sie unserer Bewegung bei
                     Registrieren Sie sich heute, um Teil einer nachhaltigen Bauzukunft zu sein. Reduzieren Sie Bauabfälle, sparen Sie Kosten und schützen Sie die Umwelt.
                     """)
     elif choice == "test_db":
