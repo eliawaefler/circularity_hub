@@ -111,7 +111,10 @@ def main():
             if st.button("Jetzt Anmelden"):
                 choice = "UserSpace"
         st.image("images/circ.webp", caption="circular building industry")
-
+    elif choice == "ER":
+        st.title("download Exchange Requirements")
+        if st.button("download .xlsx"):
+            st.download_button(label="download .xlsx", file_name="ER_Zirkuläres_Bauen_web.xlsx")
     elif choice == "test_db":
         # Connection URL for SQLAlchemy
         connection_url = st.secrets["NEON_NEW"]
