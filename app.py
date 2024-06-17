@@ -113,10 +113,27 @@ def main():
         st.image("images/circ.webp", caption="circular building industry")
     elif choice == "ER":
         st.title("download Exchange Requirements")
-        if st.button("download .xlsx"):
-            st.download_button(label="download .xlsx",
-                               file_name="ER_Zirkuläres_Bauen_web.xlsx",
-                               data=open("ER_Zirkuläres_Bauen_web.xlsx"))
+        import pandas as pd
+
+        # Read the Excel file
+        file_path = "ER_Zirkuläres_Bauen_web.xlsx"
+        df = pd.read_excel(file_path)
+
+        # Convert the dataframe to an Excel file in memory
+        import io
+        buffer = io.BytesIO()
+        with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+            df.to_excel(writer, index=False)
+
+        buffer.seek(0)
+
+        # Make the Excel file available for download
+        st.download_button(
+            label="Download Excel file",
+            data=buffer,
+            file_name="ER_Zirkuläres_Bauen_web.xlsx",
+            mime="application/vnd.ms-excel"
+        )
     elif choice == "test_db":
         # Connection URL for SQLAlchemy
         connection_url = st.secrets["NEON_NEW"]
