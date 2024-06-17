@@ -105,7 +105,7 @@ def main():
                     3. **Koordination:** Nach einem erfolgreichen Match unterstützt Circularity Hub die logistische Abwicklung, um einen reibungslosen Transfer und die Wiederverwendung von Materialien zu gewährleisten.
 
                     ###   Treten Sie unserer Bewegung bei
-                    Registrieren Sie sich heute, um Teil einer nachhaltigen Bauzukunft zu sein. Reduzieren Sie Bauabfälle, sparen Sie Kosten und schützen Sie die Umwelt.
+                    Registrieren Sie sich heute, um Teil einer nachhaltigen Bauzukunft zu sein. Reduzieren Sie Bauabfälle, sparen Sie Kosten und schützen Sie die Umwelt. Und teilen Sie Ihre Erfahrungen im Community tab.
                     """)
     elif choice == "test_db":
         # Connection URL for SQLAlchemy
