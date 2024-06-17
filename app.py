@@ -88,7 +88,7 @@ def main():
     if choice == "Home":
         st.title("Circularity Hub")
         st.write("Die Plattform für zirkuläres Bauen.")
-        left, right = st.columns([1, 1])
+        left, right = st.columns([3, 2])
 
         with left:
             st.markdown("""
