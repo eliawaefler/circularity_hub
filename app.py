@@ -110,6 +110,7 @@ def main():
                         """)
             if st.button("Jetzt Anmelden"):
                 choice = "UserSpace"
+                st.rerun()
         st.image("images/circ.webp", caption="circular building industry")
     elif choice == "ER":
         st.title("Download Exchange Requirements")
