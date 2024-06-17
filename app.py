@@ -37,7 +37,6 @@ def checkpw() -> bool:
         return False
 
 
-
 def createuser() -> bool:
     try:
         uname = st.session_state.username
@@ -77,7 +76,7 @@ def main():
         initial_sidebar_state="expanded"  # 'auto', 'expanded', or 'collapsed'
     )
     st.sidebar.title("Navigation")
-    choice = st.sidebar.radio("Go to", ("Home", "UserSpace", "Community", "Speckle")) #"test_db", "newDBtest", "Map View",
+    choice = st.sidebar.radio("Go to", ("Home", "UserSpace", "Community", "Speckle", "about")) #"test_db", "newDBtest", "Map View",
     if "username" not in st.session_state:
         st.session_state.username = ""
     if "user_pw" not in st.session_state:
@@ -89,8 +88,14 @@ def main():
     if choice == "Home":
         st.title("Circularity Hub")
         st.write("Die Plattform für zirkuläres Bauen.")
-        st.image(Image.open("images/circ.webp"), caption="circular building industry")
-    
+        l, r = st.columns(2)
+        with r:
+            st.image(Image.open("images/circ.webp"), caption="circular building industry")
+        with l:
+            st.subheader("      unsere mission")
+            st.write("unsere ")
+            st.write("")
+            st.subheader("      our promise to you")
     elif choice == "test_db":
         # Connection URL for SQLAlchemy
         connection_url = st.secrets["NEON_NEW"]
@@ -158,8 +163,6 @@ def main():
                 print(f"ID: {read_id}, Name: {read_name}, Pet: {read_pet}")
         else:
             st.write("No entries found.")
-
-
     elif choice == "Map View":
         elia.show_map()
     elif choice == "UserSpace":
@@ -194,5 +197,23 @@ def main():
     elif choice == "Community":
         andu.community_space()
         st.session_state.create_new_topic = False
+    elif choice == "about":
+        l, r = st.columns(2)
+        with l:
+            st.subheader("contact")
+            st.write("")
+            st.write("main office")
+            st.write("ABC str 123")
+            st.write("1234 Stadt")
+            st.write("")
+            st.subheader("AGBs")
+            st.write("")
+            st.write("by using our plattform you agree to our AGB.")
+            st.write("AGB")
+            st.write("we will sell your data.")
+            st.write("yes, also on the dark web")
+            st.write("")
+
+
 if __name__ == "__main__":
     main()
