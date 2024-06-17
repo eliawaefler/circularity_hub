@@ -99,7 +99,7 @@ def main():
                         ###   Treten Sie unserer Bewegung bei
                         Registrieren Sie sich heute, um Teil einer nachhaltigen Bauzukunft zu sein. Reduzieren Sie Bauabfälle, sparen Sie Kosten und schützen Sie die Umwelt. Und teilen Sie Ihre Erfahrungen im Community tab.
                         """)
-            st.image("images/circ.webp", caption="circular building industry")
+
 
         with right:
             st.markdown("""
@@ -110,7 +110,7 @@ def main():
                         """)
             if st.button("Jetzt Anmelden"):
                 choice = "UserSpace"
-
+        st.image("images/circ.webp", caption="circular building industry")
 
     elif choice == "test_db":
         # Connection URL for SQLAlchemy
