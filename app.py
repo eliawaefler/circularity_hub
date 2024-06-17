@@ -112,7 +112,7 @@ def main():
                 choice = "UserSpace"
         st.image("images/circ.webp", caption="circular building industry")
     elif choice == "ER":
-        st.title("download Exchange Requirements")
+        st.title("Download Exchange Requirements")
 
         # Read the Excel file
         file_path = "ER_Zirkuläres_Bauen_web.xlsx"
