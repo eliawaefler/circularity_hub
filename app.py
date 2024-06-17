@@ -114,7 +114,9 @@ def main():
     elif choice == "ER":
         st.title("download Exchange Requirements")
         if st.button("download .xlsx"):
-            st.download_button(label="download .xlsx", file_name="ER_Zirkuläres_Bauen_web.xlsx")
+            st.download_button(label="download .xlsx",
+                               file_name="ER_Zirkuläres_Bauen_web.xlsx",
+                               data=open("ER_Zirkuläres_Bauen_web.xlsx"))
     elif choice == "test_db":
         # Connection URL for SQLAlchemy
         connection_url = st.secrets["NEON_NEW"]
