@@ -107,21 +107,24 @@ def main():
             if st.button("Mehr erfahren"):
                 choice = "About"
         l, r = st.columns([1, 3])
-            with r:
-                st.markdown("""
+        with r:
+            st.markdown("""
                     1. **Registrierung:** Melden Sie sich an und geben Sie Informationen zu Ihrem aktuellen oder geplanten Bauprojekt ein.
                     2. **Matching:** Unsere Plattform analysiert die verfügbaren Daten und findet passende Projekte, die Ihren Bedarf an Baumaterialien decken können oder die von Ihnen angebotenen Materialien verwenden können.
                     3. **Koordination:** Nach einem erfolgreichen Match unterstützt Circularity Hub die logistische Abwicklung, um einen reibungslosen Transfer und die Wiederverwendung von Materialien zu gewährleisten.
                             """)
-            with l:
-                if st.button("Mehr erfahren"):
-                    choice = "About"
-                             ###   Wie es funktioniert
-                              ###   Treten Sie unserer Bewegung bei
-                    Registrieren Sie sich heute, um Teil einer nachhaltigen Bauzukunft zu sein. Reduzieren Sie Bauabfälle, sparen Sie Kosten und schützen Sie die Umwelt. Und teilen Sie Ihre Erfahrungen im Community tab.
-
-            if st.button("jetzt Anmelden!"):
-                choice = "UserSpace"
+        with l:
+           if st.button("Mehr erfahren"):
+               choice = "About"
+        l, r = st.columns([1, 3])
+        with r:
+            st.markdown("""
+                         ###   Wie es funktioniert
+                          ###   Treten Sie unserer Bewegung bei
+                Registrieren Sie sich heute, um Teil einer nachhaltigen Bauzukunft zu sein. Reduzieren Sie Bauabfälle, sparen Sie Kosten und schützen Sie die Umwelt. Und teilen Sie Ihre Erfahrungen im Community tab.
+                        """)
+        if st.button("jetzt Anmelden!"):
+            choice = "UserSpace"
             st.image(Image.open("images/circ.webp"), caption="circular building industry")
 
     elif choice == "test_db":
