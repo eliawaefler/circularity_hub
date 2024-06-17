@@ -97,24 +97,24 @@ def main():
         with l:
             if st.button("Mehr erfahren"):
                 choice = "About"
-        l, r = st.columns([1, 3])
-        with r:
+        l2, r2 = st.columns([1, 3])
+        with r2:
             st.markdown("""
                           ###   Unsere Lösung
                     Circularity Hub ist eine innovative Plattform, die das Prinzip des zirkulären Bauens verwirklicht, indem sie Projekte, die Abbruchmaterialien benötigen, mit Neubauprojekten, die diese Materialien anbieten, effizient verbindet. Unsere fortschrittliche Matching-Technologie ermöglicht es, Bau- und Abbruchprojekte optimal aufeinander abzustimmen, sodass die Wiederverwendung von Materialien maximiert und die Abfallproduktion minimiert wird.
                         """)
-        l, r = st.columns([1, 3])
-        with r:
+        l3, r3 = st.columns([1, 3])
+        with r3:
             st.markdown("""
                     1. **Registrierung:** Melden Sie sich an und geben Sie Informationen zu Ihrem aktuellen oder geplanten Bauprojekt ein.
                     2. **Matching:** Unsere Plattform analysiert die verfügbaren Daten und findet passende Projekte, die Ihren Bedarf an Baumaterialien decken können oder die von Ihnen angebotenen Materialien verwenden können.
                     3. **Koordination:** Nach einem erfolgreichen Match unterstützt Circularity Hub die logistische Abwicklung, um einen reibungslosen Transfer und die Wiederverwendung von Materialien zu gewährleisten.
                             """)
-        with l:
+        with l3:
            if st.button("Jetzt Anmbelden"):
                choice = "UserSpace"
-        l, r = st.columns([1, 3])
-        with r:
+        l4, r4 = st.columns([1, 3])
+        with r4:
             st.markdown("""
                          ###   Wie es funktioniert
                           ###   Treten Sie unserer Bewegung bei
