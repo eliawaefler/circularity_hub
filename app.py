@@ -107,6 +107,8 @@ def main():
                     ###   Treten Sie unserer Bewegung bei
                     Registrieren Sie sich heute, um Teil einer nachhaltigen Bauzukunft zu sein. Reduzieren Sie Bauabfälle, sparen Sie Kosten und schützen Sie die Umwelt. Und teilen Sie Ihre Erfahrungen im Community tab.
                     """)
+            if st.button("jetzt Anmelden!"):
+                choice = "UserSpace"
     elif choice == "test_db":
         # Connection URL for SQLAlchemy
         connection_url = st.secrets["NEON_NEW"]
