@@ -65,7 +65,7 @@ def user_space():
                     st.subheader(str(p[1]))
                     st.write(f"projektinformationen: Adresse: {p[2]}, Typ: {p[4]}, Baujahr: {p[6]}")
                     all_p = neon.read_db(st.secrets["NEON_URL"], "geb", condition=f"typ <> '{p[7]}'")
-                    sorted_p = sorted(all_p, key=lambda x: abs(x[6]-p[6]+50))
+                    sorted_p = sorted(all_p, key=lambda x: abs(x[6]-p[6]+10))
                     st.write("")
                     st.write("Hier die besten Matches für Dein Projekt:")
                     for match in sorted_p[:3]:
