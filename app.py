@@ -73,7 +73,7 @@ def main():
         page_title="Circularity Hub", #:cyclone::hammer_and_pick::recycle:
         page_icon=":cyclone:",  # You can use emojis or path to an image file :repeat: oder :cyclone: :radio_button: :recycle: :hammer_and_pick:
         layout="wide",  # 'centered' or 'wide'
-        initial_sidebar_state='collapsed'  # 'auto', 'expanded', or 'collapsed' "expanded"
+        initial_sidebar_state='expanded'  # 'auto', 'expanded', or 'collapsed' "expanded"
     )
     st.sidebar.title("Navigation")
     choice = st.sidebar.radio("Go to", ("Home", "UserSpace", "Community", "Speckle", "about", "ER")) #"test_db", "newDBtest", "Map View",
@@ -104,13 +104,11 @@ def main():
         with right:
             st.markdown("""
                         ###   Wie es funktioniert
-                        1. **Registrierung:** Melden Sie sich an und geben Sie Informationen zu Ihrem aktuellen oder geplanten Bauprojekt ein.
+                        1. **Registrierung:** Melden Sie sich bei UserSpace an und geben Sie Informationen zu Ihrem aktuellen oder geplanten Bauprojekt ein.
                         2. **Matching:** Unsere Plattform analysiert die verfügbaren Daten und findet passende Projekte, die Ihren Bedarf an Baumaterialien decken können oder die von Ihnen angebotenen Materialien verwenden können.
                         3. **Koordination:** Nach einem erfolgreichen Match unterstützt Circularity Hub die logistische Abwicklung, um einen reibungslosen Transfer und die Wiederverwendung von Materialien zu gewährleisten.
                         """)
-            if st.button("Jetzt Anmelden"):
-                choice = "UserSpace"
-                st.rerun()
+
         st.image("images/circ.webp", caption="circular building industry")
     elif choice == "ER":
         st.title("Download Exchange Requirements")
