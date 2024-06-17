@@ -88,7 +88,7 @@ def main():
     if choice == "Home":
         st.title("Circularity Hub")
         st.write("Die Plattform für zirkuläres Bauen.")
-        l, r = st.columns([1, 3])
+        l, r = st.columns([1, 5])
         with r:
             st.markdown("""
                                 ###   Das Problem
@@ -103,9 +103,6 @@ def main():
                           ###   Unsere Lösung
                     Circularity Hub ist eine innovative Plattform, die das Prinzip des zirkulären Bauens verwirklicht, indem sie Projekte, die Abbruchmaterialien benötigen, mit Neubauprojekten, die diese Materialien anbieten, effizient verbindet. Unsere fortschrittliche Matching-Technologie ermöglicht es, Bau- und Abbruchprojekte optimal aufeinander abzustimmen, sodass die Wiederverwendung von Materialien maximiert und die Abfallproduktion minimiert wird.
                         """)
-        with l:
-            if st.button("Mehr erfahren"):
-                choice = "About"
         l, r = st.columns([1, 3])
         with r:
             st.markdown("""
@@ -114,8 +111,8 @@ def main():
                     3. **Koordination:** Nach einem erfolgreichen Match unterstützt Circularity Hub die logistische Abwicklung, um einen reibungslosen Transfer und die Wiederverwendung von Materialien zu gewährleisten.
                             """)
         with l:
-           if st.button("Mehr erfahren"):
-               choice = "About"
+           if st.button("Jetzt Anmbelden"):
+               choice = "UserSpace"
         l, r = st.columns([1, 3])
         with r:
             st.markdown("""
@@ -123,9 +120,7 @@ def main():
                           ###   Treten Sie unserer Bewegung bei
                 Registrieren Sie sich heute, um Teil einer nachhaltigen Bauzukunft zu sein. Reduzieren Sie Bauabfälle, sparen Sie Kosten und schützen Sie die Umwelt. Und teilen Sie Ihre Erfahrungen im Community tab.
                         """)
-        if st.button("jetzt Anmelden!"):
-            choice = "UserSpace"
-            st.image(Image.open("images/circ.webp"), caption="circular building industry")
+        st.image(Image.open("images/circ.webp"), caption="circular building industry")
 
     elif choice == "test_db":
         # Connection URL for SQLAlchemy
