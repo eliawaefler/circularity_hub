@@ -75,7 +75,7 @@ def main():
         initial_sidebar_state='expanded'  # 'auto', 'expanded', or 'collapsed' "expanded"
     )
     st.sidebar.title("Navigation")
-    choice = st.sidebar.radio("Go to", ("Home", "UserSpace", "Community", "Speckle", "about", "ER", "mangold")) #"test_db", "newDBtest", "Map View",
+    choice = st.sidebar.radio("Go to", ("Home", "UserSpace", "Community", "Speckle", "about", "ER", "Folien")) #"test_db", "newDBtest", "Map View",
     if "username" not in st.session_state:
         st.session_state.username = ""
     if "user_pw" not in st.session_state:
@@ -226,15 +226,9 @@ def main():
     elif choice == "Community":
         andu.community_space()
         st.session_state.create_new_topic = False
-    elif choice == "mangold":
-        st.markdown("""
-            <div style="position: relative; width: 100%; height: 0; padding-top: 56.2225%; padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px; will-change: transform;">
-              <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
-                src="https://www.canva.com/design/DAGGCoMSQPE/j7AQDKUbeRpGFVufvZGuYw/view?embed"
-                allowfullscreen="allowfullscreen" allow="fullscreen">
-              </iframe>
-            </div>
-            """, unsafe_allow_html=True)
+    elif choice == "Folien":
+        gabriel.folien()
+        
     elif choice == "about":
         l, r = st.columns(2)
         with l:
