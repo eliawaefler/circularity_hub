@@ -3,7 +3,7 @@ import streamlit as st
 # import pydeck as pdk
 
 def folien():
-    #hier code einfügen.
+    st.write("hier code einfügen.")
     return 0
 
     
