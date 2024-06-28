@@ -2,7 +2,11 @@ import streamlit as st
 # import pandas as pd
 # import pydeck as pdk
 
+def folien():
+    #hier code einfügen.
+    return 0
 
+    
 def speckle():
     st.title('Das Speckle Dashboard')
     
