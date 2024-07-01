@@ -56,6 +56,9 @@ def folien():
                         st.session_state[f"folien_index_{thema_nummer}"] += 1
                         folien_index = st.session_state[f"folien_index_{thema_nummer}"]
 
+            with col3:
+                st.write(f"Folie {folien_index + 1} von {len(folien_files)}")
+
             # Ausgewählte Folie
             selected_folie = folien_files[folien_index]
             folien_name = selected_folie.split('_', 1)[1].rsplit('.', 1)[0].replace('_', ' ').title()
