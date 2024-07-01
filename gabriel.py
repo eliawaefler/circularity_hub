@@ -47,8 +47,8 @@ def folien():
                     if st.session_state[f"folien_index_{thema_nummer}"] > 0:
                         st.session_state[f"folien_index_{thema_nummer}"] -= 1
             with col2:
-                if st.button("_>", key=f"next_{thema_nummer}"):
-                    if st.session_state[f"folien_index_{thema_nummer}"] < len(folien_files) - 1:
+                if st.session_state[f"folien_index_{thema_nummer}"] < len(folien_files) - 1:
+                    if st.button("_>", key=f"next_{thema_nummer}"):
                         st.session_state[f"folien_index_{thema_nummer}"] += 1
 
             folien_index = st.session_state[f"folien_index_{thema_nummer}"]
@@ -61,10 +61,6 @@ def folien():
             st.write(f"**{folien_name}**")
 
             file_path = os.path.join(folien_dir, selected_folie)
-            # Ändern der Endung von .pdf in .jpg
-            if selected_folie.lower().endswith('.pdf'):
-                file_path = file_path.replace('.pdf', '.jpg')
-                selected_folie = selected_folie.replace('.pdf', '.jpg')
 
             # Bild anzeigen
             try:
@@ -72,6 +68,7 @@ def folien():
                     st.image(img, caption=selected_folie)
             except (IOError, SyntaxError) as e:
                 st.error(f"Fehler beim Laden der Folie {selected_folie}: {e}")
+
 
 
     
