@@ -67,7 +67,7 @@ def folien():
             # Bild öffnen, skalieren und anzeigen
             image_path = os.path.join(folien_dir, selected_folie)
             image = Image.open(image_path)
-            image = image.resize((800, int(800 * image.height / image.width)))  # Skalieren auf feste Breite von 800px
+            image = image.resize((2160, int(2160 * image.height / image.width)))  # Skalieren auf feste Breite von 800px
             st.image(image, caption=selected_folie)
 
 
