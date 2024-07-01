@@ -4,7 +4,16 @@ import streamlit as st
 # import pandas as pd
 # import pydeck as pdk
 
-# Funktion zur Anzeige der Folien
+# Cache function to load image
+@st.cache_data
+def load_image(file_path):
+    try:
+        with Image.open(file_path) as img:
+            return img
+    except Exception as e:
+        st.error(f"Fehler beim Laden der Folie {file_path}: {e}")
+        return None
+
 def folien():
     # Hauptüberschrift
     st.title("Präsentation")
@@ -29,7 +38,12 @@ def folien():
     for thema_nummer, (thema_name, tab) in enumerate(zip(themen.keys(), tabs), start=1):
         with tab:
             # Dateien im Verzeichnis durchsuchen und filtern
-            folien_files = sorted([f for f in os.listdir(folien_dir) if f.startswith(f"{thema_nummer}_")])
+            if f"folien_files_{thema_nummer}" not in st.session_state:
+                st.session_state[f"folien_files_{thema_nummer}"] = sorted(
+                    [f for f in os.listdir(folien_dir) if f.startswith(f"{thema_nummer}_")]
+                )
+
+            folien_files = st.session_state[f"folien_files_{thema_nummer}"]
 
             # Wenn keine Folien vorhanden sind, Nachricht anzeigen
             if not folien_files:
@@ -42,7 +56,7 @@ def folien():
 
             folien_index = st.session_state[f"folien_index_{thema_nummer}"]
 
-            # Pfeiltasten zur Navigation
+            # Pfeiltasten zur Navigation und Folien-Count anzeigen
             col1, col2, col3 = st.columns([1, 2, 1])
             with col1:
                 if st.button("<_", key=f"prev_{thema_nummer}"):
@@ -69,12 +83,9 @@ def folien():
             file_path = os.path.join(folien_dir, selected_folie)
 
             # Bild anzeigen
-            try:
-                with Image.open(file_path) as img:
-                    st.image(img, caption=selected_folie)
-            except (IOError, SyntaxError) as e:
-                st.error(f"Fehler beim Laden der Folie {selected_folie}: {e}")
-
+            img = load_image(file_path)
+            if img:
+                st.image(img, caption=selected_folie)
     
 def speckle():
     st.title('BIM-Hub Dashboard')
