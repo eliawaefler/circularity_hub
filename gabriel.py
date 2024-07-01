@@ -4,21 +4,6 @@ import streamlit as st
 # import pandas as pd
 # import pydeck as pdk
 
-# Cache function to load image paths
-@st.cache_data
-def get_image_paths(folien_dir, thema_nummer):
-    thema_dir = os.path.join(folien_dir, str(thema_nummer))
-    return sorted([os.path.join(thema_dir, f) for f in os.listdir(thema_dir) if f.endswith(('.png', '.jpg', 'jpeg'))])
-
-# Function to load and display image with reduced size
-def display_image(file_path, size=(800, 600)):
-    try:
-        with Image.open(file_path) as img:
-            img.thumbnail(size)
-            st.image(img, caption=os.path.basename(file_path))
-    except (IOError, SyntaxError, UnidentifiedImageError) as e:
-        st.error(f"Fehler beim Laden der Folie {file_path}: {e}")
-
 def folien():
     # Hauptüberschrift
     st.title("Präsentation")
@@ -43,7 +28,7 @@ def folien():
     for thema_nummer, (thema_name, tab) in enumerate(zip(themen.keys(), tabs), start=1):
         with tab:
             # Dateien im Verzeichnis durchsuchen und filtern
-            folien_files = get_image_paths(folien_dir, thema_nummer)
+            folien_files = sorted([f for f in os.listdir(folien_dir) if f.startswith(f"{thema_nummer}_")])
 
             # Wenn keine Folien vorhanden sind, Nachricht anzeigen
             if not folien_files:
@@ -54,35 +39,26 @@ def folien():
             if f"folien_index_{thema_nummer}" not in st.session_state:
                 st.session_state[f"folien_index_{thema_nummer}"] = 0
 
-            folien_index = st.session_state[f"folien_index_{thema_nummer}"]
-
-            # Pfeiltasten zur Navigation und Folien-Count anzeigen
+            # Pfeiltasten zur Navigation
             col1, col2, col3 = st.columns([1, 2, 1])
             with col1:
                 if st.button("<_", key=f"prev_{thema_nummer}"):
                     if st.session_state[f"folien_index_{thema_nummer}"] > 0:
                         st.session_state[f"folien_index_{thema_nummer}"] -= 1
-                        folien_index = st.session_state[f"folien_index_{thema_nummer}"]
-
             with col2:
-                if folien_index < len(folien_files) - 1:
-                    if st.button("_>", key=f"next_{thema_nummer}"):
+                if st.button("_>", key=f"next_{thema_nummer}"):
+                    if st.session_state[f"folien_index_{thema_nummer}"] < len(folien_files) - 1:
                         st.session_state[f"folien_index_{thema_nummer}"] += 1
-                        folien_index = st.session_state[f"folien_index_{thema_nummer}"]
 
-            with col3:
-                st.write(f"Folie {folien_index + 1} von {len(folien_files)}")
-
+            folien_index = st.session_state[f"folien_index_{thema_nummer}"]
+            
             # Ausgewählte Folie
             selected_folie = folien_files[folien_index]
-            folien_name = os.path.basename(selected_folie).split('_', 1)[1].rsplit('.', 1)[0].replace('_', ' ').title()
+            folien_name = selected_folie.split('_', 1)[1].rsplit('.', 1)[0].replace('_', ' ').title()
 
-            # Folienname anzeigen
+            # Folienname und Bild anzeigen
             st.write(f"**{folien_name}**")
-
-            # Bild in reduzierter Größe anzeigen
-            display_image(selected_folie)
-
+            st.image(os.path.join(folien_dir, selected_folie), caption=selected_folie)
 
     
 def speckle():
