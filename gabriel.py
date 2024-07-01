@@ -35,15 +35,15 @@ def folien():
                 st.write("Keine Folien verfügbar.")
                 continue
 
-            # Slider zur Auswahl der Folie
+            # Slider zur Auswahl der Folie -> evtl. mit Pfeil-slider
             folien_index = st.slider(f"Wähle eine Folie für {thema_name}", 0, len(folien_files)-1, 0)
             
-            # Ausgewählte Folie anzeigen
+            # Ausgewählte Folie anzeigen (Anzeigen von path für Legende)
             selected_folie = folien_files[folien_index]
             st.image(os.path.join(folien_dir, selected_folie), caption=selected_folie)
     
 def speckle():
-    st.title('Das Speckle Dashboard')
+    st.title('BIM-Hub Dashboard')
     
     # Initialisiere die Session State, falls noch nicht geschehen
     if 'url' not in st.session_state:
