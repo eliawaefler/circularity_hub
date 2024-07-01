@@ -8,35 +8,16 @@ import streamlit as st
 @st.cache_data
 def get_image_paths(folien_dir, thema_nummer):
     thema_dir = os.path.join(folien_dir, str(thema_nummer))
-    return sorted([os.path.join(thema_dir, f) for f in os.listdir(thema_dir) if f.endswith(('.png', '.jpg'))])
+    return sorted([os.path.join(thema_dir, f) for f in os.listdir(thema_dir) if f.endswith(('.png', '.jpg', 'jpeg'))])
 
-# Function to load and display image
-def display_image(file_path):
+# Function to load and display image with reduced size
+def display_image(file_path, size=(800, 600)):
     try:
         with Image.open(file_path) as img:
+            img.thumbnail(size)
             st.image(img, caption=os.path.basename(file_path))
-    except (IOError, SyntaxError) as e:
+    except (IOError, SyntaxError, UnidentifiedImageError) as e:
         st.error(f"Fehler beim Laden der Folie {file_path}: {e}")
-
-# Function to create thumbnails
-def create_thumbnails(source_dir, target_dir, size=(200, 200)):
-    for root, dirs, files in os.walk(source_dir):
-        for file in files:
-            if file.endswith(('png', 'jpg', 'jpeg')):
-                file_path = os.path.join(root, file)
-                relative_path = os.path.relpath(file_path, source_dir)
-                thumbnail_path = os.path.join(target_dir, relative_path)
-                
-                thumbnail_dir = os.path.dirname(thumbnail_path)
-                if not os.path.exists(thumbnail_dir):
-                    os.makedirs(thumbnail_dir)
-                
-                if not os.path.exists(thumbnail_path):
-                    with Image.open(file_path) as img:
-                        img.thumbnail(size)
-                        img.save(thumbnail_path)
-                else:
-                    st.write(f"Thumbnail für {file_path} existiert bereits.")
 
 def folien():
     # Hauptüberschrift
@@ -44,10 +25,6 @@ def folien():
 
     # Verzeichnis der Folien
     folien_dir = "./presi_folien/"
-    thumbnails_dir = "./thumbnails/"
-
-    # Thumbnails erstellen
-    create_thumbnails(folien_dir, thumbnails_dir)
 
     # Themen und ihre Nummern
     themen = {
@@ -103,11 +80,9 @@ def folien():
             # Folienname anzeigen
             st.write(f"**{folien_name}**")
 
-            # Thumbnail-Pfad
-            thumbnail_path = selected_folie.replace(folien_dir, thumbnails_dir)
+            # Bild in reduzierter Größe anzeigen
+            display_image(selected_folie)
 
-            # Bild anzeigen
-            display_image(thumbnail_path)
 
     
 def speckle():
