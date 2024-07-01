@@ -75,7 +75,7 @@ def main():
         initial_sidebar_state='expanded'  # 'auto', 'expanded', or 'collapsed' "expanded"
     )
     st.sidebar.title("Navigation")
-    choice = st.sidebar.radio("Go to", ("Home", "UserSpace", "Community", "Speckle", "about", "ER", "Folien")) #"test_db", "newDBtest", "Map View",
+    choice = st.sidebar.radio("Go to", ("Home", "UserSpace", "Community", "BIM Hub", "About", "ER", "Folien")) #"test_db", "newDBtest", "Map View",
     if "username" not in st.session_state:
         st.session_state.username = ""
     if "user_pw" not in st.session_state:
@@ -221,7 +221,7 @@ def main():
                         st.rerun()
                     else:
                         st.warning("didnt work")
-    elif choice == "Speckle":
+    elif choice == "BIM Hub":
         gabriel.speckle()
     elif choice == "Community":
         andu.community_space()
@@ -229,7 +229,7 @@ def main():
     elif choice == "Folien":
         gabriel.folien()
         
-    elif choice == "about":
+    elif choice == "About":
         l, r = st.columns(2)
         with l:
             st.subheader("contact")
