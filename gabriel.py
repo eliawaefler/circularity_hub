@@ -5,9 +5,9 @@ from io import BytesIO
 # import pandas as pd
 # import pydeck as pdk
 
-# Cache function to load image
+# Cache function to load image bytes
 @st.cache_data
-def load_image(file_path):
+def load_image_bytes(file_path):
     try:
         with Image.open(file_path) as img:
             img_byte_arr = BytesIO()
@@ -15,8 +15,7 @@ def load_image(file_path):
             img_byte_arr = img_byte_arr.getvalue()
             return img_byte_arr
     except Exception as e:
-        st.error(f"Fehler beim Laden der Folie {file_path}: {e}")
-        return None
+        return None, str(e)
 
 def folien():
     # Hauptüberschrift
@@ -87,9 +86,12 @@ def folien():
             file_path = os.path.join(folien_dir, selected_folie)
 
             # Bild anzeigen
-            img_bytes = load_image(file_path)
+            img_bytes, error = load_image_bytes(file_path)
             if img_bytes:
                 st.image(img_bytes, caption=selected_folie)
+            else:
+                st.error(f"Fehler beim Laden der Folie {file_path}: {error}")
+
 
 
 
