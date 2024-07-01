@@ -45,7 +45,7 @@ def folien():
                 if st.button("<", key=f"prev_{thema_nummer}"):
                     if st.session_state[f"folien_index_{thema_nummer}"] > 0:
                         st.session_state[f"folien_index_{thema_nummer}"] -= 1
-            with col3:
+            with col2:
                 if st.button(">", key=f"next_{thema_nummer}"):
                     if st.session_state[f"folien_index_{thema_nummer}"] < len(folien_files) - 1:
                         st.session_state[f"folien_index_{thema_nummer}"] += 1
