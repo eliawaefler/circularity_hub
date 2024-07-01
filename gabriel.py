@@ -9,7 +9,10 @@ import streamlit as st
 def load_image(file_path):
     try:
         with Image.open(file_path) as img:
-            return img
+            img_byte_arr = BytesIO()
+            img.save(img_byte_arr, format=img.format)
+            img_byte_arr = img_byte_arr.getvalue()
+            return img_byte_arr
     except Exception as e:
         st.error(f"Fehler beim Laden der Folie {file_path}: {e}")
         return None
@@ -83,9 +86,12 @@ def folien():
             file_path = os.path.join(folien_dir, selected_folie)
 
             # Bild anzeigen
-            img = load_image(file_path)
-            if img:
-                st.image(img, caption=selected_folie)
+            img_bytes = load_image(file_path)
+            if img_bytes:
+                st.image(img_bytes, caption=selected_folie)
+
+
+
     
 def speckle():
     st.title('BIM-Hub Dashboard')
