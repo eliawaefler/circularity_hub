@@ -12,18 +12,6 @@ import neon_write_old_version
 import sha256
 
 
-# Define your custom CSS
-custom_css = """
-<style>
-div.row-widget.stRadio > div{flex-direction:row;} /* Align radio buttons horizontally */
-label[data-baseweb="radio"] {padding: 10px; background-color: #f0f0f0; border-radius: 10px;} /* Custom style */
-</style>
-"""
-
-# Apply the custom CSS
-st.markdown(custom_css, unsafe_allow_html=True)
-
-
 def sha_pw():
     pw = str(st.session_state.user_pw)
     un = str(st.session_state.username)
@@ -87,6 +75,20 @@ def main():
         initial_sidebar_state='expanded'  # 'auto', 'expanded', or 'collapsed' "expanded"
     )
     st.sidebar.title("Navigation")
+    
+    
+    # Define your custom CSS
+    custom_css = """
+    <style>
+    div.row-widget.stRadio > div{flex-direction:row;} /* Align radio buttons horizontally */
+    label[data-baseweb="radio"] {padding: 10px; background-color: #f0f0f0; border-radius: 10px;} /* Custom style */
+    </style>
+    """
+    
+    # Apply the custom CSS
+    st.markdown(custom_css, unsafe_allow_html=True)
+
+
     choice = st.sidebar.radio("Go to", ("Home", "UserSpace", "Community", "BIM Hub", "About", "ER", "Folien")) #"test_db", "newDBtest", "Map View",
     if "username" not in st.session_state:
         st.session_state.username = ""
