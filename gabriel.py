@@ -42,11 +42,11 @@ def folien():
             # Pfeiltasten zur Navigation
             col1, col2, col3 = st.columns([1, 2, 1])
             with col1:
-                if st.button("<", key=f"prev_{thema_nummer}"):
+                if st.button(" < ", key=f"prev_{thema_nummer}"):
                     if st.session_state[f"folien_index_{thema_nummer}"] > 0:
                         st.session_state[f"folien_index_{thema_nummer}"] -= 1
-            with col1:
-                if st.button(">", key=f"next_{thema_nummer}"):
+            with col2:
+                if st.button(" > ", key=f"next_{thema_nummer}"):
                     if st.session_state[f"folien_index_{thema_nummer}"] < len(folien_files) - 1:
                         st.session_state[f"folien_index_{thema_nummer}"] += 1
 
