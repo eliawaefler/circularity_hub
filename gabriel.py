@@ -1,21 +1,14 @@
 import os
 from PIL import Image
 import streamlit as st
-from io import BytesIO
 # import pandas as pd
 # import pydeck as pdk
 
-# Cache function to load image bytes
+# Cache function to load image paths
 @st.cache_data
-def load_image_bytes(file_path):
-    try:
-        with Image.open(file_path) as img:
-            img_byte_arr = BytesIO()
-            img.save(img_byte_arr, format=img.format)
-            img_byte_arr = img_byte_arr.getvalue()
-            return img_byte_arr
-    except Exception as e:
-        return None, str(e)
+def get_image_paths(folien_dir, thema_nummer):
+    return sorted([f for f in os.listdir(folien_dir) if f.startswith(f"{thema_nummer}_")])
+
 
 def folien():
     # Hauptüberschrift
@@ -41,12 +34,7 @@ def folien():
     for thema_nummer, (thema_name, tab) in enumerate(zip(themen.keys(), tabs), start=1):
         with tab:
             # Dateien im Verzeichnis durchsuchen und filtern
-            if f"folien_files_{thema_nummer}" not in st.session_state:
-                st.session_state[f"folien_files_{thema_nummer}"] = sorted(
-                    [f for f in os.listdir(folien_dir) if f.startswith(f"{thema_nummer}_")]
-                )
-
-            folien_files = st.session_state[f"folien_files_{thema_nummer}"]
+            folien_files = get_image_paths(folien_dir, thema_nummer)
 
             # Wenn keine Folien vorhanden sind, Nachricht anzeigen
             if not folien_files:
@@ -86,11 +74,11 @@ def folien():
             file_path = os.path.join(folien_dir, selected_folie)
 
             # Bild anzeigen
-            img_bytes, error = load_image_bytes(file_path)
-            if img_bytes:
-                st.image(img_bytes, caption=selected_folie)
-            else:
-                st.error(f"Fehler beim Laden der Folie {file_path}: {error}")
+            try:
+                with Image.open(file_path) as img:
+                    st.image(img, caption=selected_folie)
+            except (IOError, SyntaxError) as e:
+                st.error(f"Fehler beim Laden der Folie {file_path}: {e}")
 
 
 
