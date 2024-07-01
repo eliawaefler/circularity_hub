@@ -1,21 +1,46 @@
 import streamlit as st
+import os
 # import pandas as pd
 # import pydeck as pdk
 
+# Funktion zur Anzeige der Folien
 def folien():
-    st.write("hier code einfügen.")
+    # Hauptüberschrift
+    st.title("Präsentation")
 
-    #zb eine folie von mangold könnte das sein: 
-    st.markdown("""
-            <div style="position: relative; width: 100%; height: 0; padding-top: 56.2225%; padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px; will-change: transform;">
-              <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
-                src="https://www.canva.com/design/DAGGCoMSQPE/j7AQDKUbeRpGFVufvZGuYw/view?embed"
-                allowfullscreen="allowfullscreen" allow="fullscreen">
-              </iframe>
-            </div>
-            """, unsafe_allow_html=True)
-    return 0
+    # Verzeichnis der Folien
+    folien_dir = "./presi_folien/"
 
+    # Themen und ihre Nummern
+    themen = {
+        "1": "Einführung",
+        "2": "Demo",
+        "3": "Scraper",
+        "4": "ER / Bauteil",
+        "5": "Skalierbarkeit",
+        "6": "Potenzial / Abschluss / Handlungsempfehlung"
+    }
+
+    # Tabs für jedes Thema erstellen
+    tabs = st.tabs(list(themen.values()))
+
+    # Durch jedes Thema iterieren und die entsprechenden Folien anzeigen
+    for thema_nummer, (thema_name, tab) in enumerate(zip(themen.keys(), tabs), start=1):
+        with tab:
+            # Dateien im Verzeichnis durchsuchen und filtern
+            folien_files = sorted([f for f in os.listdir(folien_dir) if f.startswith(f"{thema_nummer}_")])
+
+            # Wenn keine Folien vorhanden sind, Nachricht anzeigen
+            if not folien_files:
+                st.write("Keine Folien verfügbar.")
+                continue
+
+            # Slider zur Auswahl der Folie
+            folien_index = st.slider(f"Wähle eine Folie für {thema_name}", 0, len(folien_files)-1, 0)
+            
+            # Ausgewählte Folie anzeigen
+            selected_folie = folien_files[folien_index]
+            st.image(os.path.join(folien_dir, selected_folie), caption=selected_folie)
     
 def speckle():
     st.title('Das Speckle Dashboard')
