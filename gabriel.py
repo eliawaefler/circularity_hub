@@ -40,18 +40,21 @@ def folien():
             if f"folien_index_{thema_nummer}" not in st.session_state:
                 st.session_state[f"folien_index_{thema_nummer}"] = 0
 
+            folien_index = st.session_state[f"folien_index_{thema_nummer}"]
+
             # Pfeiltasten zur Navigation
             col1, col2, col3 = st.columns([1, 2, 1])
             with col1:
                 if st.button("<_", key=f"prev_{thema_nummer}"):
                     if st.session_state[f"folien_index_{thema_nummer}"] > 0:
                         st.session_state[f"folien_index_{thema_nummer}"] -= 1
+                        folien_index = st.session_state[f"folien_index_{thema_nummer}"]
+
             with col2:
-                if st.session_state[f"folien_index_{thema_nummer}"] < len(folien_files) - 1:
+                if folien_index < len(folien_files) - 1:
                     if st.button("_>", key=f"next_{thema_nummer}"):
                         st.session_state[f"folien_index_{thema_nummer}"] += 1
-
-            folien_index = st.session_state[f"folien_index_{thema_nummer}"]
+                        folien_index = st.session_state[f"folien_index_{thema_nummer}"]
 
             # Ausgewählte Folie
             selected_folie = folien_files[folien_index]
@@ -68,8 +71,6 @@ def folien():
                     st.image(img, caption=selected_folie)
             except (IOError, SyntaxError) as e:
                 st.error(f"Fehler beim Laden der Folie {selected_folie}: {e}")
-
-
 
     
 def speckle():
