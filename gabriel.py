@@ -35,12 +35,31 @@ def folien():
                 st.write("Keine Folien verfügbar.")
                 continue
 
-            # Slider zur Auswahl der Folie -> evtl. mit Pfeil-slider
-            folien_index = st.slider(f"Wähle eine Folie für {thema_name}", 0, len(folien_files)-1, 0)
+            # Session State für den Folienindex initialisieren
+            if f"folien_index_{thema_nummer}" not in st.session_state:
+                st.session_state[f"folien_index_{thema_nummer}"] = 0
+
+            # Pfeiltasten zur Navigation
+            col1, col2, col3 = st.columns([1, 2, 1])
+            with col1:
+                if st.button("<", key=f"prev_{thema_nummer}"):
+                    if st.session_state[f"folien_index_{thema_nummer}"] > 0:
+                        st.session_state[f"folien_index_{thema_nummer}"] -= 1
+            with col3:
+                if st.button(">", key=f"next_{thema_nummer}"):
+                    if st.session_state[f"folien_index_{thema_nummer}"] < len(folien_files) - 1:
+                        st.session_state[f"folien_index_{thema_nummer}"] += 1
+
+            folien_index = st.session_state[f"folien_index_{thema_nummer}"]
             
-            # Ausgewählte Folie anzeigen (Anzeigen von path für Legende)
+            # Ausgewählte Folie
             selected_folie = folien_files[folien_index]
+            folien_name = selected_folie.split('_', 1)[1].rsplit('.', 1)[0].replace('_', ' ').title()
+
+            # Folienname und Bild anzeigen
+            st.write(f"**{folien_name}**")
             st.image(os.path.join(folien_dir, selected_folie), caption=selected_folie)
+
     
 def speckle():
     st.title('BIM-Hub Dashboard')
