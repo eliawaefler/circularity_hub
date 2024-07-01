@@ -80,10 +80,32 @@ def main():
     # Define your custom CSS
     custom_css = """
     <style>
-    div.row-widget.stRadio > div{flex-direction:row;} /* Align radio buttons horizontally */
-    label[data-baseweb="radio"] {padding: 10px; background-color: #f0f0f0; border-radius: 10px;} /* Custom style */
+    div.row-widget.stRadio > div {
+        flex-direction: row; /* Align radio buttons horizontally */
+    }
+    
+    /* Hide the default radio button circle */
+    label[data-baseweb="radio"] .st-bf {
+        display: none;
+    }
+    
+    /* Custom style for the label when not selected */
+    label[data-baseweb="radio"] {
+        padding: 8px 15px;
+        border-radius: 10px;
+        background-color: #f0f0f0;
+        border: 2px solid #ccc;
+    }
+    
+    /* Custom style for the label when selected */
+    label[data-baseweb="radio"].st-df {
+        background-color: #4CAF50;
+        color: white;
+        border: 2px solid green;
+    }
     </style>
     """
+
     
     # Apply the custom CSS
     st.markdown(custom_css, unsafe_allow_html=True)
