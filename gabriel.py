@@ -1,5 +1,6 @@
-import streamlit as st
 import os
+from PIL import Image
+import streamlit as st
 # import pandas as pd
 # import pydeck as pdk
 
@@ -51,14 +52,27 @@ def folien():
                         st.session_state[f"folien_index_{thema_nummer}"] += 1
 
             folien_index = st.session_state[f"folien_index_{thema_nummer}"]
-            
+
             # Ausgewählte Folie
             selected_folie = folien_files[folien_index]
             folien_name = selected_folie.split('_', 1)[1].rsplit('.', 1)[0].replace('_', ' ').title()
 
-            # Folienname und Bild anzeigen
+            # Folienname anzeigen
             st.write(f"**{folien_name}**")
-            st.image(os.path.join(folien_dir, selected_folie), caption=selected_folie)
+
+            file_path = os.path.join(folien_dir, selected_folie)
+            # Ändern der Endung von .pdf in .jpg
+            if selected_folie.lower().endswith('.pdf'):
+                file_path = file_path.replace('.pdf', '.jpg')
+                selected_folie = selected_folie.replace('.pdf', '.jpg')
+
+            # Bild anzeigen
+            try:
+                with Image.open(file_path) as img:
+                    st.image(img, caption=selected_folie)
+            except (IOError, SyntaxError) as e:
+                st.error(f"Fehler beim Laden der Folie {selected_folie}: {e}")
+
 
     
 def speckle():
