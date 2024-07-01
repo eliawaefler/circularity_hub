@@ -50,10 +50,11 @@ def folien():
                     if st.session_state[f"folien_index_{thema_nummer}"] < len(folien_files) - 1:
                         st.session_state[f"folien_index_{thema_nummer}"] += 1
 
+            # Funktion für col3: Anzeige der Foliennummer
             with col3:
                 folien_index = st.session_state[f"folien_index_{thema_nummer}"]
                 st.write(f"Folie {folien_index + 1} von {len(folien_files)}")
-
+                
             folien_index = st.session_state[f"folien_index_{thema_nummer}"]
             
             # Ausgewählte Folie
@@ -63,6 +64,7 @@ def folien():
             # Folienname und Bild anzeigen
             st.write(f"**{folien_name}**")
             st.image(os.path.join(folien_dir, selected_folie), caption=selected_folie)
+
 
     
 def speckle():
