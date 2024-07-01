@@ -1,7 +1,6 @@
 import os
 from PIL import Image
 import streamlit as st
-from pdf2image import convert_from_path
 # import pandas as pd
 # import pydeck as pdk
 
@@ -62,21 +61,17 @@ def folien():
             st.write(f"**{folien_name}**")
 
             file_path = os.path.join(folien_dir, selected_folie)
+            # Ändern der Endung von .pdf in .jpg
             if selected_folie.lower().endswith('.pdf'):
-                # PDF in JPG konvertieren
-                try:
-                    images = convert_from_path(file_path)
-                    for i, image in enumerate(images):
-                        st.image(image, caption=f"{selected_folie} - Seite {i+1}")
-                except Exception as e:
-                    st.error(f"Fehler beim Konvertieren der PDF {selected_folie}: {e}")
-            else:
-                # Bild anzeigen
-                try:
-                    with Image.open(file_path) as img:
-                        st.image(img, caption=selected_folie)
-                except (IOError, SyntaxError) as e:
-                    st.error(f"Fehler beim Laden der Folie {selected_folie}: {e}")
+                file_path = file_path.replace('.pdf', '.jpg')
+                selected_folie = selected_folie.replace('.pdf', '.jpg')
+
+            # Bild anzeigen
+            try:
+                with Image.open(file_path) as img:
+                    st.image(img, caption=selected_folie)
+            except (IOError, SyntaxError) as e:
+                st.error(f"Fehler beim Laden der Folie {selected_folie}: {e}")
 
 
     
