@@ -8,6 +8,9 @@ def folien():
     # Hauptüberschrift
     st.title("Präsentation")
 
+    # Toggle-Option für Präsentationsmodus
+    mode = st.radio("Präsentationsmodus", ("Slides", "Scrollen"))
+
     # Verzeichnis der Folien
     folien_dir = "./presi_folien/"
 
@@ -35,40 +38,54 @@ def folien():
                 st.write("Keine Folien verfügbar.")
                 continue
 
-            # Session State für den Folienindex initialisieren
-            if f"folien_index_{thema_nummer}" not in st.session_state:
-                st.session_state[f"folien_index_{thema_nummer}"] = 0
+            if mode == "Slides":
+                # Session State für den Folienindex initialisieren
+                if f"folien_index_{thema_nummer}" not in st.session_state:
+                    st.session_state[f"folien_index_{thema_nummer}"] = 0
 
-            # Pfeiltasten zur Navigation
-            col1, col2, col3 = st.columns([1, 2, 1])
-            with col1:
-                if st.button("<_", key=f"prev_{thema_nummer}"):
-                    if st.session_state[f"folien_index_{thema_nummer}"] > 0:
-                        st.session_state[f"folien_index_{thema_nummer}"] -= 1
-            with col2:
-                if st.button("_>", key=f"next_{thema_nummer}"):
-                    if st.session_state[f"folien_index_{thema_nummer}"] < len(folien_files) - 1:
-                        st.session_state[f"folien_index_{thema_nummer}"] += 1
+                # Pfeiltasten zur Navigation
+                col1, col2, col3 = st.columns([1, 2, 1])
+                with col1:
+                    if st.button("<_", key=f"prev_{thema_nummer}"):
+                        if st.session_state[f"folien_index_{thema_nummer}"] > 0:
+                            st.session_state[f"folien_index_{thema_nummer}"] -= 1
+                with col2:
+                    if st.button("_>", key=f"next_{thema_nummer}"):
+                        if st.session_state[f"folien_index_{thema_nummer}"] < len(folien_files) - 1:
+                            st.session_state[f"folien_index_{thema_nummer}"] += 1
 
-            # Funktion für col3: Anzeige der Foliennummer
-            with col3:
+                # Funktion für col3: Anzeige der Foliennummer
+                with col3:
+                    folien_index = st.session_state[f"folien_index_{thema_nummer}"]
+                    st.write(f"Folie {folien_index + 1} von {len(folien_files)}")
+
                 folien_index = st.session_state[f"folien_index_{thema_nummer}"]
-                st.write(f"Folie {folien_index + 1} von {len(folien_files)}")
-                
-            folien_index = st.session_state[f"folien_index_{thema_nummer}"]
-            
-            # Ausgewählte Folie
-            selected_folie = folien_files[folien_index]
-            folien_name = selected_folie.split('_', 1)[1].rsplit('.', 1)[0].replace('_', ' ').title()
 
-            # Folienname und Bild anzeigen
-            st.write(f"**{folien_name}**")
-            
-            # Bild öffnen, skalieren und anzeigen
-            image_path = os.path.join(folien_dir, selected_folie)
-            image = Image.open(image_path)
-            image = image.resize((2160, int(2160 * image.height / image.width)))  # Skalieren auf feste Breite von 800px
-            st.image(image, caption=selected_folie)
+                # Ausgewählte Folie
+                selected_folie = folien_files[folien_index]
+                folien_name = selected_folie.split('_', 1)[1].rsplit('.', 1)[0].replace('_', ' ').title()
+
+                # Folienname und Bild anzeigen
+                st.write(f"**{folien_name}**")
+
+                # Bild öffnen, skalieren und anzeigen
+                image_path = os.path.join(folien_dir, selected_folie)
+                image = Image.open(image_path)
+                image = image.resize((2160, int(2160 * image.height / image.width)))  # Skalieren auf feste Breite von 800px
+                st.image(image, caption=selected_folie)
+
+            elif mode == "Scrollen":
+                for folien_file in folien_files:
+                    folien_name = folien_file.split('_', 1)[1].rsplit('.', 1)[0].replace('_', ' ').title()
+
+                    # Folienname und Bild anzeigen
+                    st.write(f"**{folien_name}**")
+
+                    # Bild öffnen, skalieren und anzeigen
+                    image_path = os.path.join(folien_dir, folien_file)
+                    image = Image.open(image_path)
+                    image = image.resize((2160, int(2160 * image.height / image.width)))  # Skalieren auf feste Breite von 800px
+                    st.image(image, caption=folien_file)
 
 
     
