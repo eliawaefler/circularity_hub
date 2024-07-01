@@ -87,8 +87,7 @@ def folien():
                     image = image.resize((2160, int(2160 * image.height / image.width)))  # Skalieren auf feste Breite von 800px
                     st.image(image, caption=folien_file)
 
-            # Tabs für jedes Thema erstellen
-            tabs = st.tabs(list(themen.values()))
+
     
 def speckle():
     st.title('BIM-Hub Dashboard')
