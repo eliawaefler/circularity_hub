@@ -92,10 +92,14 @@ def folien():
             col1, col2 = st.columns([1, 1])
             with col1:
                 if thema_nummer > 1:
-                    st.button("Zurück", key=f"prev_tab_{thema_nummer}", on_click=lambda: st.experimental_set_query_params(tab=thema_nummer-1))
+                    if st.button("Zurück", key=f"prev_tab_{thema_nummer}"):
+                        st.experimental_set_query_params(tab=thema_nummer-1)
+                        st.rerun()
             with col2:
                 if thema_nummer < len(themen):
-                    st.button("Weiter", key=f"next_tab_{thema_nummer}", on_click=lambda: st.experimental_set_query_params(tab=thema_nummer+1))
+                    if st.button("Weiter", key=f"next_tab_{thema_nummer}"):
+                        st.experimental_set_query_params(tab=thema_nummer+1)
+                        st.rerun()
 
     
 def speckle():
