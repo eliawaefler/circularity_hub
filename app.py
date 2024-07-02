@@ -80,7 +80,7 @@ def main():
         <style>
         div.row-widget.stRadio > div {
             flex-direction: col;
-            align-items: stretch;
+            align-items: left;
         }
     
         div.row-widget.stRadio > div[role="radiogroup"] > label[data-baseweb="radio"] > div:first-child {
@@ -96,8 +96,8 @@ def main():
             border: 1px solid #0F0F0F;
         }
     
-        input[type="radio"]:checked + div:parent {
-            background: white !important;
+        div.row-widget.stRadio > div[role="radiogroup"] > label[data-baseweb="radio"]:has(input[type="radio"]:checked) {
+            background: red !important;
         }
         </style>
         """, unsafe_allow_html=True)
