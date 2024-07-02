@@ -28,7 +28,7 @@ def display_presentation(slide_folder):
                 st.image(image_path, use_column_width=True)
                 st.caption(slide)
                 
-            if i == 6:
+            if i == 5:
                 st.markdown("## Handlungsempfehlung für uptownBasel")
 
                 # Do
