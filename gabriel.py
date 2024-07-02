@@ -6,7 +6,8 @@ import streamlit as st
 
 def folien():
     # Hauptüberschrift
-    st.title("Präsentation")
+    st.title("Präsentation uptownBasel")
+    st.write("02.Juli 2024")
 
     # Toggle-Option für Präsentationsmodus
     mode = st.radio("Präsentationsmodus", ("Slides", "Scrollen"))
@@ -87,6 +88,14 @@ def folien():
                     image = image.resize((2160, int(2160 * image.height / image.width)))  # Skalieren auf feste Breite von 800px
                     st.image(image, caption=folien_file)
 
+            # Navigationsbuttons für den nächsten und vorherigen Tab
+            col1, col2 = st.columns([1, 1])
+            with col1:
+                if thema_nummer > 1:
+                    st.button("Zurück", key=f"prev_tab_{thema_nummer}", on_click=lambda: st.experimental_set_query_params(tab=thema_nummer-1))
+            with col2:
+                if thema_nummer < len(themen):
+                    st.button("Weiter", key=f"next_tab_{thema_nummer}", on_click=lambda: st.experimental_set_query_params(tab=thema_nummer+1))
 
     
 def speckle():
