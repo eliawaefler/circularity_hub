@@ -3,7 +3,7 @@ handwerker_text = """Liebe Handwerker-Gemeinschaft, als Handwerker arbeite ich e
                 Aspekt meiner Arbeit besteht darin, die von Planern oder Bauherren spezifizierten,
                 wiederverwendbaren Bauteile effektiv zu integrieren. Für jedes Projekt erhalte ich eine Liste
                 mit Bauteilen, die wiederverwendet werden sollen. Diese Bauteile sind sowohl im Architektenplan
-                als auch auf unserer Plattform mit einer Global Trade Item Number (GTIN) gekennzeichnet. Diese
+                als auch auf unserer Plattform mit einer Global Unique Indentify (GUID) gekennzeichnet. Diese
                 systematische Kennzeichnung ermöglicht es mir, die Bauteile physisch vor Ort zu markieren und
                 genau zu identifizieren. Dank der GTIN kann ich jedes Bauteil exakt zuordnen und sicherstellen,
                 dass es gemäss den Planungsvorgaben eingebaut wird. Diese präzise Methode erleichtert die Montage,
