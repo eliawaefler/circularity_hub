@@ -35,9 +35,6 @@ def folien():
     # Den aktuellen Tab bestimmen
     current_tab = st.session_state.tab_index
     
-    # Verzeichnis der Folien
-    folien_dir = "path/to/your/slide/directory"
-    
     # Durch jedes Thema iterieren und die entsprechenden Folien anzeigen
     for thema_nummer, (thema_name, tab) in enumerate(zip(themen.keys(), tabs)):
         if thema_nummer != current_tab:
