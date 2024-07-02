@@ -7,7 +7,7 @@ import streamlit as st
 def folien():
     # Hauptüberschrift
     st.title("Präsentation uptownBasel")
-    st.write("02.Juli 2024")
+    st.write("02. Juli 2024")
 
     # Toggle-Option für Präsentationsmodus
     mode = st.radio("Präsentationsmodus", ("Slides", "Scrollen"))
@@ -25,14 +25,24 @@ def folien():
         "6": "Potenzial / Abschluss / Handlungsempfehlung"
     }
 
+    # Initialisierung des aktuellen Tabs
+    if 'current_tab' not in st.session_state:
+        st.session_state['current_tab'] = 0
+
     # Tabs für jedes Thema erstellen
     tabs = st.tabs(list(themen.values()))
 
+    # Den aktuell ausgewählten Tab erhalten
+    current_tab_index = st.session_state['current_tab']
+
     # Durch jedes Thema iterieren und die entsprechenden Folien anzeigen
-    for thema_nummer, (thema_name, tab) in enumerate(zip(themen.keys(), tabs), start=1):
+    for thema_nummer, (thema_name, tab) in enumerate(zip(themen.keys(), tabs)):
         with tab:
+            if thema_nummer != current_tab_index:
+                continue
+            
             # Dateien im Verzeichnis durchsuchen und filtern
-            folien_files = sorted([f for f in os.listdir(folien_dir) if f.startswith(f"{thema_nummer}_")])
+            folien_files = sorted([f for f in os.listdir(folien_dir) if f.startswith(f"{thema_nummer + 1}_")])
 
             # Wenn keine Folien vorhanden sind, Nachricht anzeigen
             if not folien_files:
@@ -72,7 +82,7 @@ def folien():
                 # Bild öffnen, skalieren und anzeigen
                 image_path = os.path.join(folien_dir, selected_folie)
                 image = Image.open(image_path)
-                image = image.resize((2160, int(2160 * image.height / image.width)))  # Skalieren auf feste Breite von 800px
+                image = image.resize((2160, int(2160 * image.height / image.width)))  # Skalieren auf feste Breite von 2160px
                 st.image(image, caption=selected_folie)
 
             elif mode == "Scrollen":
@@ -85,25 +95,22 @@ def folien():
                     # Bild öffnen, skalieren und anzeigen
                     image_path = os.path.join(folien_dir, folien_file)
                     image = Image.open(image_path)
-                    image = image.resize((2160, int(2160 * image.height / image.width)))  # Skalieren auf feste Breite von 800px
+                    image = image.resize((2160, int(2160 * image.height / image.width)))  # Skalieren auf feste Breite von 2160px
                     st.image(image, caption=folien_file)
 
             # Navigationsbuttons für den nächsten und vorherigen Tab
             col1, col2 = st.columns([1, 1])
             with col1:
-                if thema_nummer > 1:
+                if thema_nummer > 0:
                     if st.button("Zurück", key=f"prev_tab_{thema_nummer}"):
-                        st.session_state['current_tab'] = thema_nummer - 1
-                        st.rerun()
+                        st.session_state['current_tab'] -= 1
+                        st.experimental_rerun()
             with col2:
-                if thema_nummer < len(themen):
+                if thema_nummer < len(themen) - 1:
                     if st.button("Weiter", key=f"next_tab_{thema_nummer}"):
-                        st.session_state['current_tab'] = thema_nummer + 1
-                        st.rerun()
-            
-            # Tabs für jedes Thema erstellen
-            current_tab = st.session_state.get('current_tab', 1)
-            tabs = st.tabs(list(themen.values()))
+                        st.session_state['current_tab'] += 1
+                        st.experimental_rerun()
+
 
     
 def speckle():
