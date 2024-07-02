@@ -4,6 +4,10 @@ import streamlit as st
 # import pandas as pd
 # import pydeck as pdk
 
+import streamlit as st
+import os
+from PIL import Image
+
 def folien():
     # Hauptüberschrift
     st.title("Präsentation uptownBasel")
@@ -25,22 +29,21 @@ def folien():
         "6": "Potenzial / Abschluss / Handlungsempfehlung"
     }
 
-    # Initialisierung des aktuellen Tabs
-    if 'current_tab' not in st.session_state:
-        st.session_state['current_tab'] = 0
-
     # Tabs für jedes Thema erstellen
     tabs = st.tabs(list(themen.values()))
 
-    # Den aktuell ausgewählten Tab erhalten
-    current_tab_index = st.session_state['current_tab']
+    # Aktuellen Tab-Index in Session State initialisieren
+    if 'tab_index' not in st.session_state:
+        st.session_state.tab_index = 0
+
+    # Den aktuellen Tab bestimmen
+    current_tab = st.session_state.tab_index
 
     # Durch jedes Thema iterieren und die entsprechenden Folien anzeigen
     for thema_nummer, (thema_name, tab) in enumerate(zip(themen.keys(), tabs)):
+        if thema_nummer != current_tab:
+            continue
         with tab:
-            if thema_nummer != current_tab_index:
-                continue
-            
             # Dateien im Verzeichnis durchsuchen und filtern
             folien_files = sorted([f for f in os.listdir(folien_dir) if f.startswith(f"{thema_nummer + 1}_")])
 
@@ -103,14 +106,13 @@ def folien():
             with col1:
                 if thema_nummer > 0:
                     if st.button("Zurück", key=f"prev_tab_{thema_nummer}"):
-                        st.session_state['current_tab'] -= 1
+                        st.session_state.tab_index = max(st.session_state.tab_index - 1, 0)
                         st.rerun()
             with col2:
                 if thema_nummer < len(themen) - 1:
                     if st.button("Weiter", key=f"next_tab_{thema_nummer}"):
-                        st.session_state['current_tab'] += 1
+                        st.session_state.tab_index = min(st.session_state.tab_index + 1, len(themen) - 1)
                         st.rerun()
-
 
     
 def speckle():
