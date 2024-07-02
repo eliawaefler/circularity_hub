@@ -80,7 +80,7 @@ def main():
         <style>
         div.row-widget.stRadio > div {
             flex-direction: col;
-            align-items: left;
+            align-items: stretch;
         }
     
         div.row-widget.stRadio > div[role="radiogroup"] > label[data-baseweb="radio"] > div:first-child {
