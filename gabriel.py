@@ -36,6 +36,7 @@ def folien():
     current_tab = st.session_state.tab_index
 
     # Durch jedes Thema iterieren und die entsprechenden Folien anzeigen
+    st.write(tabs)
     for thema_nummer, (thema_name, tab) in enumerate(zip(themen.keys(), tabs)):
         if thema_nummer != current_tab:
             continue
