@@ -9,9 +9,6 @@ def folien():
     st.title("Präsentation UptownBasel")
     st.write("02. Juli 2024")
 
-    # Toggle-Option für Präsentationsmodus
-    mode = "Scrollen"
-
     # Verzeichnis der Folien
     folien_dir = "./presi_folien/"
 
@@ -28,17 +25,8 @@ def folien():
     # Tabs für jedes Thema erstellen
     tabs = st.tabs(list(themen.values()))
     
-    # Aktuellen Tab-Index in Session State initialisieren
-    if 'tab_index' not in st.session_state:
-        st.session_state.tab_index = 0
-    
-    # Den aktuellen Tab bestimmen
-    current_tab = st.session_state.tab_index
-    
     # Durch jedes Thema iterieren und die entsprechenden Folien anzeigen
     for thema_nummer, (thema_name, tab) in enumerate(zip(themen.keys(), tabs)):
-        if thema_nummer != current_tab:
-            continue
         with tab:
             # Dateien im Verzeichnis durchsuchen und filtern
             folien_files = sorted(
@@ -69,9 +57,7 @@ def folien():
                 # Don't
                 st.markdown("### Don't:")
                 st.markdown("<span style='color: red;'>- **Anwendungsfälle ohne klaren Nutzen einkaufen**: Vermeiden Sie den Erwerb von Anwendungsfällen zu Marketingzwecken ohne eine klare Vorstellung, welchen Nutzen sie für das Unternehmen bringen.</span>", unsafe_allow_html=True)
-
-
-    
+   
 def speckle():
     st.title('BIM-Hub Dashboard')
     
