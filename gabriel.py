@@ -6,7 +6,7 @@ import streamlit as st
 
 def folien():
     # Hauptüberschrift
-    st.title("Präsentation uptownBasel")
+    st.title("Präsentation UptownBasel")
     st.write("02. Juli 2024")
 
     # Toggle-Option für Präsentationsmodus
