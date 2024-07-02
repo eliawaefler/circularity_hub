@@ -4,15 +4,7 @@ import streamlit as st
 # import pandas as pd
 # import pydeck as pdk
 
-def folien():
-    # Hauptüberschrift
-    st.title("Präsentation UptownBasel")
-    st.write("02. Juli 2024")
-
-    # Verzeichnis der Folien
-    folien_dir = "./presi_folien/"
-
-    # Themen und ihre Nummern
+def display_presentation(slide_folder):
     themen = {
         "1": "Einführung",
         "2": "Datenbank",
@@ -21,25 +13,21 @@ def folien():
         "5": "Skalierbarkeit",
         "6": "Handlungsempfehlung"
     }
-    
-    # Tabs für jedes Thema erstellen
-    tabs = st.tabs(list(themen.values()))
-    
-    # Durch jedes Thema iterieren und die entsprechenden Folien anzeigen
-    for thema_nummer, (thema_name, tab) in enumerate(zip(themen.keys(), tabs)):
-        with tab:
-            # Dateien im Verzeichnis durchsuchen und filtern
-            folien_files = sorted(
-                [f for f in os.listdir(folien_dir) if f.startswith(f"{thema_nummer + 1}_")],
-                key=lambda x: int(x.split('_')[1])
-            )
-            
-            # Folien anzeigen
-            for folien_file in folien_files:
-                folien_path = os.path.join(folien_dir, folien_file)
-                st.image(folien_path, caption=folien_file)
-    
-            # Handlungsempfehlungen nur im Tab 6 anzeigen
+
+    # Create tabs for each topic
+    tabs = st.tabs([f"Topic {key}: {value}" for key, value in themen.items()])
+
+    # Iterate through each topic and display slides
+    for i, (key, value) in enumerate(themen.items()):
+        with tabs[i]:
+            slide_files = sorted([f for f in os.listdir(slide_folder) if f.startswith(f"{key}_")])
+            for slide in slide_files:
+                slide_name = slide.split("_")[2].split(".")[0]
+                st.markdown(f"### {slide_name}")
+                image_path = os.path.join(slide_folder, slide)
+                st.image(image_path, use_column_width=True)
+                st.caption(slide)
+                
             if thema_nummer == 6:
                 st.markdown("## Handlungsempfehlung für uptownBasel")
 
@@ -58,6 +46,22 @@ def folien():
                 st.markdown("### Don't:")
                 st.markdown("<span style='color: red;'>- **Anwendungsfälle ohne klaren Nutzen einkaufen**: Vermeiden Sie den Erwerb von Anwendungsfällen zu Marketingzwecken ohne eine klare Vorstellung, welchen Nutzen sie für das Unternehmen bringen.</span>", unsafe_allow_html=True)
    
+            # Add button to go to the next tab
+            if i < len(tabs) - 1:
+                if st.button(f"Next: {themen[str(i+2)]}"):
+                    st.session_state["tab_index"] = i + 1
+                    st.rerun()
+
+
+def folien():
+    # Hauptüberschrift
+    st.title("Präsentation UptownBasel")
+    st.write("02. Juli 2024")
+
+    # Verzeichnis der Folien
+    folien_dir = "./presi_folien/"
+    display_presentation(folien_dir)
+         
 def speckle():
     st.title('BIM-Hub Dashboard')
     
