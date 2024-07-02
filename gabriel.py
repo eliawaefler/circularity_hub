@@ -4,10 +4,6 @@ import streamlit as st
 # import pandas as pd
 # import pydeck as pdk
 
-import streamlit as st
-import os
-from PIL import Image
-
 def folien():
     # Hauptüberschrift
     st.title("Präsentation uptownBasel")
