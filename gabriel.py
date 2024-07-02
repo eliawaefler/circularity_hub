@@ -15,7 +15,7 @@ def display_presentation(slide_folder):
     }
 
     # Create tabs for each topic
-    tabs = st.tabs([f"Topic {key}: {value}" for key, value in themen.items()])
+    tabs = st.tabs([f"{key}: {value}" for key, value in themen.items()])
 
     # Iterate through each topic and display slides
     for i, (key, value) in enumerate(themen.items()):
