@@ -85,7 +85,7 @@ def main():
     }
     
     /* Hide the default radio button circle */
-    div[data-baseweb="radio"] > div:first-child {
+    div[data-baseweb="radio"] > div:second-child {
         display: none;
     }
     
