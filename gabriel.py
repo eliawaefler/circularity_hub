@@ -93,13 +93,17 @@ def folien():
             with col1:
                 if thema_nummer > 1:
                     if st.button("Zurück", key=f"prev_tab_{thema_nummer}"):
-                        st.experimental_set_query_params(tab=thema_nummer-1)
+                        st.session_state['current_tab'] = thema_nummer - 1
                         st.rerun()
             with col2:
                 if thema_nummer < len(themen):
                     if st.button("Weiter", key=f"next_tab_{thema_nummer}"):
-                        st.experimental_set_query_params(tab=thema_nummer+1)
+                        st.session_state['current_tab'] = thema_nummer + 1
                         st.rerun()
+            
+            # Tabs für jedes Thema erstellen
+            current_tab = st.session_state.get('current_tab', 1)
+            tabs = st.tabs(list(themen.values()))
 
     
 def speckle():
