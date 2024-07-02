@@ -75,7 +75,36 @@ def main():
         initial_sidebar_state='expanded'  # 'auto', 'expanded', or 'collapsed' "expanded"
     )
     st.sidebar.title("Navigation")
-             
+        # Apply custom CSS
+    st.markdown("""
+        <style>
+        div.row-widget.stRadio > div {
+            flex-direction: row;
+            align-items: stretch;
+        }
+    
+        div.row-widget.stRadio > div[role="radiogroup"] > label[data-baseweb="radio"] > div:first-child {
+            display: none;
+        }
+    
+        div.row-widget.stRadio > div[role="radiogroup"] > label[data-baseweb="radio"] {
+            background: transparent;
+            padding-right: 10px;
+            padding-left: 4px;
+            padding-bottom: 3px;
+            margin: 4px;
+            border: 1px solid #249ded;
+        }
+    
+        input[type="radio"]:checked + div {
+            background: red !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+    
+    # Sidebar radio button
+    options = ["Option 1", "Option 2", "Option 3"]
+    opt = st.sidebar.radio("Choose an option:", options)
     choice = st.sidebar.radio("Go to", ("Home", "UserSpace", "Community", "BIM Hub", "About", "ER", "Folien")) #"test_db", "newDBtest", "Map View",
     if "username" not in st.session_state:
         st.session_state.username = ""
