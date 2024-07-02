@@ -104,12 +104,12 @@ def folien():
                 if thema_nummer > 0:
                     if st.button("Zurück", key=f"prev_tab_{thema_nummer}"):
                         st.session_state['current_tab'] -= 1
-                        st.experimental_rerun()
+                        st.rerun()
             with col2:
                 if thema_nummer < len(themen) - 1:
                     if st.button("Weiter", key=f"next_tab_{thema_nummer}"):
                         st.session_state['current_tab'] += 1
-                        st.experimental_rerun()
+                        st.rerun()
 
 
     
