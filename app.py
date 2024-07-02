@@ -93,10 +93,10 @@ def main():
             padding-left: 4px;
             padding-bottom: 3px;
             margin: 4px;
-            border: 1px solid #FFFFFF;
+            border: 1px solid #0F0F0F;
         }
     
-        input[type="radio"]:checked + div {
+        input[type="radio"]:checked + div:parent {
             background: white !important;
         }
         </style>
