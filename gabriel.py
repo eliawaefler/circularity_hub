@@ -26,7 +26,7 @@ def folien():
         "3": "Scraper",
         "4": "ER / Bauteil",
         "5": "Skalierbarkeit",
-        "6": "Potenzial / Abschluss / Handlungsempfehlung"
+        "6": "Handlungsempfehlung"
     }
 
     # Tabs für jedes Thema erstellen
@@ -101,6 +101,31 @@ def folien():
                     image = image.resize((2160, int(2160 * image.height / image.width)))  # Skalieren auf feste Breite von 2160px
                     st.image(image, caption=folien_file)
 
+
+            # Handlungsempfehlungen nur im Tab 6 anzeigen
+            if thema_nummer == 5:  # Tab 6 hat den Index 5
+                st.markdown("## Handlungsempfehlung für uptownBasel")
+
+                # Do
+                st.markdown("### Do:")
+                st.markdown("<span style='color: green;'>- **Bestehende Anwendungsfälle prüfen**: Stellen Sie sicher, dass alle aktuellen Anwendungsfälle klar verstanden und dokumentiert sind.</span>", unsafe_allow_html=True)
+                st.markdown("<span style='color: green;'>- **Geschlossener Austausch**: Nutzen Sie das Areal von uptownBasel für den Austausch über Materialpass, Bestandsinventarisierung und Lean Deconstruction.</span>", unsafe_allow_html=True)
+                st.markdown("<span style='color: green;'>- **Modellierungsrichtlinien aufarbeiten**: Definieren Sie klar die Bauteile und Baustoffe in Ihren Modellierungsrichtlinien.</span>", unsafe_allow_html=True)
+
+                # Consider
+                st.markdown("### Consider:")
+                st.markdown("<span style='color: yellow;'>- **Vorreiterrolle übernehmen**: Nutzen Sie die Gelegenheit, eine führende Position im schweizerischen Rohstoff- und Bauteilhandel einzunehmen.</span>", unsafe_allow_html=True)
+                st.markdown("<span style='color: yellow;'>- **Stakeholder einbeziehen**: Arbeiten Sie eng mit Lieferanten und Herstellern zusammen, um erste Anwendungsfälle zu identifizieren.</span>", unsafe_allow_html=True)
+
+                # Don't
+                st.markdown("### Don't:")
+                st.markdown("<span style='color: red;'>- **Anwendungsfälle ohne klaren Nutzen einkaufen**: Vermeiden Sie den Erwerb von Anwendungsfällen zu Marketingzwecken ohne eine klare Vorstellung, welchen Nutzen sie für das Unternehmen bringen.</span>", unsafe_allow_html=True)
+
+
+
+
+
+            
             # Navigationsbuttons für den nächsten und vorherigen Tab
             """col1, col2 = st.columns([1, 1])
             with col1:
