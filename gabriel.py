@@ -26,7 +26,7 @@ def folien():
         "3": "Scraper",
         "4": "ER / Bauteil",
         "5": "Skalierbarkeit",
-        "6": "Handlungsempfehlung"
+        "6": "Potenzial / Abschluss / Handlungsempfehlung"
     }
 
     # Tabs für jedes Thema erstellen
