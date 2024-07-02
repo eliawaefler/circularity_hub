@@ -62,7 +62,7 @@ def folien():
 
             
             # Handlungsempfehlungen nur im Tab 6 anzeigen
-            if thema_nummer == 5:
+            if thema_nummer == 6:
                 st.markdown("## Handlungsempfehlung für uptownBasel")
 
                 # Do
