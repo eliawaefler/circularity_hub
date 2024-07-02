@@ -32,19 +32,19 @@ def display_presentation(slide_folder):
                 st.markdown("## Handlungsempfehlung für uptownBasel")
 
                 # Do
-                st.markdown("### Do:")
-                st.markdown("<span style='color: green;'>- **Bestehende Anwendungsfälle prüfen**: Stellen Sie sicher, dass alle aktuellen Anwendungsfälle klar verstanden und dokumentiert sind.</span>", unsafe_allow_html=True)
-                st.markdown("<span style='color: green;'>- **Geschlossener Austausch**: Nutzen Sie das Areal von uptownBasel für den Austausch über Materialpass, Bestandsinventarisierung und Lean Deconstruction.</span>", unsafe_allow_html=True)
-                st.markdown("<span style='color: green;'>- **Modellierungsrichtlinien aufarbeiten**: Definieren Sie klar die Bauteile und Baustoffe in Ihren Modellierungsrichtlinien.</span>", unsafe_allow_html=True)
+                st.success("### Do:")
+                st.write("**Bestehende Anwendungsfälle prüfen**: Stellen Sie sicher, dass alle aktuellen Anwendungsfälle klar verstanden und dokumentiert sind.")
+                st.write("**Geschlossener Austausch**: Nutzen Sie das Areal von uptownBasel für den Austausch über Materialpass, Bestandsinventarisierung und Lean Deconstruction.")
+                st.write("**Modellierungsrichtlinien aufarbeiten**: Definieren Sie klar die Bauteile und Baustoffe in Ihren Modellierungsrichtlinien.")
 
                 # Consider
-                st.markdown("### Consider:")
-                st.markdown("<span style='color: yellow;'>- **Vorreiterrolle übernehmen**: Nutzen Sie die Gelegenheit, eine führende Position im schweizerischen Rohstoff- und Bauteilhandel einzunehmen.</span>", unsafe_allow_html=True)
-                st.markdown("<span style='color: yellow;'>- **Stakeholder einbeziehen**: Arbeiten Sie eng mit Lieferanten und Herstellern zusammen, um erste Anwendungsfälle zu identifizieren.</span>", unsafe_allow_html=True)
+                st.warning("### Consider:")
+                st.write("**Vorreiterrolle übernehmen**: Nutzen Sie die Gelegenheit, eine führende Position im schweizerischen Rohstoff- und Bauteilhandel einzunehmen.")
+                st.write("**Stakeholder einbeziehen**: Arbeiten Sie eng mit Lieferanten und Herstellern zusammen, um erste Anwendungsfälle zu identifizieren.")
 
                 # Don't
-                st.markdown("### Don't:")
-                st.markdown("<span style='color: red;'>- **Anwendungsfälle ohne klaren Nutzen einkaufen**: Vermeiden Sie den Erwerb von Anwendungsfällen zu Marketingzwecken ohne eine klare Vorstellung, welchen Nutzen sie für das Unternehmen bringen.</span>", unsafe_allow_html=True)
+                st.error("### Don't:")
+                st.write("**Anwendungsfälle ohne klaren Nutzen einkaufen**: Vermeiden Sie den Erwerb von Anwendungsfällen zu Marketingzwecken ohne eine klare Vorstellung, welchen Nutzen sie für das Unternehmen bringen.")
    
             # Add button to go to the next tab
             if i < len(tabs) - 1:
