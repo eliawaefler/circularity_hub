@@ -123,22 +123,6 @@ def folien():
 
 
 
-
-
-            
-            # Navigationsbuttons für den nächsten und vorherigen Tab
-            """col1, col2 = st.columns([1, 1])
-            with col1:
-                if thema_nummer > 0:
-                    if st.button("Zurück", key=f"prev_tab_{thema_nummer}"):
-                        st.session_state.tab_index = max(st.session_state.tab_index - 1, 0)
-                        st.rerun()
-            with col2:
-                if thema_nummer < len(themen) - 1:
-                    if st.button("Weiter", key=f"next_tab_{thema_nummer}"):
-                        st.session_state.tab_index = min(st.session_state.tab_index + 1, len(themen) - 1)
-                        st.rerun()"""
-
     
 def speckle():
     st.title('BIM-Hub Dashboard')
