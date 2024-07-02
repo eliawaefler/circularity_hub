@@ -24,44 +24,36 @@ def folien():
         "5": "Skalierbarkeit",
         "6": "Handlungsempfehlung"
     }
-
+    
     # Tabs für jedes Thema erstellen
     tabs = st.tabs(list(themen.values()))
-
+    
     # Aktuellen Tab-Index in Session State initialisieren
     if 'tab_index' not in st.session_state:
         st.session_state.tab_index = 0
-
+    
     # Den aktuellen Tab bestimmen
     current_tab = st.session_state.tab_index
-
+    
+    # Verzeichnis der Folien
+    folien_dir = "path/to/your/slide/directory"
+    
     # Durch jedes Thema iterieren und die entsprechenden Folien anzeigen
-    st.write(tabs)
     for thema_nummer, (thema_name, tab) in enumerate(zip(themen.keys(), tabs)):
         if thema_nummer != current_tab:
             continue
         with tab:
             # Dateien im Verzeichnis durchsuchen und filtern
-            folien_files = sorted([f for f in os.listdir(folien_dir) if f.startswith(f"{thema_nummer + 1}_")])
-
-            # Wenn keine Folien vorhanden sind, Nachricht anzeigen
-            if not folien_files:
-                st.write("Keine Folien verfügbar.")
-                continue
-
-            for folien_file in folien_files:
-              folien_name = folien_file.split('_', 1)[1].rsplit('.', 1)[0].replace('_', ' ').title()
-
-              # Folienname und Bild anzeigen
-              st.write(f"**{folien_name}**")
-              # Bild öffnen, skalieren und anzeigen
-              image_path = os.path.join(folien_dir, folien_file)
-              image = Image.open(image_path)
-              image = image.resize((2160, int(2160 * image.height / image.width)))  # Skalieren auf feste Breite von 2160px
-              st.image(image, caption=folien_file)
-
-
+            folien_files = sorted(
+                [f for f in os.listdir(folien_dir) if f.startswith(f"{thema_nummer + 1}_")],
+                key=lambda x: int(x.split('_')[1])
+            )
             
+            # Folien anzeigen
+            for folien_file in folien_files:
+                folien_path = os.path.join(folien_dir, folien_file)
+                st.image(folien_path, caption=folien_file)
+    
             # Handlungsempfehlungen nur im Tab 6 anzeigen
             if thema_nummer == 6:
                 st.markdown("## Handlungsempfehlung für uptownBasel")
