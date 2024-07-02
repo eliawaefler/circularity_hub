@@ -98,6 +98,7 @@ def main():
     
         div.row-widget.stRadio > div[role="radiogroup"] > label[data-baseweb="radio"]:has(input[type="radio"]:checked) {
             background: white !important;
+            border: 2px solid 000000 !important;
         }
         </style>
         """, unsafe_allow_html=True)
