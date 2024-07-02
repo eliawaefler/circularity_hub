@@ -33,9 +33,9 @@ def display_presentation(slide_folder):
 
                 # Do
                 st.success("### Do:")
-                st.write("Bestehende Anwendungsfälle prüfen: Stellen Sie sicher, dass alle aktuellen Anwendungsfälle klar verstanden und dokumentiert sind.")
-                st.write("Geschlossener Austausch: Nutzen Sie das Areal von uptownBasel für den Austausch über Materialpass, Bestandsinventarisierung und Lean Deconstruction.")
-                st.write("Modellierungsrichtlinien aufarbeiten: Definieren Sie klar die Bauteile und Baustoffe in Ihren Modellierungsrichtlinien.")
+                st.write("**Bestehende Anwendungsfälle prüfen**: Stellen Sie sicher, dass alle aktuellen Anwendungsfälle klar verstanden und dokumentiert sind.")
+                st.write("**Geschlossener Austausch**: Nutzen Sie das Areal von uptownBasel für den Austausch über Materialpass, Bestandsinventarisierung und Lean Deconstruction.")
+                st.write("**Modellierungsrichtlinien aufarbeiten**: Definieren Sie klar die Bauteile und Baustoffe in Ihren Modellierungsrichtlinien.")
 
                 # Consider
                 st.warning("### Consider:")
